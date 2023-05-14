@@ -4,11 +4,14 @@
     display: inline-block;
 }
 .csdf{
-    width: calc(100% - 200px);
+    
     height: 100vh;
     display: inline-block; 
     overflow: scroll;
     background-color: lightgrey;
+}
+.fullz{
+    width: calc(100% - 200px);
 }
 .menuz{
     background-color: #000000;
@@ -72,4 +75,31 @@
   }
   .design-by>a{
     color: #585757;
+  }
+  .menu-app{
+    position: fixed;
+    top: 0px;
+    left: -3px;
+    z-index: 99999;
+    color: #d9d9d9;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 11px;
+    background-color: #7a7070b0;
+    border-radius: 5px;
+  }
+  .menu-hide{
+    position: fixed;
+    top: 0px;
+    left: 172px;
+    z-index: 99999;
+    color: #949494;
+    font-size: 25px !important;
+    cursor: pointer;
+  }
+  .menu-hide:hover{
+    color: rgb(56, 212, 24);
+  }
+  .menu-app:hover{
+    color: rgb(22, 22, 22);
   }

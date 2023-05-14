@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './index.css'
 import Setup from './setup/setup.js';
+import { Icon } from 'semantic-ui-react'
 const design_by={
     name:"Võ Danh",
     url:'#'
@@ -8,16 +9,24 @@ const design_by={
 export default class Index extends Component {
   constructor (props) {
     super(props)
-    this.state = {seleted:'setup'}
+    this.state = {seleted:'setup',
+        is_show_menu:true
+    }
   }
   render() {
-    let {seleted}=this.state;
+    let {seleted,is_show_menu}=this.state;
       return (
         <React.Fragment>
-            <div>
-                <div className=' navbarz'>
+            <div style={{position:"relative"}}>
+                {!is_show_menu&&<i className="fa-solid fa-bars menu-app"
+                    onClick={()=>this.setState({is_show_menu:true})}
+                ></i>}
+                {is_show_menu&&<Icon name='x' size='small' className='menu-hide'
+                    onClick={()=>this.setState({is_show_menu:false})}
+                />}
+                {is_show_menu&&<div className='navbarz'>
                     <ul className='menuz'>
-                        <li style={{textAlign:"center",fontSize:"32px",paddingTop:"19px"}} onClick={()=>{
+                        <li style={{textAlign:"center",fontSize:"32px",paddingTop:"19px",marginTop:"26px"}} onClick={()=>{
                             if(window.lock==true){
                                 window.location.href = window.url+"/wp-admin/"
                             }
@@ -42,8 +51,8 @@ export default class Index extends Component {
                     <div className='design-by'>
                         <a href={design_by.url} target='_blank'>Design by : <b>{design_by.name}</b></a>
                      </div>
-                </div>
-                <div className=' csdf'>
+                </div>}
+                <div className={is_show_menu?'csdf fullz':'csdf'}>
                     <div className='wrap-conx'>
                         {seleted==='setup'&&<Setup />}
                         {/* {seleted==='pages'&&<Pages />}
