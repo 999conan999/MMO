@@ -1,0 +1,64 @@
+.wrap-temp-input{
+    background-color: #d3d3d300 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+.wrap-item-input{
+    box-shadow:0 1px 3px 0 #a8a8ab, 0 0 0 1px #b0b0b3 !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+.buzz {
+    border: 1px solid #169cd9;
+    border-radius: 5px!important;
+    color: #169cd9;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+.buzz:hover {
+    background-color: #f3e9e9;
+}
+.input-1{
+    width: 100%;
+}
+.img-muti{
+    position: relative;
+    display: inline-block;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+.icon-img-muit{
+    position: absolute;
+    left: 0px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.icon-x-img{
+    position: absolute;
+    right: 0px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.icon-img-muit:hover,.icon-x-img:hover{
+    color: #e30505;
+}
+.header-table-tem>tr>th {
+    background-color: #a19f9f !important;
+}
+.header-mmo-tempalate{
+    height: 31px;
+    width: 136px;
+}
+.body-table-mmo-temp{
+    background-color: #bfbfbf !important;
+}
+.tabkzx{
+    position: relative;
+    display: inline-block;
+    margin-bottom: 28px;
+}
+.btun{
+    position: absolute;
+    right: 0px;
+    bottom: -23px;
+}

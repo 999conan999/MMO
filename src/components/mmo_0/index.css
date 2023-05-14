@@ -1,0 +1,75 @@
+.navbarz{
+    width: 200px;
+    height: 100vh;
+    display: inline-block;
+}
+.csdf{
+    width: calc(100% - 200px);
+    height: 100vh;
+    display: inline-block; 
+    overflow: scroll;
+    background-color: lightgrey;
+}
+.menuz{
+    background-color: #000000;
+    position: fixed;
+    width: 200px;
+    height: 100vh;
+    overflow: hidden;
+    overflow-y: scroll;
+    padding-top: 28px;
+    list-style: none;
+    padding-left: 0px;
+    color: white;
+    margin: 0px;
+    display: table;
+}
+.menuz>li{
+    padding: 10px;
+    padding-left: 8px;
+    cursor: pointer;
+    border-left: 4px solid rgb(0, 0, 0);
+    color: #b9b4b4;
+    margin-top: 5px;
+}
+.hgfs{
+    margin-left: 8px;
+    position: relative;
+}
+.iconz>i{
+    font-size: 16px;
+}
+.menuz>li:hover{
+    background-color: #959494;
+    border-left: 4px solid rgb(56, 212, 24);
+    color: white !important;
+}
+.menuz>li.active{
+    background-color: #959494;
+    border-left: 4px solid red;
+    color: white !important;
+}
+.homexz{
+    text-decoration: none ;
+    color: white !important;
+  }
+  .homexz>span,.homexz>i{
+      color: white !important;
+  }
+  .wrap-conx{
+
+  }
+  .wrap-conx{
+    padding: 3px;
+    padding-bottom: 200px;
+  }
+  .design-by{
+    position: fixed;
+    bottom: 0px;
+    display: block;
+    width: 200px;
+    text-align: center;
+  }
+  .design-by>a{
+    color: #585757;
+  }
