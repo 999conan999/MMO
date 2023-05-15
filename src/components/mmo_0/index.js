@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './index.css'
 import Setup from './setup/setup.js';
 import { Icon } from 'semantic-ui-react'
+import Media from './lib/media/Media'
 const design_by={
     name:"Võ Danh",
     url:'#'
@@ -62,6 +63,7 @@ export default class Index extends Component {
                      </div>
                 </div>
             </div>
+            <Media/>
         </React.Fragment>
       );
   }

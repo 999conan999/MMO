@@ -1,0 +1,100 @@
+.edit-modal{
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100vw;
+    height: 100vh;
+    overflow: scroll;
+    z-index: 999999;
+    background-color: rgb(0 0 0 / 50%);
+    z-index: 99999;
+}
+.lib-img{
+    background-color: white;
+    max-width: 80%;
+    margin: auto;
+    margin-top: 2%;
+    padding: 12px;
+    border-radius: 3px;
+    box-shadow: 1px 3px 3px 0 rgba(0,0,0,.2), 1px 3px 15px 2px rgba(0,0,0,.2);
+    max-height: 700px;
+    overflow: hidden;
+}
+.ABZ{
+    padding-left: 41px !important;
+    padding-right: 41px !important;
+    margin-left: 27px !important;
+}
+.ovx{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 456px;
+    padding: 5px;
+}
+
+.active-img{
+    border: 2px solid #2196F3 !important;
+    background-color: #2196F3 !important;
+}
+.img-card{
+    border: 2px solid #ffffff !important;
+}
+.img-card:hover{
+    border: 2px solid #c5c7c9 !important;
+    background-color: #c3c9cd !important;
+}
+.w100{
+    width: 100%;
+}
+.tag-ps{
+    position: absolute;
+    top: 0px;
+    right: 0px;  
+}
+.icon-edit-tag{
+    position: absolute;
+    top: 2px;
+    right: -7px;
+    visibility: hidden; 
+}
+.tag-ps:hover>.icon-edit-tag{
+    visibility:visible;
+}
+.input-tag{
+    position: absolute;
+    right: -8px;
+    top: 0px;
+    z-index: 99;
+}
+.input-tag input{
+    /* height: 22px !important; */
+}
+.colorgr{
+    background-color: whitesmoke;
+}
+.grid.container {
+    margin-top: 5em;
+  }
+  .inputfile {
+      width: 0.1px;
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+  }
+  .uploadz{
+    position: absolute;
+    top: -27px;
+    left: -337px;
+  }
+  .OKla{
+    position: absolute;
+    left: 167px;
+  }
+  .OKla input{
+    height: 41px;
+  }
+  .imgx input{
+    width: 147px;
+  }

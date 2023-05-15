@@ -26,6 +26,29 @@ export default class Template_input extends Component {
             
           >
             <Grid>
+            <Grid.Column width={4}></Grid.Column>
+            <Grid.Column width={12}>
+              <Card className='wrap-item-input'>
+                <Card.Content>
+                  <span className='count-char'>365 từ</span>
+                  <Card.Header>Matthew</Card.Header>
+                  <Card.Meta>
+                    <span className='date'>Matthew is a musician</span>
+                  </Card.Meta>
+                </Card.Content>
+                <Card.Content extra>
+                    <div className='content-z'>
+                            <h2>Giường sắt là gì?</h2>  <h3>Giường sắt là gì?</h3> <p>- <strong>Giường sắt</strong> là một loại <strong>giường ngủ</strong> được làm từ kim loại sắt hoặc hợp kim sắt, phần lớn ở đây là sắt, hoặc inox là chính. Thường được sử dụng trong các căn phòng ngủ hiện đại hoặc các khu trọ, giường sắt có thiết kế đơn giản và chắc chắn, giúp cho người sử dụng có thể nghỉ ngơi một cách thoải mái và an toàn.</p> <h3>Ưu điểm của giường sắt</h3> <ul> <li><strong>Độ bền cao</strong>: Giường sắt được làm từ vật liệu là sắt hoặc inox, cho nên có độ bền cao hơn so với những loại giường làm từ các vật liệu khác như giường gỗ, giường nhựa hay giường MDF. Điều này giúp giường sắt có thể sử dụng trong thời gian dài mà không cần phải lo lắng về việc sửa chữa hay thay thế.</li> <li><strong>Chống mối mọt</strong>: Vì được làm từ kim loại, giường sắt không bị mối mọt, không bị ảnh hưởng bởi môi trường ẩm ướt hay thời tiết khắc nghiệt. Điều này giúp giường sắt có tuổi thọ lâu dài và không cần phải bảo trì thường xuyên.</li> <li><strong>Dễ vệ sinh</strong>: Giường sắt có bề mặt phẳng, thiết kế đơn giản. Do đó, việc vệ sinh giường rất là dễ dàng và nhanh chóng.</li> <li><strong>Thiết kế đa dạng</strong>: Giường sắt có nhiều kiểu dáng và màu sắc khác nhau để phù hợp với nhu cầu và phong cách của từng người dùng. Người dùng có thể lựa chọn kiểu giường sắt với nhiều hình dáng, đường nét và màu sắc khác nhau để phù hợp với nội thất của căn phòng ngủ.</li> <li><strong>An toàn</strong>: Giường sắt có cấu trúc chắc chắn, không dễ bị đổ, gãy hay sập xuống. Điều này giúp người dùng cảm thấy an toàn hơn khi sử dụng giường sắt, đặc biệt là với trẻ nhỏ hay người già.</li> </ul> <figure><img title="Giường sắt hộp giá rẻ" src="https://anbinhnew.com/wp-content/uploads/2021/04/giuong-sat-1-met.jpg" alt="Giường sắt hộp giá rẻ"/> <figcaption>Giường sắt hộp giá rẻ</figcaption> </figure>
+                    </div>
+                    <div className='edit-content'>
+                      {/* <Button attached='bottom' color='blue'>Bottom</Button> */}
+                      <button>Chỉnh sửa</button>
+                    </div>
+                </Card.Content>
+              </Card>
+            </Grid.Column>
+               <Grid.Column width={4}></Grid.Column>
+
                <Grid.Column width={8}>
                   <Card className='wrap-item-input'>
                     <Card.Content>
@@ -41,13 +64,28 @@ export default class Template_input extends Component {
                           <Table.Header className='header-table-tem'>
                             <Table.Row>
                               <Table.HeaderCell>
-                                <Input placeholder='....' className='header-mmo-tempalate' />
+                                Thuộc tính <Icon name="edit" className='cu'/>
+                                <div className='re'>
+                                  <Input placeholder='....' className='header-mmo-tempalate' />
+                                  <Icon name='x' className='xe'/>
+                                  <Icon name='checkmark' className='ce'/>
+                                </div>
                               </Table.HeaderCell>
                               <Table.HeaderCell>
-                                <Input placeholder='...' className='header-mmo-tempalate' />
+                                Giá gốc <Icon name="edit" className='cu'/>
+                                {/* <div className='re'>
+                                  <Input placeholder='....' className='header-mmo-tempalate' />
+                                  <Icon name='x' className='xe'/>
+                                  <Icon name='checkmark' className='ce'/>
+                                </div> */}
                               </Table.HeaderCell>
                               <Table.HeaderCell>
-                                <Input placeholder='...' className='header-mmo-tempalate' />
+                                Giá khuyến mãi <Icon name="edit" className='cu'/>
+                                {/* <div className='re'>
+                                  <Input placeholder='....' className='header-mmo-tempalate' />
+                                  <Icon name='x' className='xe'/>
+                                  <Icon name='checkmark' className='ce'/>
+                                </div> */}
                               </Table.HeaderCell>
                             </Table.Row>
                           </Table.Header>

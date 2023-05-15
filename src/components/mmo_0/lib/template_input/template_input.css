@@ -7,6 +7,7 @@
     box-shadow:0 1px 3px 0 #a8a8ab, 0 0 0 1px #b0b0b3 !important;
     width: 100% !important;
     height: 100% !important;
+    /* background-color: bisque !important; */
 }
 .buzz {
     border: 1px solid #169cd9;
@@ -43,14 +44,14 @@
     color: #e30505;
 }
 .header-table-tem>tr>th {
-    background-color: #a19f9f !important;
+    background-color:#c3c3c3 !important
 }
 .header-mmo-tempalate{
     height: 31px;
     width: 136px;
 }
 .body-table-mmo-temp{
-    background-color: #bfbfbf !important;
+    /* background-color: #d3d3d3 !important */
 }
 .tabkzx{
     position: relative;
@@ -62,3 +63,55 @@
     right: 0px;
     bottom: -23px;
 }
+.edit-content{
+    text-align: center;
+}
+.edit-content>button{
+    border: none;
+    background-color: transparent;
+    padding: 0px 5px;
+    text-decoration: underline;
+    color: #E91E63;
+    cursor: pointer;
+}
+.edit-content>button:hover{
+    font-weight: bold;
+}
+.content-z{
+    height: 120px;
+    overflow: hidden;
+}
+.count-char{
+    float: right;
+    color: #169cd9;
+    font-weight: bold;
+}
+.cu{
+    cursor: pointer;
+}
+.cu:hover{
+    color: #169cd9;
+}
+.xe{
+    position: absolute;
+    top: -5px;
+    right: -18px;
+    cursor: pointer;
+    color: rgb(146, 39, 39);
+    font-size: 18px !important;
+  }
+  .xe:hover{
+    color: red;
+  }
+  .ce{
+    position: absolute;
+    right: -18px;
+    bottom: -5px;
+    cursor: pointer;
+    color: #055e1b;
+    font-size: 18px !important;
+  }
+  .ce:hover{
+    color: green;
+  }
+ 
