@@ -1,0 +1,61 @@
+.wrap-editer{
+    background-color: #dbdbda;
+    top: 9vh;
+    left: 0px;
+    box-shadow: 0 19px 38px rgb(0 0 0 / 30%), 1px -20px 12px rgb(0 0 0 / 22%);
+    position: fixed;
+    z-index: 99999;
+    width: 100%;
+    height: 92vh;
+    padding: 19px;
+}
+.tox-editor-header div {
+    background-color: #d7d7d7 !important;
+}
+.buttonz-editer{
+    padding: 9px;
+    display: grid;
+    position: fixed;
+    right: 31px;
+    bottom: 3vh;
+    opacity: 0.9;
+}
+.buttonz-editer button{
+    width: 104px;
+    margin-bottom: 19px !important;
+    padding: 15px 6px!important;
+    font-size: 16px !important;
+}
+.tox-statusbar__branding{
+    display: none !important;
+}
+.btn-addMe{
+    border: 1px solid #2185d0;
+    color: #2185d0;
+    border-radius: 5px;
+    padding: 5px 20px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    position: relative;
+}
+.btn-addMe>span{
+    position: absolute;
+    left: 51px;
+    top: 10px;
+    font-size: 15px;
+}
+.btn-addMe:hover{
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    background-color: lightgoldenrodyellow;
+}
+.tox.tox-silver-sink.tox-tinymce-aux {
+    z-index: 9999999999 !important;
+  }
+ 
+  /* .wrap-editer:hover .buttonz-editer{
+    opacity: 1 ;
+  }
+  .wrap-editer .eidex:hover + .buttonz-editer{
+    opacity: 0.5;
+ } */

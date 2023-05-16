@@ -36,10 +36,10 @@
     border: 2px solid #2196F3 !important;
     background-color: #2196F3 !important;
 }
-.img-card{
+/* .img-card{
     border: 2px solid #ffffff !important;
-}
-.img-card:hover{
+} */
+.img-card:not(.active-img):hover{
     border: 2px solid #c5c7c9 !important;
     background-color: #c3c9cd !important;
 }

@@ -44,7 +44,7 @@
     color: #e30505;
 }
 .header-table-tem>tr>th {
-    background-color:#c3c3c3 !important
+    background-color:#d9d9d9 !important
 }
 .header-mmo-tempalate{
     height: 31px;
@@ -80,6 +80,9 @@
 .content-z{
     height: 120px;
     overflow: hidden;
+    background-color: #d9d9d9;
+    padding: 12px;
+    border-radius: 5px;
 }
 .count-char{
     float: right;
