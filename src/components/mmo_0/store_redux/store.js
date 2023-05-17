@@ -62,9 +62,11 @@ const initialState = {
   is_muti_selected:true,
   page_all:0,
   page_tag:0,
+  keyLock:'',
+  show_description_img:false,
   //
   img_result:[],
-  img_text_result:""
+  img_text_result:"",
 };
 
 const reducer = (state = initialState, action) => {
@@ -86,6 +88,7 @@ const reducer = (state = initialState, action) => {
           open: false,
           img_result:[],
           text_img_title:'',
+          keyLock:'',
         };
     case 'OPEN':
         return {
@@ -93,7 +96,9 @@ const reducer = (state = initialState, action) => {
           open: true,
           img_result:[],
           text_img_title:'',
-          is_muti_selected:action.is_muti_selected
+          is_muti_selected:action.is_muti_selected,
+          keyLock:action.keyLock,
+          show_description_img:action.show_description_img==undefined?false:action.show_description_img
         };
     case 'REMOVE_IMG':
       return {

@@ -48,7 +48,6 @@
 }
 .header-mmo-tempalate{
     height: 31px;
-    width: 136px;
 }
 .body-table-mmo-temp{
     /* background-color: #d3d3d3 !important */
@@ -117,4 +116,13 @@
   .ce:hover{
     color: green;
   }
- 
+ .clorg{
+    background-color:yellowgreen !important;
+    /* background-color:wheat !important; */
+    /* background-color:#999494 !important; */
+ }
+ .hg>div{
+    background-color: #e8e8e8;
+    border-radius: 4px;
+    padding: 1px 7px;
+ }

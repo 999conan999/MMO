@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './editer.css';
 import { connect } from 'react-redux';
+import {makeid} from '../fs.js'
 import { Editor } from '@tinymce/tinymce-react';
 import { toast } from 'react-toastify';
 
@@ -22,7 +23,7 @@ class Editer extends Component {
     })
   }
   componentWillReceiveProps(nextProps){
-        if(nextProps.img_result.length>0 && this.state.selected_img.type=='img_editer'){
+        if(nextProps.img_result.length>0 && this.state.selected_img.type==nextProps.keyLock){
             this.setState({
                 selected_img:{
                     type:'',//img_editer
@@ -50,14 +51,17 @@ class Editer extends Component {
                             <div className='zdas'>
                                 <button className='btn-addMe'
                                     onClick={()=>{
+                                        let keyLock=makeid(6);
                                         this.setState({
                                             selected_img:{
-                                                type:'img_editer',
+                                                type:keyLock,
                                             }
                                         });
                                         this.props.openAction({
                                             type:"OPEN",
-                                            is_muti_selected:false
+                                            is_muti_selected:false,
+                                            keyLock:keyLock,
+                                            show_description_img:true
                                         })
                                     }}
                                 >
@@ -116,6 +120,7 @@ class Editer extends Component {
 const mapStateToProps = (state) => ({
     img_result: state.img_result,
     img_text_result: state.img_text_result,
+    keyLock:state.keyLock
 });
 
 const mapDispatchToProps = (dispatch,props) => ({

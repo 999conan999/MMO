@@ -19,7 +19,7 @@ class Media extends Component {
   }
 
   render() {
-    let { open,imgs_all,imgs_tag,show_more_tag,show_more_all,is_muti_selected,page_tag,page_all} = this.props;
+    let { open,imgs_all,imgs_tag,show_more_tag,show_more_all,is_muti_selected,page_tag,page_all,show_description_img} = this.props;
     let {text_tag_search,text_tag_add,text_img_selected,result,text_img_title,index_selected_tag,text_tag_edit}=this.state;
     let rs=imgs_all;
     let selected='all';
@@ -103,7 +103,7 @@ class Media extends Component {
                                         text_img_selected+=","+e.id+",";
                                       }
                                     }else{
-                                      this.myRef1.current.focus();
+                                      if(show_description_img) this.myRef1.current.focus();
                                       if(result.length==0||result[0].id!==e.id){
                                         result=[{
                                           id:e.id,
@@ -222,7 +222,7 @@ class Media extends Component {
             </Segment>
             <Divider />
             <div className='inpuit-mth' style={{width:"60%",display:"inline-block"}}>
-              {!is_muti_selected&&<Input label='Nhập tiêu đề hình ảnh' placeholder='...' className='w100' ref={this.myRef1} 
+              {show_description_img&&<Input label='Nhập tiêu đề hình ảnh' placeholder='...' className='w100' ref={this.myRef1} 
                 value={text_img_title}
                 onChange={(e,data) => {
                   this.setState({text_img_title:data.value})
@@ -281,6 +281,7 @@ const mapStateToProps = (state) => ({
   is_muti_selected: state.is_muti_selected,
   page_all: state.page_all,
   page_tag: state.page_tag,
+  show_description_img:state.show_description_img
 });
 
 const mapDispatchToProps = (dispatch,props) => ({
