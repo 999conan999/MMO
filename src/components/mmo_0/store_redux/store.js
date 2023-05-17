@@ -58,7 +58,7 @@ const initialState = {
   ],
   show_more_tag:false,
   show_more_all:false,
-  open:true,
+  open:false,
   is_muti_selected:true,
   page_all:0,
   page_tag:0,
@@ -84,7 +84,30 @@ const reducer = (state = initialState, action) => {
         return {
           ...state,
           open: false,
+          img_result:[],
+          text_img_title:'',
         };
+    case 'OPEN':
+        return {
+          ...state,
+          open: true,
+          img_result:[],
+          text_img_title:'',
+          is_muti_selected:action.is_muti_selected
+        };
+    case 'REMOVE_IMG':
+      return {
+        ...state,
+        imgs_tag: state.imgs_tag.filter(e => e.id !== action.id),
+        imgs_all: state.imgs_all.filter(e => e.id !== action.id),
+      };
+    case 'UPDATE_RESULT':
+      return {
+        ...state,
+        img_result: action.result,
+        img_text_result:action.text_img_title,
+        open: false,
+      };
     default:
       return state;
   }

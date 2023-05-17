@@ -10,7 +10,8 @@ const design_by={
 export default class Index_menu extends Component {
   constructor (props) {
     super(props)
-    this.state = {seleted:'setup',
+    this.state = {
+        seleted:'setup',
         is_show_menu:true
     }
   }
@@ -63,7 +64,12 @@ export default class Index_menu extends Component {
                      </div>
                 </div>
             </div>
-            <Media/>
+            <Media
+                // fs_return={(data) => {
+                //     console.log("🚀 ~ file: main.js:69 ~ Index_menu ~ render ~ text:", data.text)
+                //     console.log("🚀 ~ file: main.js:75 ~ Index_menu ~ render ~ rs:", data.rs)
+                // }}
+            />
         </React.Fragment>
       );
   }
