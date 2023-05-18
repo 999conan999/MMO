@@ -13,6 +13,7 @@ import Tag_input from './container/tag_input';
 import Selected_input from './container/selected_input';
 import Thumnail_input from './container/thumnail_input';
 import Muti_thuamnail_input from './container/muti_thumnail_input';
+import { moveElement } from '../fs';
 export default class Template_input extends Component {
   constructor (props) {
     super(props)
@@ -37,31 +38,117 @@ export default class Template_input extends Component {
   }
   render() {
     let {editer_option}=this.state;
+    let {tempalate,data}=this.props;
+      console.log("🚀 ~ file: Template_input.js:41 ~ Template_input ~ render ~ data:", data)
       return (
         <React.Fragment>
           <Segment horizontal className='wrap-temp-input'
             // loading
           >
             <Grid>
+              {
+                tempalate.map((e,i)=>{
 
-                <Soan_thao
-                  text_html={editer_option.text_html}
-                  openAction={()=>{
-                    this.setState({
-                      editer_option:{
-                        is_open:true,
-                        text_html:'<h2>Giường sắt là gì?</h2><h3>Giường sắt là gì?</h3> <p>- <strong>Giường sắt</strong> là một loại <strong>giường ngủ</strong> được làm từ kim loại sắt hoặc hợp kim sắt, phần lớn ở đây là sắt, hoặc inox là chính. Thường được sử dụng trong các căn phòng ngủ hiện đại hoặc các khu trọ, giường sắt có thiết kế đơn giản và chắc chắn, giúp cho người sử dụng có thể nghỉ ngơi một cách thoải mái và an toàn.</p> <h3>Ưu điểm của giường sắt</h3> <ul> <li><strong>Độ bền cao</strong>: Giường sắt được làm từ vật liệu là sắt hoặc inox, cho nên có độ bền cao hơn so với những loại giường làm từ các vật liệu khác như giường gỗ, giường nhựa hay giường MDF. Điều này giúp giường sắt có thể sử dụng trong thời gian dài mà không cần phải lo lắng về việc sửa chữa hay thay thế.</li> <li><strong>Chống mối mọt</strong>: Vì được làm từ kim loại, giường sắt không bị mối mọt, không bị ảnh hưởng bởi môi trường ẩm ướt hay thời tiết khắc nghiệt. Điều này giúp giường sắt có tuổi thọ lâu dài và không cần phải bảo trì thường xuyên.</li> <li><strong>Dễ vệ sinh</strong>: Giường sắt có bề mặt phẳng, thiết kế đơn giản. Do đó, việc vệ sinh giường rất là dễ dàng và nhanh chóng.</li> <li><strong>Thiết kế đa dạng</strong>: Giường sắt có nhiều kiểu dáng và màu sắc khác nhau để phù hợp với nhu cầu và phong cách của từng người dùng. Người dùng có thể lựa chọn kiểu giường sắt với nhiều hình dáng, đường nét và màu sắc khác nhau để phù hợp với nội thất của căn phòng ngủ.</li> <li><strong>An toàn</strong>: Giường sắt có cấu trúc chắc chắn, không dễ bị đổ, gãy hay sập xuống. Điều này giúp người dùng cảm thấy an toàn hơn khi sử dụng giường sắt, đặc biệt là với trẻ nhỏ hay người già.</li> </ul>  ',
-                        index:-1
-                      }
-                    })
-                  }}
-                />
-                 
-                <Small_input/>
+                  let is_show=true;
+                  if(e.condition_show!=undefined){
+                    if(data[e.condition_show.index]==e.condition_show.value) is_show=false;
+                  }
 
-                <Text_Area_input/>
-                
-                <Check_input/>
+                  if(e.type_input=="soan_thao"){
+
+                    return (is_show&&<Soan_thao key={i}
+                      text_html={data[i]==undefined?"":data[i]}
+                      openAction={()=>{
+                        this.setState({
+                          editer_option:{
+                            is_open:true,
+                            text_html:data[i]==undefined?"":data[i],
+                            index:i
+                          }
+                        })
+                      }}
+                      option={e}
+                    />)
+                  }else if(e.type_input=="small_input"){
+                    return (is_show&&<Small_input  key={i}
+                      text={data[i]==undefined?"":data[i]}
+                      option={e}
+                      fs_result={(text)=>{
+                        let {data}=this.props;
+                        data[i]=text;
+                        this.props.fs_return(data)
+                      }}
+                    />)
+                  }else if(e.type_input=="textArea_input"){
+                    return (is_show&&<Text_Area_input  key={i}
+                      text={data[i]==undefined?"":data[i]}
+                      option={e}
+                      fs_result={(text)=>{
+                        let {data}=this.props;
+                        data[i]=text;
+                        this.props.fs_return(data)
+                      }}
+                    />)
+                  }else if(e.type_input=="check_input"){
+                    return (is_show&&<Check_input key={i}
+                      value={data[i]==undefined?e.default_value:data[i]}
+                      option={e}
+                      fs_result={(value) => {
+                        let {data}=this.props;
+                        data[i]=value;
+                        this.props.fs_return(data)
+                      }}
+                    />)
+                  }else if(e.type_input=="thumnail_input"){
+                    return (is_show&&<Thumnail_input key={i}
+                      img_url={data[i]==undefined?'':data[i]}
+                      option={e}
+                      fs_result={(value) => {
+                        let {data}=this.props;
+                        data[i]=value;
+                        this.props.fs_return(data)
+                      }}
+                    />)
+                  }else if(e.type_input=="muti_img_input"){
+                    return (is_show&&<Muti_thuamnail_input key={i}
+                      img_list={data[i]==undefined?[]:data[i]}
+                      option={e}
+                      fs_result={(list) => {
+                        let {data}=this.props;
+                        if(data[i]==undefined){
+                          data[i]=list
+                        }else{
+                          data[i]=[...data[i],...list];
+                        }
+                        data[i]=data[i].filter((item, index, self) => {
+                          return index === self.findIndex((t) => (
+                              t.id === item.id
+                          ));
+                        });
+                        this.props.fs_return(data);
+                      }}
+                      removeAction={(id)=>{
+                        let {data}=this.props;
+                        data[i]=data[i].filter(z =>z.id !== id)
+                        this.props.fs_return(data);
+                      }}
+                      move_left_action={(index)=>{
+                        let {data}=this.props;
+                        data[i]=moveElement(data[i],index,index-1)
+                        this.props.fs_return(data);
+                      }}
+                    />)
+                  }
+
+
+
+                })
+              }
+
+
+
+          {/*
+ 
 
                 <Table_input/>
 
@@ -71,26 +158,19 @@ export default class Template_input extends Component {
 
 
                 <Selected_input/>
-
-                <Thumnail_input/>
-                <Muti_thuamnail_input/>
-
-
-
-
-
-                {/* <Grid.Column width={4}>4</Grid.Column>
-                <Grid.Column width={4}>4</Grid.Column> */}
-
-                
+         */}
+            
 
             </Grid>
             {editer_option.is_open&&<Editer
               close={()=>this.setState({editer_option:{is_open:false,text_html:'',index:-1}})}
               data={editer_option.text_html}
-              rs_data={(data) => {
-                console.log("🚀 ~ file: Template_input.js:328 ~ Template_input ~ render ~ data:", data);
-                // this.setState({editer_option:{is_open:false,text_html:'',index:-1}})
+              rs_data={(rs) => {
+                let {data}=this.props;
+                data[editer_option.index]=rs;
+                this.props.fs_return(data)
+                this.setState({editer_option:{is_open:false,text_html:'',index:-1}});
+                
               }}
             />}
           </Segment>

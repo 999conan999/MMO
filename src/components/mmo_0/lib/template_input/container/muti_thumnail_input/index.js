@@ -5,27 +5,34 @@ import { makeid } from '../../../fs';
  class Muti_thuamnail_input extends Component {
   constructor (props) {
     super(props)
-    this.state = {}
+    this.state = {
+      selected_img:{
+        type:'',//img_editer
+    },
+    }
   }
 
   componentWillReceiveProps(nextProps){
     if(nextProps.img_result.length>0 && this.state.selected_img.type==nextProps.keyLock){
+        this.props.fs_result(nextProps.img_result);
         this.setState({
             selected_img:{
                 type:'',//img_editer
             },
         });
-        alert("OK thanh cong: "+nextProps.img_result.length)
         this.props.closeAction();
     }
   }
   
   render() {
+    let {option,img_list}=this.props;
+    let bg_color={};
+    if(option.bg_color!=undefined) bg_color.backgroundColor=option.bg_color;
       return (
         <React.Fragment>
-
-          <Grid.Column width={4}>
-            <Card className='wrap-item-input'>
+          {option.space_before!=undefined&&option.space_before!=0&&<Grid.Column width={option.space_before==0?1:option.space_before}></Grid.Column>}
+          <Grid.Column width={option.size==undefined?12:option.size}>
+            <Card className='wrap-item-input' style={bg_color}>
               <Card.Content>
                 <button className='buzz' style={{float:"right"}}
                   onClick={()=>{
@@ -44,32 +51,36 @@ import { makeid } from '../../../fs';
                 >
                   <i className="fa-solid fa-photo-film"></i> <span>Add Media</span>
                 </button>
-                <Card.Header>Matthew</Card.Header>
+                <Card.Header>{option.name}</Card.Header>
                 <Card.Meta>
-                  <span className='date'>Matthew is a musician</span>
+                  <span className='date'>{option.des}</span>
                 </Card.Meta>
-                <div className='img-muti'>
-                  <Image
-                    size='tiny'
-                    src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
-                  />
-                  <i className="fa-solid fa-angles-left icon-img-muit"></i>
-                  <i className="fa-solid fa-circle-xmark icon-x-img"></i>
-                </div>
 
-                <div className='img-muti'>
-                  <Image
-                    size='tiny'
-                    src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
-                  />
-                  <i className="fa-solid fa-angles-left icon-img-muit"></i>
-                  <i className="fa-solid fa-circle-xmark icon-x-img"></i>
-                </div>
+                {
+                  img_list.map((e,i)=>{
+                    return <div className='img-muti' key={i}>
+                              <Image
+                                size='tiny'
+                                src={e.url}
+                              />
+                              {i>0&&<i className="fa-solid fa-angles-left icon-img-muit"
+                                onClick={()=>this.props.move_left_action(i)}
+                              ></i>}
+                              <i className="fa-solid fa-circle-xmark icon-x-img"
+                                onClick={()=>{
+                                  if(window.confirm("Xác nhận xóa!")){
+                                    this.props.removeAction(e.id)
+                                  }
+                                }}
+                              ></i>
+                            </div>
+                  })
+                }
 
               </Card.Content>
             </Card>
-
           </Grid.Column>
+          {option.space_before!=undefined&&option.space_before!=0&&<Grid.Column width={option.space_before==0?1:option.space_before}></Grid.Column>}
         </React.Fragment>
       );
   }

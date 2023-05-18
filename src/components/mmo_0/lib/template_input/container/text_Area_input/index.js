@@ -6,25 +6,35 @@ export default class Text_Area_input extends Component {
     this.state = {}
   }
   render() {
+    let {option,text}=this.props;
+    let bg_color={};
+    if(option.bg_color!=undefined) bg_color.backgroundColor=option.bg_color;
       return (
         <React.Fragment>
-          <Grid.Column width={6}>
-            <Card className='wrap-item-input'>
-                  <Card.Content>
-                    <Card.Header>Matthew</Card.Header>
+          {option.space_before!=undefined&&option.space_before!=0&&<Grid.Column width={option.space_before==0?1:option.space_before}></Grid.Column>}
+          <Grid.Column width={option.size==undefined?12:option.size}>
+            <Card className='wrap-item-input' style={bg_color}>
+                <Card.Content>
+                    <Card.Header>{option.name}</Card.Header>
                     <Card.Meta>
-                      <span className='date'>Matthew is a musician living in Nashville.</span>
+                      <span className='date'>{option.des}</span>
                     </Card.Meta>
                   </Card.Content>
                   <Card.Content extra >
                     <Segment className='clorg'>
                       <Form>
-                        <TextArea placeholder='...' style={{ minHeight: 150 }} />
+                        <TextArea placeholder='...' style={{ minHeight: 150 }} 
+                          value={text}
+                          onChange={(e,{value}) => {
+                            this.props.fs_result(value)
+                          }}
+                        />
                       </Form>
                     </Segment>
                   </Card.Content>
                 </Card>
           </Grid.Column>
+          {option.space_after!=undefined&&option.space_after!=0&&<Grid.Column width={option.space_after==0?1:option.space_after}></Grid.Column>}
         </React.Fragment>
       );
   }

@@ -49,6 +49,11 @@
 .header-mmo-tempalate{
     height: 31px;
 }
+.img-inputx{
+    position: absolute !important;
+    right: 21px;
+    width: 85px !important;
+}
 .body-table-mmo-temp{
     /* background-color: #d3d3d3 !important */
 }

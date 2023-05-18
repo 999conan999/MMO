@@ -14,31 +14,36 @@ import { makeid } from '../../../fs';
 
 componentWillReceiveProps(nextProps){
   if(nextProps.img_result.length>0 && this.state.selected_img.type==nextProps.keyLock){
+    this.props.fs_result(nextProps.img_result[0].url)
       this.setState({
           selected_img:{
               type:'',//img_editer
           },
-      });
-      alert("OK thanh cong: "+nextProps.img_result[0].url)
+      });      
       this.props.closeAction();
   }
 }
 
 
   render() {
+    let {option,img_url}=this.props;
+    let bg_color={};
+    if(option.bg_color!=undefined) bg_color.backgroundColor=option.bg_color;
       return (
         <React.Fragment>
-          <Grid.Column width={4}>
-              <Card className='wrap-item-input'>
+          {option.space_before!=undefined&&option.space_before!=0&&<Grid.Column width={option.space_before==0?1:option.space_before}></Grid.Column>}
+          <Grid.Column width={option.size==undefined?12:option.size}>
+              <Card className='wrap-item-input' style={bg_color}>
                 <Card.Content>
                   <Image
                     floated='right'
                     size='mini'
-                    src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
+                    src={img_url}
+                    className='img-inputx'
                   />
-                  <Card.Header>Matthew</Card.Header>
+                  <Card.Header>{option.name}</Card.Header>
                   <Card.Meta>
-                    <span className='date'>Matthew is a musician</span>
+                    <span className='date'>{option.des}</span>
                   </Card.Meta>
                 </Card.Content>
                 <Card.Content extra>
@@ -61,8 +66,8 @@ componentWillReceiveProps(nextProps){
                   </button>
                 </Card.Content>
               </Card>
-
           </Grid.Column>
+          {option.space_after!=undefined&&option.space_after!=0&&<Grid.Column width={option.space_after==0?1:option.space_after}></Grid.Column>}
         </React.Fragment>
       );
   }
