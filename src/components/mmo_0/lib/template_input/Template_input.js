@@ -18,17 +18,6 @@ export default class Template_input extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      // test
-      a:1,
-      test:[
-        { key: 'English', text: 'English', value: 'English' },
-        { key: 'French', text: 'French', value: 'French' },
-        { key: 'Spanish', text: 'Spanish', value: 'Spanish' },
-        { key: 'German', text: 'German', value: 'German' },
-        { key: 'Chinese', text: 'Chinese', value: 'Chinese' },
-      ],
-      tesst_vlue:[],
-      // end test
       editer_option:{
         is_open:false,
         text_html:'',
@@ -38,8 +27,8 @@ export default class Template_input extends Component {
   }
   render() {
     let {editer_option}=this.state;
-    let {tempalate,data}=this.props;
-      console.log("🚀 ~ file: Template_input.js:41 ~ Template_input ~ render ~ data:", data)
+    let {tempalate,data,data_options}=this.props;
+      console.log("🚀 ~ file: Template_input.js:41 ~ Template_input ~ render ~ data:",data_options)
       return (
         <React.Fragment>
           <Segment horizontal className='wrap-temp-input'
@@ -48,7 +37,6 @@ export default class Template_input extends Component {
             <Grid>
               {
                 tempalate.map((e,i)=>{
-
                   let is_show=true;
                   if(e.condition_show!=undefined){
                     if(data[e.condition_show.index]==e.condition_show.value) is_show=false;
@@ -138,30 +126,65 @@ export default class Template_input extends Component {
                         this.props.fs_return(data);
                       }}
                     />)
+                  }else if(e.type_input=="table_input"){
+                    return (is_show&&<Table_input key={i}
+                      arr={data[i]==undefined?[e.table_header]:data[i]}
+                      option={e}
+                      fs_result={(arr) => {
+                        let {data}=this.props;
+                        data[i]=arr;
+                        this.props.fs_return(data)
+                      }}
+
+                    />)
+                  }else if(e.type_input=="category_input"){
+                    return (is_show&&<Catagory_input key={i}
+                      data_arr={data[i]==undefined?[]:data[i]}
+                      data_option={data_options[e.data_options_index]==undefined?[]:data_options[e.data_options_index]}
+                      option={e}
+                      fs_result={(value) => {
+                        let {data}=this.props;
+                        data[i]=value;
+                        this.props.fs_return(data)
+                      }}
+                    />)
+                  }else if(e.type_input=="tag_input"){
+                    return (is_show&&<Tag_input key={i}
+                      data_arr={data[i]==undefined?[]:data[i]}
+                      data_option={data_options[e.data_options_index]==undefined?[]:data_options[e.data_options_index]}
+                      option={e}
+                      fs_result={(value) => {
+                        let {data}=this.props;
+                        data[i]=value;
+                        this.props.fs_return(data)
+                      }}
+                      fs_change_data_options={((data_option)=>{
+                        let {data_options}=this.props;
+                        data_options[e.data_options_index]=data_option;
+                        this.props.fs_change_data_options(data_options)
+                      })}
+                    />)
+                  }else if(e.type_input=="selected_input"){
+                    return (is_show&&<Selected_input key={i}
+                      text={data[i]==undefined?'':data[i]}
+                      data_option={data_options[e.data_options_index]==undefined?[]:data_options[e.data_options_index]}
+                      option={e}
+                      fs_result={(value) => {
+                        let {data}=this.props;
+                        data[i]=value;
+                        this.props.fs_return(data)
+                      }}
+                    />)
                   }
+
+
 
 
 
                 })
               }
 
-
-
-          {/*
- 
-
-                <Table_input/>
-
-                <Catagory_input/>
-
-                <Tag_input/>
-
-
-                <Selected_input/>
-         */}
-            
-
-            </Grid>
+          </Grid>
             {editer_option.is_open&&<Editer
               close={()=>this.setState({editer_option:{is_open:false,text_html:'',index:-1}})}
               data={editer_option.text_html}
@@ -172,7 +195,7 @@ export default class Template_input extends Component {
                 this.setState({editer_option:{is_open:false,text_html:'',index:-1}});
                 
               }}
-            />}
+          />}
           </Segment>
         </React.Fragment>
       );

@@ -28,7 +28,7 @@ export default class Check_input extends Component {
               </Card.Content>
             </Card>
           </Grid.Column>
-          {option.space_before!=undefined&&option.space_before!=0&&<Grid.Column width={option.space_before==0?1:option.space_before}></Grid.Column>}
+          {option.space_after!=undefined&&option.space_after!=0&&<Grid.Column width={option.space_after==0?1:option.space_after}></Grid.Column>}
         </React.Fragment>
       );
   }

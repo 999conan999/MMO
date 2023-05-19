@@ -116,7 +116,7 @@ class Editer extends Component {
                             onClick={()=>{
                                  toast.success('Cập nhật thành công!', { theme: "colored" });
                                  let {data}=this.state;
-
+                                data=data.replace(new RegExp('"', 'g'), "'")
                                  this.props.rs_data(data)
                             }}
                         >Lưu</button>

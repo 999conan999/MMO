@@ -81,7 +81,7 @@ class Media extends Component {
                       rs.map((e,i)=>{
                         let is_active=text_img_selected.search(","+e.id+",")==-1?false:true;
                         return (
-                          <div className={"ui olive card cu img-card "+(is_active?"active-img":"")}>
+                          <div className={"ui olive card cu img-card "+(is_active?"active-img":"")} key={e.id}>
                             <div className="image re">
                               <img src={e.url}
                                   onClick={()=>{
