@@ -28,7 +28,6 @@ export default class Template_input extends Component {
   render() {
     let {editer_option}=this.state;
     let {tempalate,data,data_options}=this.props;
-      console.log("🚀 ~ file: Template_input.js:41 ~ Template_input ~ render ~ data:",data_options)
       return (
         <React.Fragment>
           <Segment horizontal className='wrap-temp-input'
@@ -176,11 +175,6 @@ export default class Template_input extends Component {
                       }}
                     />)
                   }
-
-
-
-
-
                 })
               }
 

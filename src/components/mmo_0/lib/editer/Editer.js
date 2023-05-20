@@ -36,9 +36,9 @@ class Editer extends Component {
                 },
             });
             if(nextProps.img_text_result!=""){
-                window.tinymce.execCommand('mceInsertContent', false ,'<figure className="image"> <img  alt="'+nextProps.img_text_result+'" title="'+nextProps.img_text_result+'" src="'+nextProps.img_result[0].url+'""><figcaption>'+nextProps.img_text_result+'</figcaption> </figure><p></p>')
+                window.tinymce.execCommand('mceInsertContent', false ,"<figure class='image'> <img class='lazyload'  alt='"+nextProps.img_text_result+"' title='"+nextProps.img_text_result+"' src='"+nextProps.img_result[0].url300+"' data-srcset='"+nextProps.img_result[0].url+"' ><figcaption>"+nextProps.img_text_result+"</figcaption> </figure><p></p>")
             }else{
-                window.tinymce.execCommand('mceInsertContent', false ,'<img src="'+nextProps.img_result[0].url+'""><p></p>') 
+                window.tinymce.execCommand('mceInsertContent', false ,"<img class='lazyload' src='"+nextProps.img_result[0].url300+"' data-srcset='"+nextProps.img_result[0].url+"'><p></p>") 
             }
             this.props.closeAction();
         }

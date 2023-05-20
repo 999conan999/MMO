@@ -98,3 +98,15 @@
   .imgx input{
     width: 147px;
   }
+  .tag_qs{
+    padding: 0px;
+    width: 100%;
+    position: absolute;
+    top: 46px;
+  }
+  .clearxs{
+    color: red;
+    cursor: pointer;
+    margin-left: 5px;
+    text-decoration: underline;
+  }

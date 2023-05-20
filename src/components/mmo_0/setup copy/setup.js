@@ -24,72 +24,6 @@ export default class Setup extends Component {
         <React.Fragment>
              <Template_input
                 tempalate={[
-                  {
-                    type_input:"small_input",
-                    name:'Tiêu đề bài viết',
-                    des:'',
-                    space_before:0,
-                    size:6,
-                    space_after:0,
-                    bg_color:"wheat"
-                    // condition_show:{// Không hiển thị khi đúng điều kiện này
-                    //   index:-1,
-                    //   value:false,
-                    // }
-                  },
-                  {
-                    type_input:"thumnail_input",
-                    name:'Hình ảnh đại diện',
-                    des:'480 x 480 là hợp lý',
-                    space_before:0,
-                    size:4,
-                    space_after:6,
-                    bg_color:"wheat",
-                    // condition_show:{// Không hiển thị khi đúng điều kiện này
-                    //   index:-1,
-                    //   value:false,
-                    // }
-                  },
-                  {
-                    type_input:"textArea_input",
-                    name:'Mô tả ngắn cho bài viết',
-                    des:'',
-                    space_before:0,
-                    size:5,
-                    space_after:0,
-                    bg_color:"wheat",
-                    // condition_show:{// Không hiển thị khi đúng điều kiện này
-                    //   index:0,
-                    //   value:false,
-                    // }
-                  },
-                  {
-                    type_input:"category_input",
-                    name:'Lựa chọn danh mục cho bài viết này',
-                    des:'',
-                    space_before:0,
-                    size:5,
-                    space_after:6,
-                    bg_color:"wheat",
-                    data_options_index:0
-                    // condition_show:{// Không hiển thị khi đúng điều kiện này
-                    //   index:-1,
-                    //   value:false,
-                    // }
-                  },
-                  {
-                    type_input:"soan_thao",
-                    name:'Mô tả chi tiết bài viết',
-                    des:'Đây là nơi các bạn sẽ chỉnh sửa nội dung (Mô tả) cho bài viết',
-                    space_before:0,
-                    size:16,
-                    space_after:0,
-                    bg_color:"wheat"
-                    // condition_show:{// Không hiển thị khi đúng điều kiện này
-                    //   index:-1,
-                    //   value:false,
-                    // }
-                  },
                   // {
                   //   type_input:"selected_input",
                   //   name:'selected_input',
@@ -227,7 +161,19 @@ export default class Setup extends Component {
                   //   //   value:false,
                   //   // }
                   // },
-                  
+                  // {
+                  //   type_input:"small_input",
+                  //   name:'Tiêu đề bài viết',
+                  //   des:'Đây là nơi các bạn sẽ chỉnh sửa (tiêu đề) bài viết',
+                  //   space_before:0,
+                  //   size:4,
+                  //   space_after:0,
+                  //   bg_color:""
+                  //   // condition_show:{// Không hiển thị khi đúng điều kiện này
+                  //   //   index:-1,
+                  //   //   value:false,
+                  //   // }
+                  // },
                 ]}
                 data={this.state.data}
                 data_options={this.state.data_options}
