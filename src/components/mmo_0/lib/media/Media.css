@@ -17,7 +17,7 @@
     padding: 12px;
     border-radius: 3px;
     box-shadow: 1px 3px 3px 0 rgba(0,0,0,.2), 1px 3px 15px 2px rgba(0,0,0,.2);
-    max-height: 700px;
+    max-height: 715px;
     overflow: hidden;
 }
 .ABZ{
@@ -28,8 +28,8 @@
 .ovx{
     overflow-x: hidden;
     overflow-y: scroll;
-    height: 456px;
-    padding: 5px;
+    height: 534px;
+    padding: 2px;
 }
 
 .active-img{
