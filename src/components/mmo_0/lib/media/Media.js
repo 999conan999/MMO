@@ -38,6 +38,7 @@ class Media extends Component {
         if(a.length>0){
           this.props.upload_imgs_all(a)
           this.setState({text_tag_add:'',text_tag_search:''})
+          toast.success('Thay đổi thành công: ', { theme: "colored" })
         }
  
     }
@@ -170,10 +171,11 @@ class Media extends Component {
                         }
                         //
                         let is_active=text_img_selected.search(","+e.id+",")==-1?false:true;
+                        let is_mp4=e.url300.search(".mp4")==-1?false:true;
                         return (
                           <div className={"ui olive card cu img-card "+(is_active?"active-img":"")} key={e.id}>
                             <div className="image re">
-                              <img src={e.url300}
+                              {!is_mp4&&<img src={e.url300}
                                   onClick={()=>{
                                     let {result,text_img_selected}=this.state;
                                     if(is_muti_selected){
@@ -214,7 +216,51 @@ class Media extends Component {
                                     })
 
                                   }}
-                              />
+                              />}
+                              {is_mp4&&<video  width={"100%"} controls
+                                onClick={()=>{
+                                  let {result,text_img_selected}=this.state;
+                                  if(is_muti_selected){
+                                    let index=-1;
+                                    result.forEach((item,j) => {
+                                      if(item.id==e.id) index=j;
+                                    });
+                                    if(index>-1){
+                                      result.splice(index,1);
+                                      text_img_selected=text_img_selected.replace(","+e.id+",","")
+                                    }else{
+                                      result.push({
+                                        id:e.id,
+                                        url:e.url,
+                                        url300:e.url300,
+                                        tag:e.tag,
+                                      });
+                                      text_img_selected+=","+e.id+",";
+                                    }
+                                  }else{
+                                    if(show_description_img) this.myRef1.current.focus();
+                                    if(result.length==0||result[0].id!==e.id){
+                                      result=[{
+                                        id:e.id,
+                                        url:e.url,
+                                        url300:e.url300,
+                                        tag:e.tag,
+                                      }];
+                                      text_img_selected=","+e.id+",";
+                                    }else{
+                                      result=[];
+                                      text_img_selected='';
+                                    }
+                                  }
+                                  this.setState({
+                                    result:result,
+                                    text_img_selected:text_img_selected
+                                  })
+
+                                }}
+                              ><source src={e.url300}/> video
+                                  
+                                </video>}
                               <div className='tag-ps'>
                                   <Label as='a' tag>
                                     {e.tag}

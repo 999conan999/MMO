@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './index.css'
 import Setup from './setup/setup.js';
+import Posts from './post/posts';
 import { Icon } from 'semantic-ui-react'
 import Media from './lib/media/Media'
 const design_by={
@@ -11,7 +12,7 @@ export default class Index_menu extends Component {
   constructor (props) {
     super(props)
     this.state = {
-        seleted:'setup',
+        seleted:'bv',
         is_show_menu:true
     }
   }
@@ -47,18 +48,18 @@ export default class Index_menu extends Component {
                             onClick={()=>this.setState({seleted:'bv'})}  
                             className={seleted==='bv'?'active iconz':' iconz'}
                         >
-                            <i className="fa-solid fa-file-word"></i> <span className="hgfs"> Bài viết</span>
+                            <i className="fa-solid fa-file-word"></i> <span className="hgfs"> Bài viết || sản phẩm</span>
                         </li>
                     </ul>
-                    <div className='design-by'>
+                    {/* <div className='design-by'>
                         <a href={design_by.url} target='_blank'>Design by : <b>{design_by.name}</b></a>
-                     </div>
+                     </div> */}
                 </div>}
                 <div className={is_show_menu?'csdf fullz':'csdf'}>
                     <div className='wrap-conx'>
                         {seleted==='setup'&&<Setup />}
-                        {/* {seleted==='pages'&&<Pages />}
-                        {seleted==='Google_shoping_sheet'&&<Google_shoping_sheet />}
+                        {seleted==='bv'&&<Posts />}
+                        {/* {seleted==='Google_shoping_sheet'&&<Google_shoping_sheet />}
                         {seleted==='setups'&&<Setups />}
                         {seleted==='orders'&&<Orders />} */}
                      </div>

@@ -106,4 +106,26 @@
   .re{
     position: relative;
 }
+.ilbl{
+  display: inline-block;
+}
  
+.wrap-s {
+  background-color: #faebd7;
+  border: 1px solid #bc8f8f;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  padding: 20px;
+  position: relative;
+  height: 100%;
+}
+.buzz {
+  border: 1px solid #169cd9;
+  border-radius: 5px!important;
+  color: #169cd9;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.buzz:hover {
+  background-color: #f3e9e9;
+}

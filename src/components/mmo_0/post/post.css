@@ -1,0 +1,56 @@
+.pdl-50{
+    padding-left: 48px;
+}
+.pdt-50{
+    padding-top: 50px ;
+}
+ .idzx input{
+    max-width: 60px !important;
+ }
+ .imgthm{
+    width: 50px;
+    display: inline-block;
+    margin: auto;
+ }
+ .head-tbaks{
+    background-color:#a8bacb !important
+ }
+ .foot-tbaks{
+    background-color:#d3d3d3 !important;
+ }
+ .active-da{
+    background-color: #50a150 !important;
+ }
+ .wrap-editer-post{
+    background-color: #dbdbda;
+    top: 0px;
+    left: 0px;
+    box-shadow: 0 19px 38px rgb(0 0 0 / 30%), 1px -20px 12px rgb(0 0 0 / 22%);
+    position: fixed;
+    z-index: 99999;
+    width: 100%;
+    height: 100vh;
+    padding: 19px;
+    overflow: hidden;
+    padding-bottom: 50vh;
+    overflow-y: scroll;
+ }
+ .footer-edit {
+   background-color: #c7c1c0;
+   border-top: 1px solid #fff;
+   bottom: 0;
+   box-shadow: 2px -5px 13px rgba(0,0,0,.3), 0 15px 12px rgba(0,0,0,.22);
+   padding: 8px;
+   position: fixed;
+   text-align: right;
+   width: 100%;
+   padding-right: 85px !important;
+}
+.createx{
+   margin-left: 16px !important;
+}
+.thuasda{
+   position: absolute !important;
+   top: -30px;
+   right: -108px;
+}
