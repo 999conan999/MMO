@@ -122,3 +122,42 @@
 .tyas:hover {
    background-color: #e20b0b;
 }
+.img-des{
+   margin: auto;
+}
+.text-dt p{
+   margin: 0px;
+   font-family: auto;
+   padding-bottom: 2px;
+   font-size: 16px;
+}
+.text-dt {
+   overflow: hidden;
+}
+.text-dt h2{
+   font-size: 16px;
+}
+.text-dt h3{
+   font-size: 14px;
+}
+.text-dt p::before { /* add the new bullet point */
+   display: inline-block;
+   content: '';
+   -webkit-border-radius: 0.375rem;
+   border-radius: 0.375rem;
+   height: 0.75rem;
+   width: 0.75rem;
+   margin-right: 0.5rem;
+   background-color: #bdbdbd;
+}
+blockquote:not(.link-dt) {
+   background: #d9f1c2;
+   border: 1px solid #7abf28;
+   border-radius: 5px;
+   color: #5f9025;
+   margin: 0 0 1rem;
+}
+blockquote>p {
+   margin: 0px;
+   padding: 0px;
+}

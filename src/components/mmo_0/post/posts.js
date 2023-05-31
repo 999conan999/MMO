@@ -144,14 +144,16 @@ export default class Posts extends Component {
                     <Table.Footer  className='foot-tbaks'>
                       <Table.Row>
                         <Table.HeaderCell colSpan='7'>
-                          <div style={{textAlign:"center"}}>xxx</div>
+                          <div style={{textAlign:"center"}}>
+                            <span className="op">Xem thêm</span>
+                          </div>
                         </Table.HeaderCell>
                       </Table.Row>
                     </Table.Footer>
                   </Table>
                 </Segment>
               </Grid.Column>
-              <Editer_post/>
+              {/* <Editer_post/> */}
               {false&&<div className='dimerz'></div>}
         </React.Fragment>
       );
