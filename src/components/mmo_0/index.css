@@ -9,6 +9,7 @@
     display: inline-block; 
     overflow: scroll;
     background-color: lightgrey;
+    padding-left: 44px;
 }
 .fullz{
     width: calc(100% - 200px);
@@ -119,6 +120,15 @@
   position: relative;
   height: 100%;
 }
+.wrap-x {
+  background-color: #f3f3f3;
+  border: 1px solid #bd806d;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  padding: 20px;
+  position: relative;
+  height: 100%;
+}
 .buzz {
   border: 1px solid #169cd9;
   border-radius: 5px!important;
@@ -128,4 +138,7 @@
 }
 .buzz:hover {
   background-color: #f3e9e9;
+}
+.border-non{
+  box-shadow: none !important;
 }
