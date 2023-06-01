@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-// import './post.css';
 import Editer from '../lib/editer/Editer';
 // import { toast } from 'react-toastify';
 // import Template_input from '../lib/template_input/Template_input';
 import { Container, Grid, Button, Dropdown, Segment, Input, Image, Checkbox, Header, TextArea, Form } from 'semantic-ui-react'
 const test_html='<p>Giường được làm bằng sắt ống tròn phi 49, có thể tháo ráp dễ dàng.</p> <p>Giường được sơn bằng&nbsp;<span style="color: rgb(186, 55, 42);"><strong>sơn tĩnh điện</strong></span>&nbsp;chống rỉ sét.</p> <p>Hỗ trợ kích thước:&nbsp;<span style="color: rgb(186, 55, 42);"><strong>80cmx2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1mx2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1m2x2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1m4x2m</strong></span>, <span style="color: rgb(186, 55, 42);"><strong>1m6x2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1m8x2m</strong></span>.</p> <p><strong>Giá rẻ nhất</strong>&nbsp;trong các dòng giường sắt, sử dụng cũng khá bền.&nbsp;<span style="color: rgb(186, 55, 42);"><strong>Nếu như các bạn đang cần một chiếc giường và không cần quá cầu kì, thì đây là sự lựa chọn giúp bạn tiết kiệm khá nhiều chi phí đấy nhé!</strong></span></p>'
-export default class Editer_post extends Component {
+export default class Editer_page extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -31,31 +30,10 @@ export default class Editer_post extends Component {
     return (
       <div className='wrap-editer-post'>
         <Container>
-          <Header as='h1'>*Tạo bài viết mới</Header>
+          <Header as='h1'>*Tạo trang mới</Header>
 
           <div className='wrap-s'>
             <Grid>
-              {/* <Grid.Column width={16}></Grid.Column> */}
-              <Grid.Column width={4}>
-                <Header as='h4'>*<span style={{ color: "#03A9F4" }}>Bài viết</span> hay <span style={{ color: "#03A9F4" }}>sản phẩm</span></Header>
-                <Dropdown selection
-                  value={this.state.selected_test}
-                  options={this.state.test}
-                  onChange={(e, { value }) => {
-                    this.setState({ selected_test: value })
-                  }}
-                />
-              </Grid.Column>
-              <Grid.Column width={4}>
-                <Header as='h4'>*Chọn danh mục</Header>
-                <Dropdown selection
-                  value={this.state.selected_test}
-                  options={this.state.test}
-                  onChange={(e, { value }) => {
-                    this.setState({ selected_test: value })
-                  }}
-                />
-              </Grid.Column>
               <Grid.Column width={4} >
                 <Header as='h4'>*Chọn hình đại diện</Header>
                 <button className='buzz re'
@@ -82,27 +60,6 @@ export default class Editer_post extends Component {
                   />
                 </button>
               </Grid.Column>
-              <Grid.Column width={4}>
-                <Header as='h4'>*Thêm tag (nếu cần)</Header>
-                <Dropdown
-                  options={this.state.test}
-                  placeholder='...'
-                  search
-                  selection
-                  fluid
-                  multiple
-                  allowAdditions
-                  value={this.state.selected_test_arr}
-                  onAddItem={(e, { value }) => {
-                    let { test } = this.state;
-                    test = [{ text: value, value }, ...test]
-                    this.setState({ test: test })
-                  }}
-                  onChange={(e, { value }) => {
-                    this.setState({ selected_test_arr: value })
-                  }}
-                />
-              </Grid.Column>
             </Grid>
           </div>
 
@@ -121,9 +78,9 @@ export default class Editer_post extends Component {
                 // }}
                 />
               </Grid.Column>
-              <Grid.Column width={8}>
+              <Grid.Column width={12}>
                 <Form>
-                  <Header as='h4'>*Tiêu đề bài viết</Header>
+                  <Header as='h4'>*Tiêu đề trang</Header>
                   <Input
                     className="input-1"
                   // label={{ icon: 'asterisk' }}
@@ -136,27 +93,12 @@ export default class Editer_post extends Component {
                   />
                 </Form>
               </Grid.Column>
-              <Grid.Column width={4}>
-                <Header as='h4' className='re'>*Chọn bảng giá:
-                  <Image
-                    size='tiny'
-                    src={'https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg'}
-                    className='tablker'
-                  />
-                </Header>
-                <Dropdown selection
-                  value={this.state.selected_test}
-                  options={this.state.test}
-                  onChange={(e, { value }) => {
-                    this.setState({ selected_test: value })
-                  }}
-                />
-              </Grid.Column>
+            
             </Grid>
           </div>
           <div className='wrap-s'>
             <Grid>
-              <Grid.Column width={13}>
+              <Grid.Column width={16}>
                 <Form>
                   <Header as='h4'>*Mô tả ngắn</Header>
                   <TextArea placeholder='...' style={{ minHeight: 80 }}
@@ -167,81 +109,31 @@ export default class Editer_post extends Component {
                   />
                 </Form>
               </Grid.Column>
-              <Grid.Column width={3}>
-                <Form>
-                  <Header as='h4'>*Chọn số lượng đã bán</Header>
-                  <Input
-                    className="input-1"
-                  // label={{ icon: 'asterisk' }}
-                  // labelPosition='left corner'
-                  // placeholder='...'
-                  // value={text}
-                  // onChange={(e,{value}) => {
-                  //   this.props.fs_result(value)
-                  // }}
-                  />
-                </Form>
-              </Grid.Column>
 
             </Grid>
           </div>
-          <Header as='h1' textAlign="center">*Nội dung bài viết</Header>
+          <Header as='h1' textAlign="center">*Nội dung chính</Header>
           <div>
             <Segment>
               <Grid>
-                <Grid.Column width={10}>
+                <Grid.Column width={16}>
                   <div className='wrap-x'>
-                    <div className='img-thum'>
-                      <Image
-                        size='medium'
-                        src={'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-cho-ba-de.jpg'}
-                        className='img-des'
-                      />
-                    </div>
-                    <div className='text-dt'>
+                    <div className='text-dt' style={{maxHeight:'122px'}}>
                       <div  dangerouslySetInnerHTML={{__html: test_html}}></div>
                     </div>
                   </div>
                 </Grid.Column>
-                <Grid.Column width={6}>
-                  <div className='wrap-s'>
-                    <div>
-                      <span> <b style={{ marginRight: "16px" }}>Chọn thuộc tính:</b>
-                        <Dropdown selection
-                          value={this.state.selected_test}
-                          options={this.state.test}
-                          onChange={(e, { value }) => {
-                            this.setState({ selected_test: value })
-                          }}
-                        />
-                      </span>
-                    </div>
-                    <div className='show-rsx'>
-                      <span>Giá gốc: <ins>1.260.0000đ</ins></span><br />
-                      <span>Giá khuyến mãi: <ins>1.060.0000đ</ins></span><br />
-                      <span>Thuộc tính: <ins>1m2 x dài 2m</ins></span><br />
-                      <span>Khuyến mãi: <ins>Có</ins></span>
-                    </div>
-                    {/* <Input label='Ẩn content' placeholder='50|| auto=-1 || hiden=0' className="input-1" type='number'/> */}
-                    <div className="ui labeled input"><div className="ui label label">Ẩn content</div>
-                      <input placeholder="50|| auto=-1 || hiden=0" type="number" step={25}/>
-                    </div>
-                    <span className="op">Chỉnh sửa mô tả</span>
-                    <div className='mgt-8'>
-                      <p className="tyas">Xóa hình ảnh và nội dung này</p>
-                    </div>
-                  </div>
-                </Grid.Column>
+                 
               </Grid>
             </Segment>
             <div style={{textAlign:"center"}}>
-              <Button content='Thêm nội dung' primary />
+              <Button content='Chỉnh sửa nội dung' primary />
             </div>
           </div>
         </Container>
 
         <div className='footer-edit'>
-          <div style={{display:"inline-block",paddingRight:"50px"}}>
+        <div style={{display:"inline-block",paddingRight:"50px"}}>
             <Dropdown 
               value={this.state.selected_test}
               options={this.state.test}

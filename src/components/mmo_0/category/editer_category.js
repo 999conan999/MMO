@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-// import './post.css';
 import Editer from '../lib/editer/Editer';
 // import { toast } from 'react-toastify';
 // import Template_input from '../lib/template_input/Template_input';
 import { Container, Grid, Button, Dropdown, Segment, Input, Image, Checkbox, Header, TextArea, Form } from 'semantic-ui-react'
 const test_html='<p>Giường được làm bằng sắt ống tròn phi 49, có thể tháo ráp dễ dàng.</p> <p>Giường được sơn bằng&nbsp;<span style="color: rgb(186, 55, 42);"><strong>sơn tĩnh điện</strong></span>&nbsp;chống rỉ sét.</p> <p>Hỗ trợ kích thước:&nbsp;<span style="color: rgb(186, 55, 42);"><strong>80cmx2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1mx2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1m2x2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1m4x2m</strong></span>, <span style="color: rgb(186, 55, 42);"><strong>1m6x2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1m8x2m</strong></span>.</p> <p><strong>Giá rẻ nhất</strong>&nbsp;trong các dòng giường sắt, sử dụng cũng khá bền.&nbsp;<span style="color: rgb(186, 55, 42);"><strong>Nếu như các bạn đang cần một chiếc giường và không cần quá cầu kì, thì đây là sự lựa chọn giúp bạn tiết kiệm khá nhiều chi phí đấy nhé!</strong></span></p>'
-export default class Editer_post extends Component {
+export default class Editer_category extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -241,15 +240,6 @@ export default class Editer_post extends Component {
         </Container>
 
         <div className='footer-edit'>
-          <div style={{display:"inline-block",paddingRight:"50px"}}>
-            <Dropdown 
-              value={this.state.selected_test}
-              options={this.state.test}
-              onChange={(e, { value }) => {
-                this.setState({ selected_test: value })
-              }}
-            />
-          </div>
           <Button size='medium' color='grey'>Hủy</Button>
           <Button primary className='createx'>Tạo bài viết mới</Button>
         </div>

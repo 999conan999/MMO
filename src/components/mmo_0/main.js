@@ -3,7 +3,10 @@ import './index.css'
 import Setup from './setup/setup.js';
 import Posts from './post/posts';
 import { Icon } from 'semantic-ui-react'
-import Media from './lib/media/Media'
+import Media from './lib/media/Media';
+import Attributes from './attribute/attribute';
+import Categorys from './category/category';
+import Pages from './page/page';
 const design_by={
     name:"Võ Danh",
     url:'#'
@@ -50,6 +53,28 @@ export default class Index_menu extends Component {
                         >
                             <i className="fa-solid fa-file-word"></i> <span className="hgfs"> Bài viết || sản phẩm</span>
                         </li>
+                        {/*  */}
+                        <li 
+                            onClick={()=>this.setState({seleted:'Categorys'})}  
+                            className={seleted==='Categorys'?'active iconz':' iconz'}
+                        >
+                            <i className="fa-solid fa-layer-group"></i> <span className="hgfs"> Danh mục</span>
+                        </li>
+                        {/*  */}
+                         <li 
+                            onClick={()=>this.setState({seleted:'Pages'})}  
+                            className={seleted==='Pages'?'active iconz':' iconz'}
+                        >
+                            <i className="fa-solid fa-paper-plane"></i> <span className="hgfs"> Trang</span>
+                        </li>
+                        {/*  */}
+                        <li 
+                            onClick={()=>this.setState({seleted:'Attributes'})}  
+                            className={seleted==='Attributes'?'active iconz':' iconz'}
+                        >
+                            <i className="fa-brands fa-slack"></i> <span className="hgfs"> Thuộc tính sản phẩm</span>
+                        </li>
+                       
                     </ul>
                     {/* <div className='design-by'>
                         <a href={design_by.url} target='_blank'>Design by : <b>{design_by.name}</b></a>
@@ -59,8 +84,10 @@ export default class Index_menu extends Component {
                     <div className='wrap-conx'>
                         {seleted==='setup'&&<Setup />}
                         {seleted==='bv'&&<Posts />}
-                        {/* {seleted==='Google_shoping_sheet'&&<Google_shoping_sheet />}
-                        {seleted==='setups'&&<Setups />}
+                        {seleted==='Categorys'&&<Categorys />}
+                        {seleted==='Pages'&&<Pages />}
+                        {seleted==='Attributes'&&<Attributes />}
+                        {/*{seleted==='setups'&&<Setups />}
                         {seleted==='orders'&&<Orders />} */}
                      </div>
                 </div>

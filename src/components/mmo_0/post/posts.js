@@ -31,7 +31,7 @@ export default class Posts extends Component {
                   </div>
                 </Grid.Column>
                 <Grid.Column width={12}></Grid.Column>
-                <Grid.Column width={10}>
+                <Grid.Column width={6}>
                 <Button.Group size='mini' >
                     <Button color='blue'>Hiển thị tất cả</Button>
                     <Button.Or />
@@ -39,6 +39,15 @@ export default class Posts extends Component {
                     <Button.Or />
                     <Button>Chỉ hiển thị sản phẩm</Button>
                   </Button.Group>
+                </Grid.Column>
+                <Grid.Column width={4}>
+                  <Dropdown  
+                    value={this.state.selected_test}
+                    options={this.state.test}
+                    onChange={(e,{value}) => {
+                      this.setState({selected_test:value})
+                    }}
+                  />
                 </Grid.Column>
                 <Grid.Column width={6}>
                   <Dropdown  
@@ -57,14 +66,15 @@ export default class Posts extends Component {
                   <Table celled structured basic  size="small" striped className='table-da'>
                     <Table.Header className='head-tbaks'>
                       <Table.Row>
-                        <Table.HeaderCell width={1} className='idzx'>id <Input transparent placeholder='Search...' size='mini' type='number'/></Table.HeaderCell>
+                        <Table.HeaderCell width={1} className='idzx'>id <Input transparent placeholder='Search...' size='tiny' type='number'/></Table.HeaderCell>
                         <Table.HeaderCell width={1}>Thumnail</Table.HeaderCell>
-                        <Table.HeaderCell width={4}>Tiêu đề: <Input transparent placeholder='Search...' size='mini' /></Table.HeaderCell>
+                        <Table.HeaderCell width={4}>Tiêu đề: <Input transparent placeholder='Search...' size='tiny' /></Table.HeaderCell>
+                        <Table.HeaderCell width={1}>Đã bán</Table.HeaderCell>
                         <Table.HeaderCell width={1}>Type  <Button size='mini' basic icon="sort amount down"/></Table.HeaderCell>
                         <Table.HeaderCell width={3}>Link to KeyWord</Table.HeaderCell>
                         <Table.HeaderCell width={2}>Trạng thái <Button size='mini' basic >All</Button> </Table.HeaderCell>
                         <Table.HeaderCell width={4}>Điều chỉnh</Table.HeaderCell>
-                        <Table.HeaderCell width={1}>Active</Table.HeaderCell>
+                        <Table.HeaderCell width={1}>Best Seller</Table.HeaderCell>
                       </Table.Row>
                     </Table.Header>
 
@@ -76,6 +86,19 @@ export default class Posts extends Component {
                           <Image src='https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg' className='imgthm'/>
                         </Table.Cell>
                         <Table.Cell>None</Table.Cell>
+                        <Table.Cell >
+                          <div className='re'>
+                            <span className='colz'>165</span>
+                            <i className="fa-solid fa-pen-to-square edit-db"></i>
+                            {false&&<div className='keyworsx xasd'>
+                              <Input  placeholder='165' className="input-1" type='number' />
+                              <div className='huhvx'>
+                                  <Button content='Primary' primary />
+                                  <Button content='Secondary' secondary />
+                              </div>
+                            </div>}
+                          </div>
+                        </Table.Cell>
                         <Table.Cell>
                           <a className='tagx'>S.P</a>
                           <a className='tagx colrfs'>B.V</a>
@@ -132,8 +155,8 @@ export default class Posts extends Component {
                           </Button>
                         </Table.Cell>
                         <Table.Cell>
-                          {/* <Icon name='shield alternate' size='big' color='green'/> */}
-                          <Button circular icon='quidditch' size='big' color='gray'/>
+                          <Icon name='star' size='big' className='star-clo-1'/>
+                          {/* <Button circular icon='star' size='big' color='gray'/> */}
                         </Table.Cell>
                       </Table.Row>
                       
@@ -143,7 +166,7 @@ export default class Posts extends Component {
 
                     <Table.Footer  className='foot-tbaks'>
                       <Table.Row>
-                        <Table.HeaderCell colSpan='7'>
+                        <Table.HeaderCell colSpan='8'>
                           <div style={{textAlign:"center"}}>
                             <span className="op">Xem thêm</span>
                           </div>

@@ -161,3 +161,57 @@ blockquote>p {
    margin: 0px;
    padding: 0px;
 }
+.mgb-8{
+   margin-bottom: 8px;
+}
+.colz{
+   color: #2196F3;
+   font-weight: 900;
+   margin-right: 3px;
+}
+.edit-db{
+   cursor: pointer;
+}
+.edit-db:hover{
+   color: rgb(170, 5, 5);
+}
+.xasd{
+   width: 350px;
+}
+.yesx,.nox{
+   background-color: #50a150;
+   padding: 3px 5px;
+   border-radius: 5px;
+   margin-right: 3px;
+   font-weight: 900;
+   color: white;
+}
+.nox{
+   background-color: #8f9397;
+}
+.attr-wrap{
+   background-color:#3636369e;
+}
+.attr-wrap>.container{
+   background-color: white;
+    padding: 23px;
+}
+.danh-input{
+   border: 1px solid #ada2a2;
+   width: 100%;
+}
+.mgb-8{
+   margin-bottom: 8px !important;
+}
+.star-clo-1{
+   color: blue;
+   cursor: pointer;
+}
+
+.star-clo-2{
+   color: darkgrey;
+   cursor: pointer;
+}
+.star-clo-1:hover,.star-clo-2:hover{
+   color: #989da0;
+}
