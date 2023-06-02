@@ -1588,6 +1588,9 @@ ul.cart-w.row {
     font-weight: 500;
     text-decoration: underline;
 }
+.long-des{
+    overflow: hidden;
+}
 .long-des p {
     padding: 7px;
     line-height: 2;
@@ -1703,6 +1706,7 @@ main.mainz {
     overflow-x: hidden;
     display: flex;
     flex-direction: column-reverse;
+    padding-bottom: 24px;
 }
 .img-icon{
     width: 24px;
