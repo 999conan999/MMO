@@ -50,6 +50,6 @@ function toggle_menu_destop(){
 //         testarray[i].classList.remove("checked");
 //     }
 // }
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-  });
+// document.addEventListener('contextmenu', function(e) {
+//     e.preventDefault();
+//   });
