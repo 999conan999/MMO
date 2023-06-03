@@ -1519,9 +1519,9 @@ ul.cart-w.row {
     width: 100%;
     margin-right: 4%;
 }
-.active{
-    background-color: #446cb3 !important;
-    color: white;
+.active-dt{
+    background-color: #c3f787 !important;
+    border: 1px solid #0d5cb6;
 }
 .buy-dt{
     padding-left: 12px;

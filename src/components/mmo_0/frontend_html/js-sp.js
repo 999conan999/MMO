@@ -29,25 +29,108 @@ $(document).ready(function(){
   $(".clear-e").click(function(e){
       e.preventDefault();
   })
- 
-// start san pham lien qua
-    let scr_w=screen.width, sl=6;
-    if(scr_w<450){
-        sl=2
-    }else if(scr_w>=450 && scr_w<564){
-        sl=3
-    }else if(scr_w>=564 && scr_w<750){
-        sl=4
-    }else if(scr_w>=750 && scr_w<960){
-        sl=5
-    }
-    $(".productsCarousel").owlCarousel({
-        items:sl,
-        autoWidth:false,
-        dots:false,
-        loop:false,
-        autoplay:false,
-        autoplayTimeout:8000,
-        autoplayHoverPause:true
-    });
+  
+
 })
+  // xu ly nha nut mua ngay o day
+
+function render_select_kt(){
+    let img_select=window.img_select||"";
+    let attribute_name=window.data.attribute_name;
+    let table_price=window.data.table_price;
+    let html_price='';
+    if(window.data_selected==undefined){
+        window.data_selected={
+            id:window.data.id,
+            img:img_select,
+            kt:table_price[0].kt,
+            price_og:table_price[0].price_og,
+            price_sale:table_price[0].price_sale,
+        }
+    }else{
+        window.data_selected.img=img_select;
+    }
+    table_price.forEach((e,i) => {
+        if(window.data_selected.kt==e.kt){
+            html_price+=`<div class="col-6"> <button class="btnz active-dt">${e.kt}<span class="showpz">giá: <b>${Number(e.price_sale).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</b></span><svg class="selected-indicator " xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><g fill="none" fill-rule="evenodd"><g><g><g><g><g><g><g><path fill="#0D5CB6" d="M0 0h16c2.21 0 4 1.79 4 4v16L0 0z" transform="translate(-804 -366) translate(180 144) translate(484 114) translate(16 80) translate(0 28) translate(124)"></path><g fill="#FFF"><path d="M4.654 7.571L8.88 3.176c.22-.228.582-.235.81-.016.229.22.236.582.017.81L5.04 8.825c-.108.113-.258.176-.413.176-.176 0-.33-.076-.438-.203L2.136 6.37c-.205-.241-.175-.603.067-.808.242-.204.603-.174.808.068L4.654 7.57z" transform="translate(-804 -366) translate(180 144) translate(484 114) translate(16 80) translate(0 28) translate(124) translate(7.5)"></path></g></g></g></g></g></g></g></g></g></svg></button> </div>`
+        }else{
+            html_price+=`<div class="col-6"> <button class="btnz" onclick="action_change_kt(${i})">${e.kt}<span class="showpz">giá: <b>${Number(e.price_sale).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</b></span></button> </div>`
+        }
+    });
+
+    let htmlContent=`<div class="wrap-check-kt" >
+        <div class="container dev-1"  onclick="event.stopPropagation()">
+            <div>
+                <div class="tt-check re">Mẫu đã chọn:
+                    <span onclick="hiden_check_kt()">Đóng</span>
+                </div>
+                <div class="img-pp-1">
+                    <img src="${img_select}" width="50%">
+                    <div class="dcn">Đã chọn: <span>${window.data_selected.kt}</span> - giá: <span>${Number(window.data_selected.price_sale).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</span></div>
+                </div>
+                <div>Chọn ${attribute_name}:</div>
+                <div class="row">
+                    ${html_price}
+                </div>
+                <div class="btn-control">
+                    <div>
+                        <button class="btn-dt dv1" onclick="add_to_cart()">
+                            <strong>Thêm vào giỏ hàng</strong>
+                            <small>và tiếp tục mua sắm</small>
+                        </button>
+                    </div>
+                    <div>
+                        <button class="btn-dt dv2 color-mn" onclick="buy_now()">
+                            <strong>Mua ngay</strong>
+                            <small>Giao Hàng Tận Nơi Trên Toàn Quốc</small>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+    document.getElementById("check-kt").innerHTML = htmlContent;
+}
+function set_kt(img){
+    window.img_select=img;
+    show_check_kt();
+    render_select_kt()
+}
+function show_check_kt(){
+    document.getElementById("check-kt").style.display = "block";
+}
+function hiden_check_kt(){
+    document.getElementById("check-kt").style.display = "none";
+}
+function action_change_kt(i){
+    window.data_selected.kt=window.data.table_price[i].kt;
+    window.data_selected.price_og=window.data.table_price[i].price_og;
+    window.data_selected.price_sale=window.data.table_price[i].price_sale;
+    render_select_kt()
+}
+function buy_now(){
+    local_order();
+    hiden_check_kt();
+    window.location.href = '/thanh-toan';
+}
+function  local_order(){
+    let data_carts=localStorage.getItem("order_carts");
+    if(data_carts==null){
+        let a=[window.data_selected]
+        localStorage.setItem("order_carts", JSON.stringify(a));
+    }else{
+        data_carts=JSON.parse(data_carts);
+        let a=data_carts.findIndex(obj => obj.img === window.data_selected.img);
+        if(a==-1){
+            data_carts.push(window.data_selected);
+        }else{
+            data_carts[a]=window.data_selected;
+        }
+        localStorage.setItem("order_carts", JSON.stringify(data_carts));
+    }
+}
+function add_to_cart(){
+    local_order();
+    hiden_check_kt();
+    // todo => hien thi cart here
+}
