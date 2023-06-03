@@ -1036,25 +1036,25 @@
                                 <div class="item"><img itemprop="image"
                                         src="https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02.jpg"
                                         alt="Giường sắt đơn Hoàng Gia - HG02" title="Giường sắt đơn Hoàng Gia - HG02"
-                                        class="d-block w-100" /></div>
+                                        class="d-block w-100" /><div class="w-btn-mua"><button class="btn-mua"><span class="icon-cartx"></span>Mua ngay!</button></div></div>
                                 <div class="item"><img class="owl-lazyx"
                                         src="https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-h2.jpg"
-                                        alt="Giường sắt đơn Hoàng Gia - HG02 1" /></div>
+                                        alt="Giường sắt đơn Hoàng Gia - HG02 1" /><div class="w-btn-mua"><button class="btn-mua"><span class="icon-cartx"></span>Mua ngay!</button></div></div>
                                 <div class="item"><img class="owl-lazyx"
                                         src="https://anbinhnew.com/wp-content/uploads/2021/01/giuong-ngu-hoang-gia.jpg"
-                                        alt="Giường sắt đơn Hoàng Gia - HG02 2" /></div>
+                                        alt="Giường sắt đơn Hoàng Gia - HG02 2" /><div class="w-btn-mua"><button class="btn-mua"><span class="icon-cartx"></span>Mua ngay!</button></div></div>
                                 <div class="item"><img class="owl-lazyx"
                                         src="https://anbinhnew.com/wp-content/uploads/2022/06/giuong-sat-my-thuat-hg01.jpg"
-                                        alt="Giường sắt đơn Hoàng Gia - HG02 3" /></div>
+                                        alt="Giường sắt đơn Hoàng Gia - HG02 3" /><div class="w-btn-mua"><button class="btn-mua"><span class="icon-cartx"></span>Mua ngay!</button></div></div>
                                 <div class="item"><img class="owl-lazyx"
                                         src="https://anbinhnew.com/wp-content/uploads/2021/01/giuong-sat-don-Hoang-Gia-mau-nau-dam-HG02-h1.jpg"
-                                        alt="Giường sắt đơn Hoàng Gia - HG02 4" /></div>
+                                        alt="Giường sắt đơn Hoàng Gia - HG02 4" /><div class="w-btn-mua"><button class="btn-mua"><span class="icon-cartx"></span>Mua ngay!</button></div></div>
                                 <div class="item"><img class="owl-lazyx"
                                         src="https://anbinhnew.com/wp-content/uploads/2021/01/giuong-sat-don-Hoang-Gia-mau-nau-dam-HG02-h2.jpg"
-                                        alt="Giường sắt đơn Hoàng Gia - HG02 5" /></div>
+                                        alt="Giường sắt đơn Hoàng Gia - HG02 5" /><div class="w-btn-mua"><button class="btn-mua"><span class="icon-cartx"></span>Mua ngay!</button></div></div>
                                 <div class="item"><img class="owl-lazy"
                                         data-src="https://anbinhnew.com/wp-content/uploads/2021/01/giuong-sat-mau-hong-cong-chua-dep-nhat-1m6.jpg"
-                                        alt="Giường sắt đơn Hoàng Gia - HG02 6" /></div>
+                                        alt="Giường sắt đơn Hoàng Gia - HG02 6" /><div class="w-btn-mua"><button class="btn-mua"><span class="icon-cartx"></span>Mua ngay!</button></div></div>
                             </div>
                             <div class="product owl-carousel dot slideProduct-dot">
                                 <div>
@@ -1125,7 +1125,7 @@
                             let w = document.getElementById("get-width").offsetWidth;
                             document.getElementById("set-height").style.minHeight = w / 0.83 + "px";
                         </script>
-                        <div class="button-dt row">
+                        <!-- <div class="button-dt row">
                             <div>
                                 <button class="btn-dt">
                                     <strong>Thêm vào giỏ hàng</strong>
@@ -1138,7 +1138,7 @@
                                     <small>Gia Hàng Tận Nơi Trên Toàn Quốc</small>
                                 </button>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="col-sm-12 dev-8 col-md-8">
                         <span class="title-dt">
@@ -1232,6 +1232,8 @@
                             </table>
                         </div>
                     </div>
+
+
                 </div>
                 <div class="row">
                     <div class="col-sm-12 col-md-4 card-dr">
@@ -1400,96 +1402,107 @@
                             class="aml-text-content aml-tooltiptext">Facebook Messenger</span></li>
                 </ul>
             </div>
-            <div id="popup-cart"
-                style=" display: none;background-color: rgba(0, 0, 0, 0.55); position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; z-index: 99;">
-                <div
-                    style=" position: absolute; top: 0px; right: 0px; width: 300px; height: 100%; background-color: white; ">
-                    <div><span
-                            style=" display: block; text-align: center; padding: 20px; font-size: 20px; font-weight: 600; ">Giỏ
-                            hàng</span><span class="dimer-popup  mouse-pointer hv"
-                            style=" position: absolute; top: 6px; right: 14px; padding: 2px 11px; font-size: 19px; background-color: #d8cbb9; border-radius: 16px; color: white; ">x</span>
+            
+            <div id="popup-cart" class="popup-cart">
+                <div class="pp-content">
+                    <div>
+                        <span class="header-1">Giỏ hàng</span>
+                        <span class="header-2 cs">x</span>
                     </div>
-                    <!-- tung sp -->
                     <div id="datawwrap">
-                        <div id="data"
-                            style=" padding-bottom: 10px; border-bottom: dotted 0.5px #d4cdcd; margin-bottom: 10px; ">
-                            <div class="item" style=" display: flex; ">
-                                <div class="img-small"
-                                    style=" width: 60px; height: 60px; overflow: hidden; margin-left: 2px; display: inline-block; ">
-                                    <img style=" width: 100%; "
-                                        src="https://anbinhnew.com/wp-content/uploads/2021/01/Ban-hoc-doi-bang-nhua-cho-be-trai-va-gai-1-300x300.jpg">
+                        <div class="item-data">
+                            <div class="item-data-1">
+                                <div class="img-small">
+                                    <img width="100%" src="https://anbinhnew.com/wp-content/uploads/2021/01/Ban-hoc-doi-bang-nhua-cho-be-trai-va-gai-1-300x300.jpg">
                                 </div>
-                                <div class="title-z"
-                                    style=" display: inline-block; width: 181px; margin-left: 2px;font-size: 13px; ">
-                                    <span>Combo Bộ Bàn Học Đôi Bằng Nhựa Có Kệ Sách Cho Bé Trai, Bé Gái</span> - <span
-                                        style="font-weight: 600;">1m4 X 50cm X 1m5</span> - <span
-                                        style="font-weight: 600;color: green;"> 2.000.000đ </span>
+                                <div class="title-z">
+                                    <span>Combo Bộ Bàn Học Đôi Bằng Nhựa Có Kệ Sách Cho Bé Trai, Bé Gái</span>
+                                    -<b class="xx1">ngang 80cm x 2m</b>
+                                    -<b class="xx2">1.150.000đ</b>
                                 </div>
                             </div>
                             <div class="sl">
-                                <div style=" margin: auto; display: table;padding: 8px; ">
-                                    <span onclick="changeSL1(0,0)" class="tru mouse-pointer"
-                                        style="padding: 0px 9px;font-size: 17px;font-weight: 600;background-color: #da5454;border-radius: 5px;color: white;">-
-                                    </span><span class="num" style=" padding: 0px 20px; ">2</span>
-                                    <span onclick="changeSL1(1,0)" class="cong mouse-pointer"
-                                        style="padding: 0px 9px;font-size: 17px;font-weight: 600;background-color: #da5454;border-radius: 5px;color: white;">+</span>
-                                    <span data="623" onclick="xoa1(623)" class="xoa1 mouse-pointer"
-                                        style=" position: absolute; right: 7px; color: red; text-decoration: underline; ">xóa</span>
+                                <div>
+                                    <span class="add-1 cs">-
+                                    </span><span class="num">2</span>
+                                    <span  class="add-2 cs">+</span>
+                                    <span class="xoa" >xóa</span>
                                 </div>
                             </div>
                             <div class="upsale-sp">
 
                             </div>
                         </div>
-
-                        <div id="data"
-                            style=" padding-bottom: 10px; border-bottom: dotted 0.5px #d4cdcd; margin-bottom: 10px; ">
-                            <div class="item" style=" display: flex; ">
-                                <div class="img-small"
-                                    style=" width: 60px; height: 60px; overflow: hidden; margin-left: 2px; display: inline-block; ">
-                                    <img style=" width: 100%; "
-                                        src="https://anbinhnew.com/wp-content/uploads/2021/01/Ban-hoc-sinh-co-gia-sach-An-Binh-mau-hong-2-300x300.jpg">
-                                </div>
-                                <div class="title-z"
-                                    style=" display: inline-block; width: 181px; margin-left: 2px;font-size: 13px; ">
-                                    <span>Bàn học sinh có giá sách An Bình</span> - <span style="font-weight: 600;">Bàn
-                                        1m và ghế</span> - <span style="font-weight: 600;color: green;"> 1.100.000đ
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="sl">
-                                <div style=" margin: auto; display: table;padding: 8px; ">
-                                    <span onclick="changeSL1(0,1)" class="tru mouse-pointer"
-                                        style="padding: 0px 9px;font-size: 17px;font-weight: 600;background-color: #da5454;border-radius: 5px;color: white;">-
-                                    </span><span class="num" style=" padding: 0px 20px; ">1</span>
-                                    <span onclick="changeSL1(1,1)" class="cong mouse-pointer"
-                                        style="padding: 0px 9px;font-size: 17px;font-weight: 600;background-color: #da5454;border-radius: 5px;color: white;">+</span>
-                                    <span data="727" onclick="xoa1(727)" class="xoa1 mouse-pointer"
-                                        style=" position: absolute; right: 7px; color: red; text-decoration: underline; ">xóa</span>
-                                </div>
-                            </div>
-                            <div class="upsale-sp">
-
-                            </div>
+ 
+                    </div>
+                    <div class="wrap-tt">
+                        <div class="tong-tien">
+                            <p style="text-align: center;"><span style="font-weight: 600;">Tổng tiền : </span><span
+                                    id="price-sum" style=" color: blue; font-weight: 700; ">5.100.000đ</span></p>
                         </div>
-                    </div>
-                    <!-- tong tien -->
-                    <div class="tong-tien">
-                        <p style="text-align: center;"><span style="font-weight: 600;">Tổng tiền : </span><span
-                                id="price-sum" style=" color: blue; font-weight: 700; ">5.100.000đ</span></p>
-                    </div>
-                    <!-- btn thanh toan -->
-                    <div style=" margin-top: 17px; ">
-                        <a href="https://anbinhnew.com/thanh-toan-don-hang/" title="thanh toan" rel="nofollow"
-                            style=" text-decoration: none; ">
-                            <button class="thanh-toan"
-                                style=" font-size: 16px; padding: 10px 25px; margin: auto; display: block; color: #fff; font-weight: 700; text-align: center; white-space: nowrap; vertical-align: middle; background-color: #ce6f05; touch-action: manipulation; cursor: pointer; background-image: none; border: 1px solid transparent; ">Thanh
-                                toán</button>
-                        </a>
+                        <div class="btn-checkout">
+                            <a href="https://anbinhnew.com/thanh-toan-don-hang/" title="thanh toan" rel="nofollow">
+                                <button class="thanh-toan">Thanh toán</button>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div class="dimer-popup" style=" width: 100%; height: 100%; "></div>
             </div>
+            
+            <div class="check-kt">
+                <div class="wrap-check-kt">
+                    <div class="container dev-1">
+                        <div>
+                            <div class="tt-check re">Mẫu đã chọn:
+                                <span>Đóng</span>
+                            </div>
+                            <div class="img-pp-1">
+                                <img src="https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02.jpg" width="50%">
+                                <div class="dcn">Đã chọn: <span>ngang 1m x dài 2m x cao 30cm</span> - giá: <span>1.250.0000đ</span></div>
+                            </div>
+                            <div>Chọn loại sản phẩm:</div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <button class="btnz ">ngang 1m x dài 2m x sâu 34cm<span class="showpz">giá: <b>1.150.000₫</b></span></button>
+                                </div>
+                                <div class="col-6">
+                                    <button class="btnz active">ngang 1m x dài 2m x sâu 34cm<span class="showpz">giá: <b>1.150.000₫</b></span></button>
+                                </div>
+                                <div class="col-6">
+                                    <button class="btnz ">ngang 1m x dài 2m x sâu 34cm<span class="showpz">giá: <b>1.150.000₫</b></span></button>
+                                </div>
+                                <div class="col-6">
+                                    <button class="btnz ">ngang 1m x dài 2m x sâu 34cm<span class="showpz">giá: <b>1.150.000₫</b></span></button>
+                                </div>
+                                <div class="col-6">
+                                    <button class="btnz ">ngang 1m x dài 2m x sâu 34cm<span class="showpz">giá: <b>1.150.000₫</b></span></button>
+                                </div>
+                                <div class="col-6">
+                                    <button class="btnz ">ngang 1m x dài 2m x sâu 34cm<span class="showpz">giá: <b>1.150.000₫</b></span></button>
+                                </div>
+                            </div>
+                            <div class="btn-control">
+                                <div>
+                                    <button class="btn-dt dv1">
+                                        <strong>Thêm vào giỏ hàng</strong>
+                                        <small>và tiếp tục mua sắm</small>
+                                    </button>
+                                </div>
+                                <div>
+                                    <button class="btn-dt dv2 color-mn">
+                                        <strong>Mua ngay</strong>
+                                        <small>Giao Hàng Tận Nơi Trên Toàn Quốc</small>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
         </footer>
     </div>
     <script src="./jquery.js"></script>
