@@ -127,6 +127,21 @@ export default class Editer_attribute extends Component {
                   />
                 </Form>
               </Grid.Column>
+              <Grid.Column width={4}>
+                <Form>
+                  <Header as='h4'>*Tên gọi của thuộc tính:</Header>
+                  <Input
+                    className="input-1"
+                  // label={{ icon: 'asterisk' }}
+                  // labelPosition='left corner'
+                    placeholder='Bộ, kích thước, màu sắc'
+                  // value={text}
+                  // onChange={(e,{value}) => {
+                  //   this.props.fs_result(value)
+                  // }}
+                  />
+                </Form>
+              </Grid.Column>
               <Grid.Column width={12}>
                 <Form>
                     <Header as='h4' className='mgb-8'>*Bảng giá thuộc tính:</Header>
@@ -169,84 +184,72 @@ export default class Editer_attribute extends Component {
             <Grid>
               <Grid.Column width={16}>
                 <Form>
-                  <Header as='h1' textAlign="center">*Thuộc tính khuyến mãi</Header>
+                  <Header as='h1' textAlign="center">*Thông số kĩ thuật</Header>
                 </Form>
               </Grid.Column>
-              <Grid.Column width={16}>
+              <Grid.Column width={12}>
                 <Form>
-                  <Header as='h4'>*Bật tắt khuyến mãi</Header>
-                  <Checkbox toggle label='Tắt' />
+                    <Header as='h4' className='mgb-8'>*Bảng thông số:</Header>
                 </Form>
-              </Grid.Column>
-              <Grid.Column width={4}>
-                <Header as='h4'>*Thời gian hết hạn khuyến mãi</Header>
-                  <Input
-                    className="input-1"
-                    type='datetime-local'
-                  // label={{ icon: 'asterisk' }}
-                  // labelPosition='left corner'
-                    placeholder='...'
-                  // value={text}
-                  // onChange={(e,{value}) => {
-                  //   this.props.fs_result(value)
-                  // }}
-                  />
-              </Grid.Column>
-              <Grid.Column width={6}>
-                <Header as='h4'>*Giảm giá bao nhiêu?</Header>
-                  <Input
-                    className="input-1"
-                  // label={{ icon: 'asterisk' }}
-                  // labelPosition='left corner'
-                    placeholder='...'
-                  // value={text}
-                  // onChange={(e,{value}) => {
-                  //   this.props.fs_result(value)
-                  // }}
-                  />
-              </Grid.Column>
-              <Grid.Column width={6} >
-                <Header as='h4'>*Chọn banner:</Header>
-                <button className='buzz re'
-                //   onClick={()=>{
-                //     let keyLock=makeid(6);
-                //     this.setState({
-                //         selected_img:{
-                //             type:keyLock,
-                //         }
-                //     });
-                //     this.props.openAction({
-                //         type:"OPEN",
-                //         is_muti_selected:false,
-                //         keyLock:keyLock
-                //     })
-                // }}
-                >
-                  <i className="fa-solid fa-photo-film"></i> <span>Add Media</span>
-                  <Image
-                    floated='right'
-                    size='tiny'
-                    src={'https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg'}
-                    className='thuasda'
-                  />
-                </button>
-              </Grid.Column>
-              <Grid.Column width={16}>
-                <Header as='h4'>*Sản phẩm bán kèm liên quang:</Header>
-                <div>
-                  <p>Bạn có thể tham khảo thêm các mẫu nệm khi mua kèm giường sẽ được khuyển mãi ở đây: "<a href="#">Nệm khuyến mãi</a>"</p>
+                <div className='re'>
+                  <Table singleLine>
+                      <Table.Header>
+                      <Table.Row>
+                          <Table.HeaderCell>Tên</Table.HeaderCell>
+                          <Table.HeaderCell>Thông số</Table.HeaderCell>
+                          <Table.HeaderCell></Table.HeaderCell>
+                      </Table.Row>
+                      </Table.Header>
+
+                      <Table.Body>
+                      <Table.Row>
+                          <Table.Cell>
+                              <input type="text" class="danh-input" placeholder="1m x 2m..." />
+                          </Table.Cell>
+                          <Table.Cell>
+                              <input class="danh-input" placeholder="1200000" type="text" step={50000}  />
+                          </Table.Cell>
+                          <Table.Cell>
+                              <i class="fa-solid fa-trash edit-db"></i>
+                          </Table.Cell>
+                      </Table.Row>
+              
+                      </Table.Body>
+                  </Table>
+                  <div className='add-tbatx'><Button primary icon='add square'/></div>
                 </div>
-                <div className='op'>Chỉnh sửa</div>
-              </Grid.Column>
-              <Grid.Column width={16}>
-                <Header as='h4'>*Hiển thị dòng chạy chữ khuyến mãi:</Header>
-                <div>
-                  <p>Bạn có thể tham khảo thêm các mẫu nệm khi mua kèm giường sẽ được khuyển mãi ở đây: "<a href="#">Nệm khuyến mãi</a>"</p>
-                </div>
-                <div className='op'>Chỉnh sửa</div>
               </Grid.Column>
             </Grid>
           </div>
+          <div className='wrap-s'>
+            <Grid>
+              <Grid.Column width={16}>
+                <Form>
+                  <Header as='h1' textAlign="center">*Cam kết</Header>
+                </Form>
+              </Grid.Column>
+              <Grid.Column width={12}>
+ 
+                <div className='re'>
+                  <Table singleLine>
+                      <Table.Body>
+                      <Table.Row>
+                          <Table.Cell width={14}>
+                            <p><Input fluid icon='shield alternate' placeholder='Search...' /></p>
+                          </Table.Cell>
+                          <Table.Cell width={2}>
+                              <i class="fa-solid fa-trash edit-db"></i>
+                          </Table.Cell>
+                      </Table.Row>
+              
+                      </Table.Body>
+                  </Table>
+                  <div className='add-tbatx'><Button primary icon='add square'/></div>
+                </div>
+              </Grid.Column>
+            </Grid>
+          </div>
+ 
          
           
         </Container>

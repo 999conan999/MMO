@@ -85,7 +85,7 @@ function render_cart_pp(){
     let htmlContent=`<div class="pp-content">
             <div>
                 <span class="header-1"><span class="icon-cartx" style=" font-size: 30px; position: relative;"></span></span>
-                <span class="header-2 cs" onclick="hiden_cartpp()">x</span>
+                <span class="header-2 cs icon-remove" onclick="hiden_cartpp()"></span>
             </div>
             <div id="datawwrap">${rs_item_list}</div>
             ${button_buy_wrap}

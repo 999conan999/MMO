@@ -215,3 +215,70 @@ blockquote>p {
 .star-clo-1:hover,.star-clo-2:hover{
    color: #989da0;
 }
+.table-dt{
+   border-collapse: collapse;
+   width: 100.024%;
+   height: 137.083px;
+   font-family: none;
+   background-color: bisque;
+}
+.table-price{
+   margin-top: 10px;
+   text-align: left;
+}
+.table-price th,.table-price td{
+   padding: 4px 8px;
+}
+.table-price strong{
+   color: green !important;
+}
+.table-price th{
+  font-weight: 900;
+}
+.table-price del{
+   color: #c13333 !important;
+   font-weight: 800;
+}
+.img-muti{
+   position: relative;
+   display: inline-block;
+   margin-right: 5px;
+   margin-top: 5px;
+}
+.icon-img-muitxx{
+   position: absolute;
+   left: 0px;
+   font-size: 15px;
+   cursor: pointer;
+   color: #a7a5a5;
+   top: 0px;
+}
+.icon-x-imgxx{
+   position: absolute;
+   right: 0px;
+   font-size: 15px;
+   cursor: pointer;
+   color: #a7a5a5;
+   top: 0px;
+}
+.icon-img-muitxx:hover,.icon-x-imgxx:hover{
+   color: #e30505;
+}
+.editxx{
+   position: absolute;
+   top: 3px;
+   right: 0px;
+}
+.table-ct{
+   max-height: 120px;
+   overflow: hidden;
+}
+.mdrx{
+   color: blue;
+   text-decoration: underline;
+   cursor: pointer;
+}
+.mdrx:hover{
+   color: rgb(172, 5, 5);
+   font-weight: 800;
+}

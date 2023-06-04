@@ -215,10 +215,11 @@ p.danh-price {
     font-family: auto;
 }
 .content-cam-dt>p::before{
-    content: "\e90c";
-    color: #1c1616;
+    content: "\f132";
+    color: #3F51B5;
     font-family: 'icomoon' !important;
-    margin-right: 4px;
+    margin-right: 9px;
+    font-size: 18px;
 }
 .panel-heading {
     border: 1px solid #3d61a1;

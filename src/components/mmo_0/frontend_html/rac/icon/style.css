@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?809k70');
-  src:  url('fonts/icomoon.eot?809k70#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?809k70') format('truetype'),
-    url('fonts/icomoon.woff?809k70') format('woff'),
-    url('fonts/icomoon.svg?809k70#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?rxvpb');
+  src:  url('fonts/icomoon.eot?rxvpb#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?rxvpb') format('truetype'),
+    url('fonts/icomoon.woff?rxvpb') format('woff'),
+    url('fonts/icomoon.svg?rxvpb#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -29,13 +29,9 @@
   content: "\e900";
   color: #fff;
 }
-.icon-cartx:before {
+.icon-cart:before {
   content: "\e901";
   color: #fff;
-}
-.icon-cofa-logo:before {
-  content: "\e902";
-  color: #eb5727;
 }
 .icon-fb:before {
   content: "\e903";
@@ -106,6 +102,60 @@
   margin-left: -1em;
   color: rgb(255, 255, 255);
 }
-.icon-carty:before {
+.icon-cart1:before {
   content: "\e914";
+}
+.icon-shield:before {
+  content: "\e9b4";
+}
+.icon-cross:before {
+  content: "\ea0f";
+}
+.icon-check1:before {
+  content: "\e902";
+}
+.icon-gift1:before {
+  content: "\e915";
+}
+.icon-tag1:before {
+  content: "\e916";
+}
+.icon-trash-2:before {
+  content: "\e917";
+}
+.icon-trash:before {
+  content: "\e918";
+}
+.icon-check2:before {
+  content: "\e919";
+}
+.icon-circle-with-cross:before {
+  content: "\e91a";
+}
+.icon-check:before {
+  content: "\f00c";
+}
+.icon-close:before {
+  content: "\f00d";
+}
+.icon-remove:before {
+  content: "\f00d";
+}
+.icon-times:before {
+  content: "\f00d";
+}
+.icon-tag:before {
+  content: "\f02b";
+}
+.icon-tags:before {
+  content: "\f02c";
+}
+.icon-gift:before {
+  content: "\f06b";
+}
+.icon-thumbs-o-up:before {
+  content: "\f087";
+}
+.icon-shield1:before {
+  content: "\f132";
 }

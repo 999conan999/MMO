@@ -1943,9 +1943,9 @@ h3.title-h3-2 {
     position: absolute;
     top: 6px;
     right: 14px;
-    padding: 2px 11px;
+    padding: 8px 10px;
     font-size: 19px;
-    background-color: #d8cbb9;
+    background-color: #b5b5b49e;
     border-radius: 16px;
     color: white;
 }
