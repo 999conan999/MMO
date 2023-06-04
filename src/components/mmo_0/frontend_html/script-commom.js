@@ -30,7 +30,7 @@ function toggle_menu_destop(){
 // xu ly cart
 update_count_cart();
 // render
-function render_cart_pp(){
+function render_cart_pp(is_control=false){
     let data_carts=localStorage.getItem("order_carts");
     let rs_item_list='';
     let total_price=0;
@@ -71,7 +71,7 @@ function render_cart_pp(){
     }
     let button_buy_wrap=``;
     if(total_price>0){
-        button_buy_wrap=`<div class="wrap-tt" id="wrap-tt">
+        button_buy_wrap=`<div class="wrap-tt" id="wrap-tt" style="right: ${is_control?0:'-300'}px;">
         <div class="tong-tien">
             <p style="text-align: center;"><span style="font-weight: 600;">Tổng tiền : </span><span id="price-sum" style=" color: blue; font-weight: 700; ">${Number(total_price).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</span></p>
         </div>
@@ -82,7 +82,7 @@ function render_cart_pp(){
         </div>
     </div>`
     }
-    let htmlContent=`<div class="pp-content" id="pp-content">
+    let htmlContent=`<div class="pp-content" id="pp-content" style="right:${is_control?0:'-300'}px;">
             <div>
                 <span class="header-1"><span class="icon-cartx" style=" font-size: 30px; position: relative;"></span></span>
                 <span class="header-2 cs icon-remove" onclick="hiden_cartpp()"></span>
@@ -107,7 +107,9 @@ function show_cart(){
 }
 function hiden_cartpp(){
     document.getElementById("pp-content").style.right = "-300px";
-    document.getElementById("wrap-tt").style.right = "-300px";
+    try{
+        document.getElementById("wrap-tt").style.right = "-300px";
+    }catch(e){}
     document.getElementById("popup-cart").style.backgroundColor = "transparent";
     setTimeout(()=>{
         document.getElementById("popup-cart").style.display = "none";
@@ -134,7 +136,7 @@ function control_1(i){// giam
         if(sl>1){
             data_carts[i].sl=sl-1;
             localStorage.setItem("order_carts", JSON.stringify(data_carts));
-            render_cart_pp();
+            render_cart_pp(true);
         }
     } 
 }
@@ -145,7 +147,7 @@ function control_2(i){// tang
         let sl=Number(data_carts[i].sl);
         data_carts[i].sl=sl+1;
         localStorage.setItem("order_carts", JSON.stringify(data_carts));
-        render_cart_pp();
+        render_cart_pp(true);
     } 
 }
 function control_3(i){// xoa
@@ -154,7 +156,7 @@ function control_3(i){// xoa
         data_carts=JSON.parse(data_carts);
         data_carts.splice(i,1)
         localStorage.setItem("order_carts", JSON.stringify(data_carts));
-        render_cart_pp();
+        render_cart_pp(true);
         update_count_cart()
     } 
 }
