@@ -39,16 +39,23 @@ function render_select_kt(){
     let attribute_name=window.data.attribute_name;
     let table_price=window.data.table_price;
     let html_price='';
+    let title=document.getElementById("get-tt").innerText;
     if(window.data_selected==undefined){
         window.data_selected={
+            url:window.location.href,
             id:window.data.id,
+            title:title,
             img:img_select,
             kt:table_price[0].kt,
             price_og:table_price[0].price_og,
             price_sale:table_price[0].price_sale,
+            sl:1
         }
     }else{
         window.data_selected.img=img_select;
+        window.sl=1;
+        window.url=window.location.href;
+        window.title=title;
     }
     table_price.forEach((e,i) => {
         if(window.data_selected.kt==e.kt){
@@ -90,6 +97,7 @@ function render_select_kt(){
         </div>
     </div>`;
     document.getElementById("check-kt").innerHTML = htmlContent;
+    
 }
 function set_kt(img){
     window.img_select=img;
@@ -132,5 +140,6 @@ function  local_order(){
 function add_to_cart(){
     local_order();
     hiden_check_kt();
-    // todo => hien thi cart here
+    show_cart();
+    update_count_cart();
 }

@@ -1460,6 +1460,22 @@ ul.cart-w.row {
     padding: 5px;
     border-radius: 12px;
   }
+  span.icon-cartx.icon-messenger {
+    font-size: 30px;
+}
+#my-cart{
+    cursor: pointer;
+}
+.notify {
+    position: absolute;
+    top: -12px;
+    right: -11px;
+    color: blue;
+    font-size: 13px;
+    padding: 1px 5px;
+    background-color: yellow;
+    border-radius: 3px;
+}
 @media (max-width: 767px){
     .contacts{
         position: fixed;
@@ -1920,6 +1936,8 @@ h3.title-h3-2 {
     padding: 20px;
     font-size: 20px;
     font-weight: 600;
+    background-color: #446CB3;
+    color: white;
 }
 .header-2{
     position: absolute;
@@ -1986,6 +2004,10 @@ span.xoa {
     right: 7px;
     color: red;
     text-decoration: underline;
+    cursor: pointer;
+}
+span.xoa:hover{
+    color: rgb(223, 7, 7);
 }
 .btn-checkout{
     margin-top: 17px;

@@ -68,10 +68,9 @@
                 </div>
                 <div class="icon-cart">
                     <a href="#" style="text-decoration: none;">
-                        <div class="wrap-icon-cart">
-                            <!-- <img src="./media/cart.svg"> -->
-                            <span class="icon-cartx" style=" font-size: 30px; "></span>
-                            <span class="gh">Giỏ hàng</span><span class="nuvbe" style=" top: -9px; left: 31px; ">(0)</span>
+                        <div class="wrap-icon-cart"  onclick="show_cart()">
+                            <span class="icon-cartx" style=" font-size: 30px; position: relative;"><b class="notify" id="cart-1">0</b></span>
+                            <span class="gh">Giỏ hàng</span>
                         </div>
                     </a>
                 </div>
@@ -1494,7 +1493,7 @@
                 </div>
             </section>
         </main>
-        <footer id="footerz">
+        <footer id="footerz-dt">
             <div class="content-footer">
                 <div class="container">
                     <div class="row">
@@ -1502,8 +1501,8 @@
                             <div class="logoz">
                                 <div class="icon-contact">
                                     <a href="https://anbinhnew.com/shop/giuong-sat/"><img
-                                            data-src="./media//cofa logo.svg"
-                                            class="header-logo-dark lazyload" alt="cofa.vn"></a>
+                                            data-src="./media//cofa logo.svg" class="header-logo-dark lazyload"
+                                            alt="cofa.vn"></a>
                                     <ul class="ulicon">
                                         <li class="bnb">
                                             <a>
@@ -1573,24 +1572,37 @@
             </div>
             <div class="fixed-tool">
                 <ul class="ulz">
-                    <li><a id="cuoc-goi-2" href="tel:0938991602" rel="nofollow" onClick="window.value=75000"><i  class="icon-call calzs"></i></a><span  class="aml-text-content aml-tooltiptext">Gọi ngay: 093-899-1602</span></li>
-                    <li><a id="lien-he-zalo-1" target="_blank" href="https://zalo.me/0938991602" rel="nofollow" onClick="window.value=90000" class="re"><span class="icon-zalo path1"><span class="path1"></span><span class="path2"></span></span></a><span class="aml-text-content aml-tooltiptext">Chat với chúng tôi qua Zalo</span></li>
-                    <li><a id="lien-he-fb" target="_blank" href="https://m.me/anbinhnewcom" rel="nofollow" onClick="window.value=60000"><span class="icon-mess icon-messenger"></span></a><span class="aml-text-content aml-tooltiptext">Facebook Messenger</span></li>
+                    <li><a id="cuoc-goi-2" href="tel:0938991602" rel="nofollow" onClick="window.value=75000"><i
+                                class="icon-call calzs"></i></a><span class="aml-text-content aml-tooltiptext">Gọi ngay:
+                            093-899-1602</span></li>
+                    <li><a id="lien-he-zalo-1" target="_blank" href="https://zalo.me/0938991602" rel="nofollow"
+                            onClick="window.value=90000" class="re"><span class="icon-zalo path1"><span
+                                    class="path1"></span><span class="path2"></span></span></a><span
+                            class="aml-text-content aml-tooltiptext">Chat với chúng tôi qua Zalo</span></li>
+                    <li><a id="lien-he-fb" target="_blank" href="https://m.me/anbinhnewcom" rel="nofollow"
+                            onClick="window.value=60000"><span class="icon-mess icon-messenger"></span></a><span
+                            class="aml-text-content aml-tooltiptext">Nhắn tin với chúng tôi qua facebook</span></li>
+                    <li onclick="show_cart()"><a id="my-cart" onclick="window.value=60000" ><span class="icon-cartx icon-messenger re"><b class="notify" id="cart-2" >0</b></span></a><span
+                            class="aml-text-content aml-tooltiptext">Giỏ hàng</span></li>
                 </ul>
             </div>
+
+            <div id="popup-cart" class="popup-cart">
+            </div>
+            <div id="check-kt" class="check-kt" onclick="hiden_check_kt()"></div>
         </footer>
     </div>
-    <script src="./script-js.js"></script>
+    <script src="./script-commom.js"></script>
     <script type="text/javascript">
-        window.data = {
-            img: "https://anbinhnew.com/wp-content/uploads/2023/04/giuong-sat-thu-dau-mot.jpg",
-            title: "Giường sắt, 74 mẫu Giường Sắt Đẹp nhất, Giảm giá tới 40%",
-            size: "ngang 1m4 x dài 2m",
-            price: 2550000,
-            sl: 1,
-            url: "https://anbinhnew.com/shop/giuong-sat/"
-        };
-        localStorage.setItem("order_2", JSON.stringify(window.data));
+        // window.data = {
+        //     img: "https://anbinhnew.com/wp-content/uploads/2023/04/giuong-sat-thu-dau-mot.jpg",
+        //     title: "Giường sắt, 74 mẫu Giường Sắt Đẹp nhất, Giảm giá tới 40%",
+        //     size: "ngang 1m4 x dài 2m",
+        //     price: 2550000,
+        //     sl: 1,
+        //     url: "https://anbinhnew.com/shop/giuong-sat/"
+        // };
+        // localStorage.setItem("order_2", JSON.stringify(window.data));
     </script>
     <script
         type="text/javascript"> document.addEventListener('copy', function (e) { e.preventDefault(); }); document.addEventListener('contextmenu', function (e) { e.preventDefault(); }); </script>
