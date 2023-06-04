@@ -1891,25 +1891,6 @@ h3.title-h3-2 {
     }
 }
 /* popup cart */
-/* #popup-add-cart{
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 100vw;
-    height: 100vh;
-    z-index: 1001;
-    background-color: #3e3e3ebd;
-}
-.wrap-pp {
-    padding: 8vh 3px;
-    height: 100vh;
-    overflow: scroll;
-}
-.dev-1{
-    height: 100%;
-    background-color: white;
-    border-radius: 2px;
-} */
 .popup-cart{
     display: none;
     background-color: rgba(0, 0, 0, 0.55);
@@ -1919,16 +1900,18 @@ h3.title-h3-2 {
     width: 100%;
     height: 100%;
     z-index: 99;
+    transition: all 0.3s linear;
 }
 .pp-content{
     position: absolute;
     top: 0px;
-    right: 0px;
+    right: -300px;
     width: 300px;
     height: 100%;
     background-color: white;
     overflow: scroll;
     padding-bottom: 150px;
+    transition: all 0.3s linear;
 }
 .header-1{
     display: block;
@@ -2046,8 +2029,9 @@ span.xoa:hover{
 .wrap-tt{
     position: fixed;
     bottom: 0px;
-    right: 0px;
+    right: -300px;
     width: 300px;
     background-color: #ebeaea;
     padding: 22px;
+    transition: all 0.3s linear;
 }

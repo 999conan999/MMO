@@ -71,7 +71,7 @@ function render_cart_pp(){
     }
     let button_buy_wrap=``;
     if(total_price>0){
-        button_buy_wrap=`<div class="wrap-tt">
+        button_buy_wrap=`<div class="wrap-tt" id="wrap-tt">
         <div class="tong-tien">
             <p style="text-align: center;"><span style="font-weight: 600;">Tổng tiền : </span><span id="price-sum" style=" color: blue; font-weight: 700; ">${Number(total_price).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</span></p>
         </div>
@@ -82,7 +82,7 @@ function render_cart_pp(){
         </div>
     </div>`
     }
-    let htmlContent=`<div class="pp-content">
+    let htmlContent=`<div class="pp-content" id="pp-content">
             <div>
                 <span class="header-1"><span class="icon-cartx" style=" font-size: 30px; position: relative;"></span></span>
                 <span class="header-2 cs icon-remove" onclick="hiden_cartpp()"></span>
@@ -97,10 +97,21 @@ function render_cart_pp(){
 //
 function show_cart(){
     document.getElementById("popup-cart").style.display = "block";
+    document.getElementById("popup-cart").style.backgroundColor = "rgba(0, 0, 0, 0.55)";
     render_cart_pp();
+    setTimeout(()=>{
+        document.getElementById("pp-content").style.right = "0px";
+        document.getElementById("wrap-tt").style.right = "0px";
+    },10)
+
 }
 function hiden_cartpp(){
-    document.getElementById("popup-cart").style.display = "none";
+    document.getElementById("pp-content").style.right = "-300px";
+    document.getElementById("wrap-tt").style.right = "-300px";
+    document.getElementById("popup-cart").style.backgroundColor = "transparent";
+    setTimeout(()=>{
+        document.getElementById("popup-cart").style.display = "none";
+    },300)
 }
 function update_count_cart(){
 let data_carts=localStorage.getItem("order_carts");

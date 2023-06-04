@@ -95,21 +95,31 @@ export default class Editer_post extends Component {
                 // }}
                 />
               </Grid.Column>
-              <Grid.Column width={14}>
+              <Grid.Column width={8}>
                 <Form>
-                  <Input label='URL tham chiếu' placeholder='131' className="input-1"/>
+                  <Input label='URL tham chiếu' placeholder='131' fluid />
                 </Form>
+              </Grid.Column>
+              <Grid.Column width={8}>
+              Chọn nơi ánh xạ comments:{' '}
+                <Dropdown selection
+                  value={this.state.selected_test}
+                  options={this.state.test}
+                  onChange={(e, { value }) => {
+                    this.setState({ selected_test: value })
+                  }}
+                />
               </Grid.Column>
             </Grid>
           </div>
           <div className='wrap-s'>
             <Grid>
-              <Grid.Column width={5}>
+              <Grid.Column width={3}>
                 <Form>
-                  <Input label='Đã bán' placeholder='131' />
+                  <Input label='Đã bán' placeholder='131' fluid/>
                 </Form>
               </Grid.Column>
-              <Grid.Column width={5}>
+              <Grid.Column width={4}>
                 <Dropdown
                   button
                   className='icon'
@@ -120,7 +130,7 @@ export default class Editer_post extends Component {
                   text='Chọn thuộc tính'
                 />
               </Grid.Column>
-              <Grid.Column width={6}> Hình ảnh sản phẩm: &nbsp;
+              <Grid.Column width={4}> Hình ảnh sản phẩm: &nbsp;
                 <button className='buzz re'
                 //   onClick={()=>{
                 //     let keyLock=makeid(6);
@@ -147,6 +157,7 @@ export default class Editer_post extends Component {
                       <th scope="col">Loại sản phẩm</th>
                       <th scope="col">Giá gốc</th>
                       <th scope="col">Giá khuyến mãi</th>
+                      <th scope="col">Chọn làm giá hiển thị</th>
                     </tr>
                   </thead>
                   <tbody>

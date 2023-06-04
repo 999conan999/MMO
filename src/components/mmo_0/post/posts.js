@@ -71,7 +71,7 @@ export default class Posts extends Component {
                         <Table.HeaderCell width={4}>Tiêu đề: <Input transparent placeholder='Search...' size='tiny' /></Table.HeaderCell>
                         <Table.HeaderCell width={1}>Đã bán</Table.HeaderCell>
                         <Table.HeaderCell width={1}>Type  <Button size='mini' basic icon="sort amount down"/></Table.HeaderCell>
-                        <Table.HeaderCell width={3}>Link to KeyWord</Table.HeaderCell>
+                        <Table.HeaderCell width={1}>Related keywork</Table.HeaderCell>
                         <Table.HeaderCell width={2}>Trạng thái <Button size='mini' basic >All</Button> </Table.HeaderCell>
                         <Table.HeaderCell width={4}>Điều chỉnh</Table.HeaderCell>
                         <Table.HeaderCell width={1}>Best Seller</Table.HeaderCell>
@@ -85,7 +85,10 @@ export default class Posts extends Component {
                         <Table.Cell textAlign='middle'>
                           <Image src='https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg' className='imgthm'/>
                         </Table.Cell>
-                        <Table.Cell>None</Table.Cell>
+                        <Table.Cell>
+                          <a href='#'>Giường sắt giá rẻ miễn phí vận chuyển Hồ Chí Minh </a>
+                           - <b>Giường sắt ống tròn</b>
+                        </Table.Cell>
                         <Table.Cell >
                           <div className='re'>
                             <span className='colz'>165</span>
@@ -100,11 +103,12 @@ export default class Posts extends Component {
                           </div>
                         </Table.Cell>
                         <Table.Cell>
-                          <a className='tagx'>S.P</a>
-                          <a className='tagx colrfs'>B.V</a>
+                          {/* <a className='tagx'>S.P</a> */}
+                          <a className='tagx clonxe'>S.P_clone</a>
+                          {/* <a className='tagx colrfs'>B.V</a> */}
                         </Table.Cell>
                         <Table.Cell>
-                          <div><b>Giường sắt ống tròn </b> (3) 
+                          <div>(3) 
                             <Button  icon='edit' basic className='border-non' />
                           </div>
                           {false&&<div className='re'>
