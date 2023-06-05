@@ -285,3 +285,72 @@ blockquote>p {
 .clonxe{
    background-color: #50a150 !important;
 }
+.anh-xa{
+   color: #673AB7;
+   font-weight: 800;
+}
+.color-gre{
+   color:blue;
+}
+.clear-cache{
+   color: brown;
+   text-decoration: underline;
+   cursor: pointer;
+}
+.close-x1{
+   position: absolute;
+   right: 0px;
+   top: 0px;
+   font-size: large;
+   cursor: pointer;
+}
+.close-x1:hover{
+   color: red;
+}
+.thuim{
+   width: 32px;
+   position: absolute;
+}
+.headerx{
+   font-size: 26px !important;
+   font-weight: 900;
+   text-align: center;
+   background-color: #446CB3;
+   color: white;
+}
+.headerx input{
+   font-size: 27px !important;
+   padding: 0px !important;
+   background-color: transparent !important;
+   color: white !important;
+   font-weight: 900 !important;
+   border: none !important;
+}
+.edit-cate {
+   font-size: 19px;
+   margin-left: 14px;
+   cursor: pointer;
+}
+.edit-cate:hover{
+   color: #b34469;
+}
+.clr{
+   color: red;
+}
+.add-nxas{
+   position: absolute;
+   right: -47px;
+   bottom: 4px;
+}
+.hv:hover{
+   color: brown;
+   cursor: pointer;
+}
+.abs{
+   position: absolute;
+}
+.up1{
+   position: absolute;
+   right: 16px;
+   top: 16px;
+}

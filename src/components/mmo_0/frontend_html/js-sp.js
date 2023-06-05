@@ -143,3 +143,14 @@ function add_to_cart(){
     show_cart();
     update_count_cart();
 }
+try{
+    var A_offset = $('#thong-so-ki-thuat').offset().top-100;
+    $(window).scroll(function() {
+            var scroll_pos = $(window).scrollTop();
+            if (scroll_pos >= A_offset) {
+                document.getElementById("scrollTop").style.display = "block";
+            }else{
+                document.getElementById("scrollTop").style.display = "none";
+            }
+    });
+}catch(e){}

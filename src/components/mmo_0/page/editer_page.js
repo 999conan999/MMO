@@ -113,7 +113,7 @@ export default class Editer_page extends Component {
             </Grid>
           </div>
           <Header as='h1' textAlign="center">*Nội dung chính</Header>
-          <div>
+          <div className='re'>
             <Segment>
               <Grid>
                 <Grid.Column width={16}>
@@ -126,7 +126,7 @@ export default class Editer_page extends Component {
                  
               </Grid>
             </Segment>
-            <div style={{textAlign:"center"}}>
+            <div className='editxx'>
               <Button content='Chỉnh sửa nội dung' primary />
             </div>
           </div>

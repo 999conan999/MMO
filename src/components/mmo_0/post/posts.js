@@ -75,6 +75,7 @@ export default class Posts extends Component {
                         <Table.HeaderCell width={2}>Trạng thái <Button size='mini' basic >All</Button> </Table.HeaderCell>
                         <Table.HeaderCell width={4}>Điều chỉnh</Table.HeaderCell>
                         <Table.HeaderCell width={1}>Best Seller</Table.HeaderCell>
+                        <Table.HeaderCell width={1}>Cache</Table.HeaderCell>
                       </Table.Row>
                     </Table.Header>
 
@@ -87,7 +88,7 @@ export default class Posts extends Component {
                         </Table.Cell>
                         <Table.Cell>
                           <a href='#'>Giường sắt giá rẻ miễn phí vận chuyển Hồ Chí Minh </a>
-                           - <b>Giường sắt ống tròn</b>
+                           - <b>Giường sắt ống tròn</b> - <b className='color-gre'>1.290.000đ</b>
                         </Table.Cell>
                         <Table.Cell >
                           <div className='re'>
@@ -162,6 +163,7 @@ export default class Posts extends Component {
                           <Icon name='star' size='big' className='star-clo-1'/>
                           {/* <Button circular icon='star' size='big' color='gray'/> */}
                         </Table.Cell>
+                        <Table.Cell><span className='clear-cache'>clear</span></Table.Cell>
                       </Table.Row>
                       
                        
@@ -180,7 +182,7 @@ export default class Posts extends Component {
                   </Table>
                 </Segment>
               </Grid.Column>
-              <Editer_post/>
+              {/* <Editer_post/> */}
               {false&&<div className='dimerz'></div>}
         </React.Fragment>
       );

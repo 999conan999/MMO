@@ -44,6 +44,7 @@ export default class Pages extends Component {
                         <Table.HeaderCell width={4}>Tiêu đề: <Input transparent placeholder='Search...' size='tiny' /></Table.HeaderCell>
                         <Table.HeaderCell width={2}>Trạng thái <Button size='mini' basic >All</Button> </Table.HeaderCell>
                         <Table.HeaderCell width={4}>Điều chỉnh</Table.HeaderCell>
+                        <Table.HeaderCell width={1}>Cache</Table.HeaderCell>
                       </Table.Row>
                     </Table.Header>
 
@@ -79,6 +80,7 @@ export default class Pages extends Component {
                             </Button.Content>
                           </Button>
                         </Table.Cell>
+                        <Table.Cell><span className='clear-cache'>clear</span></Table.Cell>
                       </Table.Row>
                       
                        

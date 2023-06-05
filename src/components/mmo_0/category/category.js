@@ -42,9 +42,8 @@ export default class Categorys extends Component {
                         <Table.HeaderCell width={1} className='idzx'>id <Input transparent placeholder='Search...' size='tiny' type='number'/></Table.HeaderCell>
                         <Table.HeaderCell width={1}>Thumnail</Table.HeaderCell>
                         <Table.HeaderCell width={4}>Tiêu đề: <Input transparent placeholder='Search...' size='tiny' /></Table.HeaderCell>
-                        <Table.HeaderCell width={4}>Tổng số bài viết/ sản phẩm</Table.HeaderCell>
-                        <Table.HeaderCell width={2}>Trạng thái <Button size='mini' basic >All</Button> </Table.HeaderCell>
                         <Table.HeaderCell width={4}>Điều chỉnh</Table.HeaderCell>
+                        <Table.HeaderCell width={1}>Cache</Table.HeaderCell>
                       </Table.Row>
                     </Table.Header>
 
@@ -56,11 +55,6 @@ export default class Categorys extends Component {
                           <Image src='https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg' className='imgthm'/>
                         </Table.Cell>
                         <Table.Cell>None</Table.Cell>
-                        <Table.Cell><span className='colz'>165</span></Table.Cell>
-                        <Table.Cell>
-                          <Button content='Riêng tư' basic size="mini" />
-                          {/* <Button positive  size="mini">Công khai</Button> */}
-                        </Table.Cell>
                         <Table.Cell>
                           <Button animated='vertical'>
                             <Button.Content hidden >Xóa</Button.Content>
@@ -81,10 +75,8 @@ export default class Categorys extends Component {
                             </Button.Content>
                           </Button>
                         </Table.Cell>
+                        <Table.Cell><span className='clear-cache'>clear</span></Table.Cell>
                       </Table.Row>
-                      
-                       
-                    
                     </Table.Body>
 
                     <Table.Footer  className='foot-tbaks'>
