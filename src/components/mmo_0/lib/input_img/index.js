@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { makeid } from '../../lib/fs';
- class Img_img extends Component {
+ class Input_img extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -63,4 +63,4 @@ const mapDispatchToProps = (dispatch,props) => ({
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Img_img);
+export default connect(mapStateToProps, mapDispatchToProps)(Input_img);

@@ -166,11 +166,7 @@ export default class Posts extends Component {
                         </Table.Cell>
                         <Table.Cell><span className='clear-cache'>clear</span></Table.Cell>
                       </Table.Row>
-                      
-                       
-                    
                     </Table.Body>
-
                     <Table.Footer  className='foot-tbaks'>
                       <Table.Row>
                         <Table.HeaderCell colSpan='8'>
@@ -183,7 +179,7 @@ export default class Posts extends Component {
                   </Table>
                 </Segment>
               </Grid.Column>
-              <Editer_post/>
+              {/* <Editer_post/> */}
               {false&&<div className='dimerz'></div>}
         </React.Fragment>
       );

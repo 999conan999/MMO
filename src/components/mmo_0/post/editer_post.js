@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import './post.css';
 import Editer from '../lib/editer/Editer';
 import Input_img from '../lib/input_img';
+import { moveElement } from '../lib/fs';
 // import { toast } from 'react-toastify';
 // import Template_input from '../lib/template_input/Template_input';
 import { Container, Grid, Button, Dropdown, Segment, Input, Image, Radio, Header, TextArea, Form } from 'semantic-ui-react'
@@ -20,13 +21,13 @@ export default class Editer_post extends Component {
       ],
       selected_test: 'English',
       selected_test_arr: [],
-      //
+      //main
       editer_option: {
         is_open: false,
         text_html: '',
         index: -1
       },
-      // main
+      // 
       data:{
         id:1,
         type:'sp',//sp||bv
@@ -43,7 +44,7 @@ export default class Editer_post extends Component {
         },
         title:'Giường sắt giá rẻ miễn phí vận chuyển',
         short_des:'xxxxxxx',
-        long_des:'yyyyyyyyyyyy',
+        long_des:test_html,
         price:1250000,
         related_keyword:[],
         status:'private',
@@ -75,6 +76,29 @@ export default class Editer_post extends Component {
           text:"Giường ngủ giá rẻ",
           value:5
         },
+      ],
+      //
+      attribute_list:[
+        {
+          value:1,
+          text:'giường sắt ống tròn'
+        },
+        {
+          value:2,
+          text:'giường sắt hộp 4x8'
+        },
+        {
+          value:3,
+          text:'giường sắt hộp 5x10'
+        },
+        {
+          value:4,
+          text:'giường sắt tầng sắt'
+        },
+        {
+          value:5,
+          text:'giường sắt ống tròn'
+        },
       ]
     }
   }
@@ -101,7 +125,7 @@ export default class Editer_post extends Component {
               </Grid.Column>
               <Grid.Column width={4}>
                 <Header as='h4'>*Chọn danh mục</Header>
-                <Dropdown selection
+                <Dropdown selection search
                   value={data.category_id}
                   options={this.state.category_list}
                   onChange={(e, { value }) => {
@@ -184,6 +208,7 @@ export default class Editer_post extends Component {
                   className='icon'
                   floating
                   labeled
+                  search
                   icon='table'
                   options={this.state.test}
                   text='Chọn thuộc tính'
@@ -193,7 +218,6 @@ export default class Editer_post extends Component {
                 <Input_img
                   is_muti={true}
                   fs_result={(rs) => {
-                    console.log('line 181+ ',rs)
                     let {data}=this.state;
                     data.img_sp.imgs_list=[...rs,...data.img_sp.imgs_list];
                     data.img_sp.imgs_list=data.img_sp.imgs_list.filter((item, index, self) => {
@@ -297,15 +321,21 @@ export default class Editer_post extends Component {
                         size='tiny'
                         src={e.url}
                       />
-                      <i className="fa-solid fa-angles-left icon-img-muitxx"
-                        // onClick={()=>this.props.move_left_action(i)}
-                      ></i>
+                      {i>0&&<i className="fa-solid fa-angles-left icon-img-muitxx"
+                        onClick={()=>{
+                            let {data}=this.state;
+                            data.img_sp.imgs_list=moveElement(data.img_sp.imgs_list,i,i-1)
+                            this.setState({ data: data })
+                        }}
+                      ></i>}
                       <i className="fa-solid fa-trash icon-x-imgxx"
-                        // onClick={()=>{
-                        //   if(window.confirm("Xác nhận xóa!")){
-                        //     this.props.removeAction(e.id)
-                        //   }
-                        // }}
+                        onClick={()=>{
+                          if(window.confirm("Xác nhận xóa!")){
+                            let {data}=this.state;
+                            data.img_sp.imgs_list=data.img_sp.imgs_list.filter(z =>z.id !== e.id)
+                            this.setState({ data: data })
+                          }
+                        }}
                       ></i>
                     </div>
                     })
@@ -339,13 +369,12 @@ export default class Editer_post extends Component {
                   <Header as='h4'>*Tiêu đề bài viết</Header>
                   <Input
                     className="input-1"
-                  // label={{ icon: 'asterisk' }}
-                  // labelPosition='left corner'
-                  // placeholder='...'
-                  // value={text}
-                  // onChange={(e,{value}) => {
-                  //   this.props.fs_result(value)
-                  // }}
+                    value={data.title}
+                    onChange={(e,{value}) => {
+                      let {data}=this.state;
+                      data.title=value;
+                      this.setState({ data: data })
+                    }}
                   />
                 </Form>
               </Grid.Column>
@@ -353,10 +382,12 @@ export default class Editer_post extends Component {
                 <Form>
                   <Header as='h4'>*Mô tả ngắn</Header>
                   <TextArea placeholder='...' style={{ minHeight: 80 }}
-                  // value={text}
-                  // onChange={(e,{value}) => {
-                  //   this.props.fs_result(value)
-                  // }}
+                    value={data.short_des}
+                    onChange={(e,{value}) => {
+                      let {data}=this.state;
+                      data.short_des=value;
+                      this.setState({ data: data })
+                    }}
                   />
                 </Form>
               </Grid.Column>
@@ -366,11 +397,21 @@ export default class Editer_post extends Component {
           <div className='re'>
             <Segment>
               <div className='text-dt'>
-                <div dangerouslySetInnerHTML={{ __html: test_html }}></div>
+                <div dangerouslySetInnerHTML={{ __html: data.long_des }}></div>
               </div>
             </Segment>
             <div className='editxx'>
-              <Button content='Chỉnh sửa nội dung' primary />
+              <Button content='Chỉnh sửa nội dung' primary
+                onClick={()=>{
+                  this.setState({
+                    editer_option:{
+                      is_open:true,
+                      text_html:data.long_des,
+                      index:1
+                    }
+                  })
+                }}
+              />
             </div>
           </div>
         </Container>
@@ -378,10 +419,21 @@ export default class Editer_post extends Component {
         <div className='footer-edit'>
           <div style={{ display: "inline-block", paddingRight: "50px" }}>
             <Dropdown
-              value={this.state.selected_test}
-              options={this.state.test}
+              value={data.status}
+              options={[
+                {
+                  text:'Công khai',
+                  value:'publish'
+                },
+                {
+                  text:'Riêng tư',
+                  value:'private'
+                },
+              ]}
               onChange={(e, { value }) => {
-                this.setState({ selected_test: value })
+                let {data}=this.state;
+                data.status=value;
+                this.setState({data:data})
               }}
             />
           </div>
@@ -392,12 +444,11 @@ export default class Editer_post extends Component {
           close={() => this.setState({ editer_option: { is_open: false, text_html: '', index: -1 } })}
           data={this.state.editer_option.text_html}
           rs_data={(rs) => {
-            console.log("🚀 ~ file: editer_post.js:240 ~ Editer_post ~ render ~ rs:", rs)
-            // let {data}=this.props;
-            // data[editer_option.index]=rs;
-            // this.props.fs_return(data)
-            // this.setState({editer_option:{is_open:false,text_html:'',index:-1}});
-
+            let {data,editer_option}=this.state;
+            if(editer_option.index==1){
+              data.long_des=rs
+              this.setState({data:data,editer_option: { is_open: false, text_html: '', index: -1 }});
+            }
           }}
         />}
       </div>

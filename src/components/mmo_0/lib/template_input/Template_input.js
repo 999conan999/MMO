@@ -187,7 +187,6 @@ export default class Template_input extends Component {
                 data[editer_option.index]=rs;
                 this.props.fs_return(data)
                 this.setState({editer_option:{is_open:false,text_html:'',index:-1}});
-                
               }}
           />}
           </Segment>

@@ -42,10 +42,8 @@ export default class Attribute extends Component {
                         <Table.HeaderCell width={1}>Thumnail</Table.HeaderCell>
                         <Table.HeaderCell width={2}>Tên thuộc tính</Table.HeaderCell>
                         <Table.HeaderCell width={2}>Tag <Input transparent placeholder='Search...' size='tiny' type='number'/></Table.HeaderCell>
-                        <Table.HeaderCell width={1}>Số lượng thuộc tính</Table.HeaderCell>
                         <Table.HeaderCell width={1}>Giá ban đầu</Table.HeaderCell>
                         <Table.HeaderCell width={1}>Giá trị chuyển đổi</Table.HeaderCell>
-                        <Table.HeaderCell width={2}>Khuyến mãi</Table.HeaderCell>
                         <Table.HeaderCell width={4}>Điều chỉnh</Table.HeaderCell>
                         <Table.HeaderCell width={1}>Active</Table.HeaderCell>
                       </Table.Row>
@@ -64,17 +62,10 @@ export default class Attribute extends Component {
                           <a className='tagx colrfs'>Giường sắt</a>
                         </Table.Cell>
                         <Table.Cell>
-                          <span className='colz'>165</span>
-                        </Table.Cell>
-                        <Table.Cell>
                           1.250.000đ
                         </Table.Cell>
                         <Table.Cell>
                           1.250.000đ
-                        </Table.Cell>
-                        <Table.Cell>
-                          <span className='yesx'>Có</span>
-                          <span className='nox'>Không</span>
                         </Table.Cell>
                         <Table.Cell>
                           <Button animated='vertical'>
@@ -117,7 +108,7 @@ export default class Attribute extends Component {
                   </Table>
                 </Segment>
               </Grid.Column>
-              {/* <Editer_attribute/> */}
+              <Editer_attribute/>
         </React.Fragment>
       );
   }
