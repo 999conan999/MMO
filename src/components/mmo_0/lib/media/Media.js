@@ -191,6 +191,7 @@ class Media extends Component {
                                           id:e.id,
                                           url:e.url,
                                           url300:e.url300,
+                                          url150:e.url150,
                                           tag:e.tag,
                                         });
                                         text_img_selected+=","+e.id+",";
@@ -202,6 +203,7 @@ class Media extends Component {
                                           id:e.id,
                                           url:e.url,
                                           url300:e.url300,
+                                          url150:e.url150,
                                           tag:e.tag,
                                         }];
                                         text_img_selected=","+e.id+",";
@@ -233,6 +235,7 @@ class Media extends Component {
                                         id:e.id,
                                         url:e.url,
                                         url300:e.url300,
+                                        url150:e.url150,
                                         tag:e.tag,
                                       });
                                       text_img_selected+=","+e.id+",";
@@ -244,6 +247,7 @@ class Media extends Component {
                                         id:e.id,
                                         url:e.url,
                                         url300:e.url300,
+                                        url150:e.url150,
                                         tag:e.tag,
                                       }];
                                       text_img_selected=","+e.id+",";

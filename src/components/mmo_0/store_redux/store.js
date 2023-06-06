@@ -3,68 +3,78 @@ const page=30;
 // Định nghĩa reducer và initial state
 const initialState = {
   imgs_all: [
-    // {
-    //     id:0,
-    //     url:'https://react.semantic-ui.com/images/wireframe/white-image.png',
-    //     url300:'https://react.semantic-ui.com/images/wireframe/white-image.png',
-    //     tag:'gs',
-    // },
-    // {
-    //     id:1,
-    //     url:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg',
-    //     url300:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg',
-    //     tag:'gs',
-    // },
-    // {
-    //     id:2,
-    //     url:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-sat-don-gian-s6.jpg',
-    //     url300:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-sat-don-gian-s6.jpg',
-    //     tag:'gs',
-    // },
-    // {
-    //     id:3,
-    //     url:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-cho-ba-de.jpg',
-    //     url300:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-cho-ba-de.jpg',
-    //     tag:'gs',
-    // },
-    // {
-    //     id:4,
-    //     url:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-sat-mau-trang-gia-re-binh-duong.jpg',
-    //     url300:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-sat-mau-trang-gia-re-binh-duong.jpg',
-    //     tag:'gs',
-    // },
+    {
+        id:0,
+        url:'https://react.semantic-ui.com/images/wireframe/white-image.png',
+        url300:'https://react.semantic-ui.com/images/wireframe/white-image.png',
+        url150:'https://react.semantic-ui.com/images/wireframe/white-image.png',
+        tag:'gs',
+    },
+    {
+        id:1,
+        url:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg',
+        url300:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg',
+        url150:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg',
+        tag:'gs',
+    },
+    {
+        id:2,
+        url:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-sat-don-gian-s6.jpg',
+        url300:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-sat-don-gian-s6.jpg',
+        url150:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-sat-don-gian-s6.jpg',
+        tag:'gs',
+    },
+    {
+        id:3,
+        url:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-cho-ba-de.jpg',
+        url300:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-cho-ba-de.jpg',
+        url150:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-cho-ba-de.jpg',
+        tag:'gs',
+    },
+    {
+        id:4,
+        url:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-sat-mau-trang-gia-re-binh-duong.jpg',
+        url300:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-sat-mau-trang-gia-re-binh-duong.jpg',
+        url150:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-sat-mau-trang-gia-re-binh-duong.jpg',
+        tag:'gs',
+    },
   ],
   imgs_tag:[
-    // {
-    //     id:5,
-    //     url:'https://react.semantic-ui.com/images/wireframe/white-image.png',
-    //     url300:'https://react.semantic-ui.com/images/wireframe/white-image.png',
-    //     tag:'gs',
-    // },
-    // {
-    //     id:6,
-    //     url:'https://anbinhnew.com/wp-content/uploads/2023/04/mua-giuong-o-thu-dau-mot.jpg',
-    //     url300:'https://anbinhnew.com/wp-content/uploads/2023/04/mua-giuong-o-thu-dau-mot.jpg',
-    //     tag:'gs',
-    // },
-    // {
-    //     id:7,
-    //     url:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-hien-dai-AB123.jpg',
-    //     url300:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-hien-dai-AB123.jpg',
-    //     tag:'gs',
-    // },
-    // {
-    //     id:8,
-    //     url:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-mau-xanh-AB123.jpg',
-    //     url300:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-mau-xanh-AB123.jpg',
-    //     tag:'gs',
-    // },
-    // {
-    //     id:9,
-    //     url:'https://anbinhnew.com/wp-content/uploads/2023/05/giuong-sat-an-binh.jpg',
-    //     url300:'https://anbinhnew.com/wp-content/uploads/2023/05/giuong-sat-an-binh.jpg',
-    //     tag:'gs',
-    // },
+    {
+        id:5,
+        url:'https://react.semantic-ui.com/images/wireframe/white-image.png',
+        url300:'https://react.semantic-ui.com/images/wireframe/white-image.png',
+        url150:'https://react.semantic-ui.com/images/wireframe/white-image.png',
+        tag:'gs',
+    },
+    {
+        id:6,
+        url:'https://anbinhnew.com/wp-content/uploads/2023/04/mua-giuong-o-thu-dau-mot.jpg',
+        url300:'https://anbinhnew.com/wp-content/uploads/2023/04/mua-giuong-o-thu-dau-mot.jpg',
+        url150:'https://anbinhnew.com/wp-content/uploads/2023/04/mua-giuong-o-thu-dau-mot.jpg',
+        tag:'gs',
+    },
+    {
+        id:7,
+        url:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-hien-dai-AB123.jpg',
+        url300:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-hien-dai-AB123.jpg',
+        url150:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-hien-dai-AB123.jpg',
+        tag:'gs',
+    },
+    {
+        id:8,
+        url:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-mau-xanh-AB123.jpg',
+        url300:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-mau-xanh-AB123.jpg',
+        url150:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-mau-xanh-AB123.jpg',
+        tag:'gs',
+    },
+    {
+        id:9,
+        url:'https://anbinhnew.com/wp-content/uploads/2023/05/giuong-sat-an-binh.jpg',
+        url300:'https://anbinhnew.com/wp-content/uploads/2023/05/giuong-sat-an-binh.jpg',
+        url150:'https://anbinhnew.com/wp-content/uploads/2023/05/giuong-sat-an-binh.jpg',
+        tag:'gs',
+    },
   ],
   show_more_tag:false,
   show_more_all:false,
@@ -80,26 +90,12 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  // console.log("🚀 ~ file: store.js:17 ~ reducer ~ action:", action)
   switch (action.type) {
-    // case 'ADD_TODO':
-    //   return {
-    //     ...state,
-    //     todos: [...state.todos, action.payload],
-    //   };
-    // case 'REMOVE_TODO':
-    //   return {
-    //     ...state,
-    //     todos: state.todos.filter(todo => todo.id !== action.payload),
-    //   };
     case 'CHANGE_TAG_NAME':
       console.log('123123')
       return {
         ...state,
         imgs_all:state.imgs_all.map((item) => {
-          console.log("🚀 ~ file: store.js:101 ~ imgs_all:state.imgs_all.map ~ action.id:", action.id)
-          console.log("🚀 ~ file: store.js:101 ~ imgs_all:state.imgs_all.map ~ item.id:", item.id)
-
           if (item.id === action.id) {
             return {
               ...item,

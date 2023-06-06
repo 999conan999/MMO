@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // import './post.css';
 import Editer from '../lib/editer/Editer';
+import Input_img from '../lib/input_img';
 // import { toast } from 'react-toastify';
 // import Template_input from '../lib/template_input/Template_input';
 import { Container, Grid, Button, Dropdown, Segment, Input, Image, Radio, Header, TextArea, Form } from 'semantic-ui-react'
@@ -24,10 +25,61 @@ export default class Editer_post extends Component {
         is_open: false,
         text_html: '',
         index: -1
-      }
+      },
+      // main
+      data:{
+        id:1,
+        type:'sp',//sp||bv
+        category_id:-1,
+        thumnail:'',
+        key_word:'Giường săt giá rẻ',
+        canonical:"#",
+        comments_id:-1,
+        quantity_sold:131,
+        attribute_id:1,
+        img_sp:{
+          imgs_list:[],
+          img_html:''
+        },
+        title:'Giường sắt giá rẻ miễn phí vận chuyển',
+        short_des:'xxxxxxx',
+        long_des:'yyyyyyyyyyyy',
+        price:1250000,
+        related_keyword:[],
+        status:'private',
+        is_best_seller:false,
+      },
+      //
+      category_list:[
+        {
+          text:"Chưa chọn danh mục",
+          value:-1
+        },
+        {
+          text:"Giường sắt",
+          value:1
+        },
+        {
+          text:"Giường gỗ",
+          value:2
+        },
+        {
+          text:"Giường tre",
+          value:3
+        },
+        {
+          text:"Giường xếp",
+          value:4
+        },
+        {
+          text:"Giường ngủ giá rẻ",
+          value:5
+        },
+      ]
     }
   }
   render() {
+    let {data}=this.state;
     return (
       <div className='wrap-editer-post'>
         <Container>
@@ -35,74 +87,80 @@ export default class Editer_post extends Component {
 
           <div className='wrap-s'>
             <Grid>
-              {/* <Grid.Column width={16}></Grid.Column> */}
               <Grid.Column width={4}>
                 <Header as='h4'>*<span style={{ color: "#03A9F4" }}>Bài viết</span> hay <span style={{ color: "#03A9F4" }}>sản phẩm</span></Header>
                 <Dropdown selection
-                  value={this.state.selected_test}
-                  options={this.state.test}
+                  value={data.type}
+                  options={[{text:'Sản phẩm',value:'sp'},{text:'Bài viết',value:'bv'}]}
                   onChange={(e, { value }) => {
-                    this.setState({ selected_test: value })
+                    let {data}=this.state;
+                    data.type=value;
+                    this.setState({ data: data })
                   }}
                 />
               </Grid.Column>
               <Grid.Column width={4}>
                 <Header as='h4'>*Chọn danh mục</Header>
                 <Dropdown selection
-                  value={this.state.selected_test}
-                  options={this.state.test}
+                  value={data.category_id}
+                  options={this.state.category_list}
                   onChange={(e, { value }) => {
-                    this.setState({ selected_test: value })
+                    let {data}=this.state;
+                    data.category_id=value;
+                    this.setState({ data: data })
                   }}
                 />
               </Grid.Column>
               <Grid.Column width={4} >
                 <Header as='h4'>*Chọn hình đại diện</Header>
-                <button className='buzz re'
-                //   onClick={()=>{
-                //     let keyLock=makeid(6);
-                //     this.setState({
-                //         selected_img:{
-                //             type:keyLock,
-                //         }
-                //     });
-                //     this.props.openAction({
-                //         type:"OPEN",
-                //         is_muti_selected:false,
-                //         keyLock:keyLock
-                //     })
-                // }}
-                >
-                  <i className="fa-solid fa-photo-film"></i> <span>Add Media</span>
+                <div className='re'>
+                  <Input_img
+                    is_muti={false}
+                    fs_result={(rs) => {
+                      console.log('line 120+ ',rs)
+                      let {data}=this.state;
+                      data.thumnail=rs[0].url;
+                      this.setState({ data: data })
+                    }}
+                  />
                   <Image
                     floated='right'
                     size='tiny'
-                    src={'https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg'}
+                    src={data.thumnail}
                     className='thuasda'
                   />
-                </button>
+                </div>
               </Grid.Column>
               <Grid.Column width={4}>
                 <Header as='h4'>*Từ khóa Chính (cần SEO):</Header>
                 <Input
                   className="input-1"
-                // label={{ icon: 'asterisk' }}
-                // labelPosition='left corner'
-                // placeholder='...'
-                // value={text}
-                // onChange={(e,{value}) => {
-                //   this.props.fs_result(value)
-                // }}
+                  label={{ icon: 'asterisk' }}
+                  labelPosition='left corner'
+                  placeholder='...'
+                  value={data.key_word}
+                  onChange={(e,{value}) => {
+                    let {data}=this.state;
+                    data.key_word=value;
+                    this.setState({ data: data })
+                  }}
                 />
               </Grid.Column>
               <Grid.Column width={8}>
                 <Form>
-                  <Input label='URL tham chiếu' placeholder='131' fluid />
+                  <Input label='URL tham chiếu' placeholder='https://' fluid
+                    value={data.canonical}
+                    onChange={(e,{value}) => {
+                      let {data}=this.state;
+                      data.canonical=value;
+                      this.setState({ data: data })
+                    }}
+                  />
                 </Form>
               </Grid.Column>
               <Grid.Column width={8}>
               Ánh xạ comments:{' '}
-                <span className='anh-xa'>Chính bài viết này</span>
+                <span className='anh-xa'>{data.comments_id==-1?'Chính bài viết này':'Comments tại : '+data.comments_id}</span>
               </Grid.Column>
             </Grid>
           </div>
@@ -110,7 +168,14 @@ export default class Editer_post extends Component {
             <Grid>
               <Grid.Column width={3}>
                 <Form>
-                  <Input label='Đã bán' placeholder='131' fluid/>
+                  <Input label='Đã bán' placeholder='131' fluid type='number'
+                    value={data.quantity_sold}
+                    onChange={(e,{value}) => {
+                      let {data}=this.state;
+                      data.quantity_sold=value;
+                      this.setState({ data: data })
+                    }}
+                  />
                 </Form>
               </Grid.Column>
               <Grid.Column width={4}>
@@ -125,23 +190,20 @@ export default class Editer_post extends Component {
                 />
               </Grid.Column>
               <Grid.Column width={4}> Hình ảnh sản phẩm: &nbsp;
-                <button className='buzz re'
-                //   onClick={()=>{
-                //     let keyLock=makeid(6);
-                //     this.setState({
-                //         selected_img:{
-                //             type:keyLock,
-                //         }
-                //     });
-                //     this.props.openAction({
-                //         type:"OPEN",
-                //         is_muti_selected:false,
-                //         keyLock:keyLock
-                //     })
-                // }}
-                >
-                  <i className="fa-solid fa-photo-film"></i> <span>Add Media</span>
-                </button>
+                <Input_img
+                  is_muti={true}
+                  fs_result={(rs) => {
+                    console.log('line 181+ ',rs)
+                    let {data}=this.state;
+                    data.img_sp.imgs_list=[...rs,...data.img_sp.imgs_list];
+                    data.img_sp.imgs_list=data.img_sp.imgs_list.filter((item, index, self) => {
+                      return index === self.findIndex((t) => (
+                          t.id === item.id
+                      ));
+                    });
+                    this.setState({ data: data })
+                  }}
+                />
               </Grid.Column>
 
               <Grid.Column width={7}>
@@ -228,7 +290,28 @@ export default class Editer_post extends Component {
               </Grid.Column>
               <Grid.Column width={9}>
                 <div>
-                  <div className='img-muti'>
+                  {
+                    data.img_sp.imgs_list.map((e,i)=>{
+                      return <div className='img-muti' key={e.id}>
+                      <Image
+                        size='tiny'
+                        src={e.url}
+                      />
+                      <i className="fa-solid fa-angles-left icon-img-muitxx"
+                        // onClick={()=>this.props.move_left_action(i)}
+                      ></i>
+                      <i className="fa-solid fa-trash icon-x-imgxx"
+                        // onClick={()=>{
+                        //   if(window.confirm("Xác nhận xóa!")){
+                        //     this.props.removeAction(e.id)
+                        //   }
+                        // }}
+                      ></i>
+                    </div>
+                    })
+                  }
+                  
+                  {/* <div className='img-muti'>
                     <Image
                       size='tiny'
                       src="https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg"
@@ -243,23 +326,7 @@ export default class Editer_post extends Component {
                       //   }
                       // }}
                     ></i>
-                  </div>
-                  <div className='img-muti'>
-                    <Image
-                      size='tiny'
-                      src="https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg"
-                    />
-                    <i className="fa-solid fa-angles-left icon-img-muitxx"
-                      // onClick={()=>this.props.move_left_action(i)}
-                    ></i>
-                    <i className="fa-solid fa-trash icon-x-imgxx"
-                      // onClick={()=>{
-                      //   if(window.confirm("Xác nhận xóa!")){
-                      //     this.props.removeAction(e.id)
-                      //   }
-                      // }}
-                    ></i>
-                  </div>
+                  </div> */}
                 </div>
               </Grid.Column>
 

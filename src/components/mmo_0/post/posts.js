@@ -17,8 +17,9 @@ export default class Posts extends Component {
           { text: 'Chinese', value: 'Chinese' },
         ],
         selected_test:'English',
-        selected_test_arr:[]
-      
+        selected_test_arr:[],
+      // main
+
     }
   }
   render() {
@@ -182,7 +183,7 @@ export default class Posts extends Component {
                   </Table>
                 </Segment>
               </Grid.Column>
-              {/* <Editer_post/> */}
+              <Editer_post/>
               {false&&<div className='dimerz'></div>}
         </React.Fragment>
       );

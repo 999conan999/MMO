@@ -406,8 +406,6 @@ export default class Editer_category extends Component {
                 <Button color='violet' >OK</Button>
             </div>
           </div>}
-          
-
       </div>
     );
   }
