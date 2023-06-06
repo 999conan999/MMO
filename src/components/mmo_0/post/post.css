@@ -354,3 +354,41 @@ blockquote>p {
    right: 16px;
    top: 16px;
 }
+.card-sp{
+   position: fixed;
+   left: 0px;
+   top: 0px;
+   width: 100%;
+   padding: 50px;
+   height: 100vh;
+   background-color: #919191cc;
+}
+.card-sp>div{
+   display: block;
+   max-width: 100%!important;
+   height: 82vh;
+   overflow: hidden;
+   overflow-y: scroll;
+   padding: 10px;
+   position: relative;
+}
+.cs{
+   cursor: pointer;
+}
+.btn-okx{
+   position: absolute;
+   left: 0px;
+   bottom: 2vh;
+   width: 100%;
+   text-align: center;
+}
+.btn-okx>button{
+   width: 200px !important;
+}
+.card-sp .card{
+   cursor: pointer;
+}
+.active1 {
+   border: 1px solid red !IMPORTANT;
+   background-color: antiquewhite !important;
+}

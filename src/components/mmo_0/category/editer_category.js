@@ -31,7 +31,6 @@ export default class Editer_category extends Component {
       <div className='wrap-editer-post'>
         <Container>
           <Header as='h1'>*Tạo trang mới</Header>
-
           <div className='wrap-s'>
             <Grid>
               <Grid.Column width={4} >
@@ -116,10 +115,10 @@ export default class Editer_category extends Component {
                         <Table.Body>
                         <Table.Row>
                             <Table.Cell>
-                                <input type="text" class="danh-input" placeholder="1m x 2m..." />
+                                <input type="text" className="danh-input" placeholder="1m x 2m..." />
                             </Table.Cell>
                             <Table.Cell>
-                                <input class="danh-input" placeholder="https://" type="text" />
+                                <input className="danh-input" placeholder="https://" type="text" />
                             </Table.Cell>
                             <Table.Cell>
                                 <div className='re'>
@@ -130,7 +129,7 @@ export default class Editer_category extends Component {
                                 </div>
                             </Table.Cell>
                             <Table.Cell>
-                                <i class="fa-solid fa-trash edit-db"></i>
+                                <i className="fa-solid fa-trash edit-db"></i>
                             </Table.Cell>
                         </Table.Row>
                 
@@ -188,7 +187,7 @@ export default class Editer_category extends Component {
                     <i className="fa-solid fa-left-long abs hv" style={{left:"16px",top:"16px",fontSize:"26px"}}></i>
                    
                     <Card.Content>
-                    <Header as='h3'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
+                    <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
                       <Card.Meta>
                         <span className='clr'>1.250.000đ</span>
                       </Card.Meta>
@@ -200,9 +199,8 @@ export default class Editer_category extends Component {
                     <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
                     <i className="fa-solid fa-x abs hv" style={{right:"16px",top:"16px",fontSize:"20px"}}></i>
                     <i className="fa-solid fa-left-long abs hv" style={{left:"16px",top:"16px",fontSize:"26px"}}></i>
-                   
                     <Card.Content>
-                    <Header as='h3'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
+                    <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
                       <Card.Meta>
                         <span className='clr'>1.250.000đ</span>
                       </Card.Meta>
@@ -242,6 +240,174 @@ export default class Editer_category extends Component {
                 
               }}
           />}
+          {false&&<div><div className='card-sp'>
+            <Container>
+              <Segment>
+                <Grid className='re'>
+                  <Grid.Column width={4} >
+                    <Card className='re cs active1'>
+                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
+                      <Card.Content>
+                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
+                        <Card.Meta>
+                          <span className='clr'>1.250.000đ</span>
+                        </Card.Meta>
+                      </Card.Content>
+                    </Card>
+                  </Grid.Column>
+                  <Grid.Column width={4} >
+                    <Card className='re'>
+                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
+                      <Card.Content>
+                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
+                        <Card.Meta>
+                          <span className='clr'>1.250.000đ</span>
+                        </Card.Meta>
+                      </Card.Content>
+                    </Card>
+                  </Grid.Column>
+                  <Grid.Column width={4} >
+                    <Card className='re'>
+                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
+                      <Card.Content>
+                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
+                        <Card.Meta>
+                          <span className='clr'>1.250.000đ</span>
+                        </Card.Meta>
+                      </Card.Content>
+                    </Card>
+                  </Grid.Column>
+                  <Grid.Column width={4} >
+                    <Card className='re'>
+                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
+                      <Card.Content>
+                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
+                        <Card.Meta>
+                          <span className='clr'>1.250.000đ</span>
+                        </Card.Meta>
+                      </Card.Content>
+                    </Card>
+                  </Grid.Column>
+                  <Grid.Column width={4} >
+                    <Card className='re'>
+                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
+                      <Card.Content>
+                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
+                        <Card.Meta>
+                          <span className='clr'>1.250.000đ</span>
+                        </Card.Meta>
+                      </Card.Content>
+                    </Card>
+                  </Grid.Column>
+                  <Grid.Column width={4} >
+                    <Card className='re'>
+                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
+                      <Card.Content>
+                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
+                        <Card.Meta>
+                          <span className='clr'>1.250.000đ</span>
+                        </Card.Meta>
+                      </Card.Content>
+                    </Card>
+                  </Grid.Column>
+                  <Grid.Column width={4} >
+                    <Card className='re'>
+                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
+                      <Card.Content>
+                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
+                        <Card.Meta>
+                          <span className='clr'>1.250.000đ</span>
+                        </Card.Meta>
+                      </Card.Content>
+                    </Card>
+                  </Grid.Column>
+                  <Grid.Column width={4} >
+                    <Card className='re'>
+                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
+                      <Card.Content>
+                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
+                        <Card.Meta>
+                          <span className='clr'>1.250.000đ</span>
+                        </Card.Meta>
+                      </Card.Content>
+                    </Card>
+                  </Grid.Column>
+                  <Grid.Column width={4} >
+                    <Card className='re'>
+                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
+                      <Card.Content>
+                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
+                        <Card.Meta>
+                          <span className='clr'>1.250.000đ</span>
+                        </Card.Meta>
+                      </Card.Content>
+                    </Card>
+                  </Grid.Column>
+                  <Grid.Column width={4} >
+                    <Card className='re'>
+                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
+                      <Card.Content>
+                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
+                        <Card.Meta>
+                          <span className='clr'>1.250.000đ</span>
+                        </Card.Meta>
+                      </Card.Content>
+                    </Card>
+                  </Grid.Column>
+                  <Grid.Column width={4} >
+                    <Card className='re'>
+                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
+                      <Card.Content>
+                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
+                        <Card.Meta>
+                          <span className='clr'>1.250.000đ</span>
+                        </Card.Meta>
+                      </Card.Content>
+                    </Card>
+                  </Grid.Column>
+                  <Grid.Column width={4} >
+                    <Card className='re'>
+                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
+                      <Card.Content>
+                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
+                        <Card.Meta>
+                          <span className='clr'>1.250.000đ</span>
+                        </Card.Meta>
+                      </Card.Content>
+                    </Card>
+                  </Grid.Column>
+                  <Grid.Column width={4} >
+                    <Card className='re'>
+                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
+                      <Card.Content>
+                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
+                        <Card.Meta>
+                          <span className='clr'>1.250.000đ</span>
+                        </Card.Meta>
+                      </Card.Content>
+                    </Card>
+                  </Grid.Column>
+                  <Grid.Column width={4} >
+                    <Card className='re'>
+                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
+                      <Card.Content>
+                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
+                        <Card.Meta>
+                          <span className='clr'>1.250.000đ</span>
+                        </Card.Meta>
+                      </Card.Content>
+                    </Card>
+                  </Grid.Column>
+                </Grid>
+              </Segment>
+            </Container>
+            </div>
+            <div className='btn-okx'>
+                <Button color='violet' >OK</Button>
+            </div>
+          </div>}
+          
+
       </div>
     );
   }
