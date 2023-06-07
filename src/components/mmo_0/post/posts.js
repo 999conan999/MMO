@@ -179,7 +179,7 @@ export default class Posts extends Component {
                   </Table>
                 </Segment>
               </Grid.Column>
-              {/* <Editer_post/> */}
+              <Editer_post/>
               {false&&<div className='dimerz'></div>}
         </React.Fragment>
       );

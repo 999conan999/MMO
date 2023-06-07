@@ -181,7 +181,7 @@ export default class Editer_attribute extends Component {
                                   {index_show_input_table_price===i&&<i className="fa-solid fa-square-check abs hv" style={{left:'-10px',top:'12px'}}
                                     onClick={()=>this.setState({index_show_input_table_price:-1})}
                                   ></i>}
-                                  {index_show_input_table_price===i&&<input type="text" class="danh-input ktzx" placeholder="1m x 2m..." 
+                                  {index_show_input_table_price===i&&<input type="text" className="danh-input ktzx" placeholder="1m x 2m..." 
                                     value={e.name}
                                     onChange={(e)=>{
                                       let {data}=this.state;
@@ -193,24 +193,22 @@ export default class Editer_attribute extends Component {
                               </Table.Cell>
                               <Table.Cell className='re'>
                                   {index_show_input_table_price!==i&&<span style={{color:"blue"}}>{Number(e.price_v).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</span>}
-                                  {index_show_input_table_price===i&&<input class="danh-input" placeholder="1200000" type="number" step={50000}
+                                  {index_show_input_table_price===i&&<input className="danh-input" placeholder="1200000" type="number" step={50000}
                                     value={e.price_v}
                                     onChange={(e)=>{
                                       let {data}=this.state;
                                       data.table_price[i].price_v=e.target.value;
-                                      data.table_price[i].price_sale=data.table_price[i].price_sale+data.table_price[i].price_profit;
                                       this.setState({data:data})
                                     }}
                                   />}
                               </Table.Cell>
                               <Table.Cell className='re'>
                                   {index_show_input_table_price!==i&&<span style={{color:"red"}}>+{Number(e.price_profit).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</span>}
-                                  {index_show_input_table_price===i&&<input class="danh-input" placeholder="+600000" type="number" step={50000}
+                                  {index_show_input_table_price===i&&<input className="danh-input" placeholder="+600000" type="number" step={50000}
                                     value={e.price_profit}
                                     onChange={(e)=>{
                                       let {data}=this.state;
                                       data.table_price[i].price_profit=e.target.value;
-                                      data.table_price[i].price_sale=data.table_price[i].price_sale+data.table_price[i].price_profit;
                                       this.setState({data:data})
                                     }}
                                   />}
@@ -220,7 +218,7 @@ export default class Editer_attribute extends Component {
                               </Table.Cell>
                               <Table.Cell className='re'>
                                  {index_show_input_table_price!==i&&<del  style={{color:"#9d9696"}}>{(Number(e.price_v)+Number(e.price_og)+Number(e.price_profit)).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</del>}
-                                 {index_show_input_table_price===i&& <input class="danh-input" placeholder="+1200000" type="number" step={50000}
+                                 {index_show_input_table_price===i&& <input className="danh-input" placeholder="+1200000" type="number" step={50000}
                                     value={e.price_og}
                                     onChange={(e)=>{
                                       let {data}=this.state;
@@ -230,7 +228,7 @@ export default class Editer_attribute extends Component {
                                   />}
                               </Table.Cell>
                               <Table.Cell>
-                                  <i class="fa-solid fa-trash edit-db"
+                                  <i className="fa-solid fa-trash edit-db"
                                     onClick={()=>{
                                       if(window.confirm("Xác nhận xóa")){
                                         let {data}=this.state;
@@ -307,14 +305,14 @@ export default class Editer_attribute extends Component {
                           data.table_infor.map((e,i)=>{
                             return <Table.Row key={i}>
                             <Table.Cell className='re'>
-                                {i>0&&<i class="fa-solid fa-up-long abs hv" style={{left:'-10px',top:'12px'}}
+                                {i>0&&<i className="fa-solid fa-up-long abs hv" style={{left:'-10px',top:'12px'}}
                                   onClick={()=>{
                                     let {data}=this.state;
                                     data.table_infor=moveElement(data.table_infor,i,i-1);
                                     this.setState({data:data})
                                   }}
                                 ></i>}
-                                <input type="text" class="danh-input iput-1" placeholder="..." 
+                                <input type="text" className="danh-input iput-1" placeholder="..." 
                                   value={e.name}
                                   onChange={(e)=>{
                                     let {data}=this.state;
@@ -324,7 +322,7 @@ export default class Editer_attribute extends Component {
                                 />
                             </Table.Cell>
                             <Table.Cell>
-                                <input class="danh-input iput-2" placeholder="..." type="text"  
+                                <input className="danh-input iput-2" placeholder="..." type="text"  
                                     value={e.value}
                                     onChange={(e)=>{
                                       let {data}=this.state;
@@ -334,7 +332,7 @@ export default class Editer_attribute extends Component {
                                 />
                             </Table.Cell>
                             <Table.Cell>
-                                <i class="fa-solid fa-trash edit-db"
+                                <i className="fa-solid fa-trash edit-db"
                                 onClick={()=>{
                                   if(window.confirm(`Xác nhận xóa: "${e.name}"`)){
                                     let {data}=this.state;
@@ -387,7 +385,7 @@ export default class Editer_attribute extends Component {
                         {data.table_commit.map((e,i)=>{
                           return <Table.Row key={i}>
                           <Table.Cell width={14} className='re'>
-                              {i>0&&<i class="fa-solid fa-up-long abs hv" style={{left:'-10px',top:'12px'}}
+                              {i>0&&<i className="fa-solid fa-up-long abs hv" style={{left:'-10px',top:'12px'}}
                                 onClick={()=>{
                                   let {data}=this.state;
                                   data.table_commit=moveElement(data.table_commit,i,i-1);
@@ -404,7 +402,7 @@ export default class Editer_attribute extends Component {
                             /></p>
                           </Table.Cell>
                           <Table.Cell width={2}>
-                              <i class="fa-solid fa-trash edit-db"
+                              <i className="fa-solid fa-trash edit-db"
                                 onClick={()=>{
                                   if(window.confirm(`Xác nhận xóa: "${e}"`)){
                                     let {data}=this.state;

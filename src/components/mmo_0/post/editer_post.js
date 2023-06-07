@@ -37,7 +37,7 @@ export default class Editer_post extends Component {
         canonical:"#",
         comments_id:-1,
         quantity_sold:131,
-        attribute_id:1,
+        attribute_id:-1,
         img_sp:{
           imgs_list:[],
           img_html:''
@@ -49,6 +49,7 @@ export default class Editer_post extends Component {
         related_keyword:[],
         status:'private',
         is_best_seller:false,
+        index_price:0
       },
       //
       category_list:[
@@ -81,29 +82,36 @@ export default class Editer_post extends Component {
       attribute_list:[
         {
           value:1,
-          text:'giường sắt ống tròn'
+          text:'giường sắt ống tròn',
+          data:'{"name":"Giường sắt ống tròn","tag":"Giường sắt","thumnail":"","price_ss":300000,"attribute_name":"Kích thước","is_show_price_table":true,"table_price":[{"name":"1mx2m","price_v":"850000","price_og":"150000","price_profit":"400000","price_sale":"NaN440400400040000400000"},{"name":"1m2x2m","price_v":"950000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000"},{"name":"1m4x2m","price_v":"1050000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000"},{"name":"1m6x2m","price_v":"1150000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000"},{"name":"1m8x2m","price_v":"1250000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000"}],"is_show_infor":true,"table_infor":[{"name":"Xuất xứ","value":"Việt Nam"},{"name":"Thương hiệu","value":"An Bình"},{"name":"Kích thước","value":"1mx2m, 1m2x2m, 1m4x2m, 1m6x2m, 1m8x2m - cao 30cm từ mặt đất lên vạt giường"},{"name":"Màu sắc","value":"trắng, kem, xanh dương"},{"name":"Chất liệu sắt","value":"sắt ống tròn phi 49; dày 8zem"},{"name":"Chất liệu sơn","value":"Sơn tĩnh điện"},{"name":"Đối tượng sử dụng","value":"Học sinh, mọi người"},{"name":"Bảo hành","value":"3 tháng"}],"is_show_commit":true,"table_commit":["Sản phẩm chính hãng","Đổi một trong vòng 3 tháng","Miễn Phí giao hàng tại tp Hồ Chí Minh","Bảo hành 2 năm"]}'
         },
         {
           value:2,
-          text:'giường sắt hộp 4x8'
+          text:'giường sắt hộp 4x8',
+          data:'{"name":"giường sắt hộp 4x8","tag":"Giường sắt","thumnail":"","price_ss":"400000","attribute_name":"Kích thước","is_show_price_table":true,"table_price":[{"name":"1mx2m","price_v":"1100000","price_og":"150000","price_profit":"400000","price_sale":"NaN440400400040000400000400000400000400000400000400000"},{"name":"1m2x2m","price_v":"1250000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000"},{"name":"1m4x2m","price_v":"1400000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000"},{"name":"1m6x2m","price_v":"1500000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000"},{"name":"1m8x2m","price_v":"1600000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000"}],"is_show_infor":true,"table_infor":[{"name":"Xuất xứ","value":"Việt Nam"},{"name":"Thương hiệu","value":"An Bình"},{"name":"Kích thước","value":"1mx2m, 1m2x2m, 1m4x2m, 1m6x2m, 1m8x2m - cao 30cm từ mặt đất lên vạt giường"},{"name":"Màu sắc","value":"trắng, kem, xanh dương"},{"name":"Chất liệu sắt","value":"sắt hộp vuông 4x8"},{"name":"Chất liệu sơn","value":"Sơn tĩnh điện"},{"name":"Đối tượng sử dụng","value":"Học sinh, mọi người"},{"name":"Bảo hành","value":"3 tháng"}],"is_show_commit":true,"table_commit":["Sản phẩm chính hãng","Đổi một trong vòng 3 tháng","Miễn Phí giao hàng tại tp Hồ Chí Minh","Bảo hành 2 năm"]}'
         },
         {
           value:3,
-          text:'giường sắt hộp 5x10'
+          text:'giường sắt hộp 5x10',
+          data:'{"name":"giường sắt hộp 5x10","tag":"Giường sắt","thumnail":"","price_ss":"400000","attribute_name":"Kích thước","is_show_price_table":true,"table_price":[{"name":"1mx2m","price_v":"1300000","price_og":"150000","price_profit":"400000","price_sale":"NaN440400400040000400000400000400000400000400000400000400000400000400000400000"},{"name":"1m2x2m","price_v":"1500000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000400000400000400000400000"},{"name":"1m4x2m","price_v":"1650000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000400000400000400000400000400000"},{"name":"1m6x2m","price_v":"1800000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000"},{"name":"1m8x2m","price_v":"1950000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000"}],"is_show_infor":true,"table_infor":[{"name":"Xuất xứ","value":"Việt Nam"},{"name":"Thương hiệu","value":"An Bình"},{"name":"Kích thước","value":"1mx2m, 1m2x2m, 1m4x2m, 1m6x2m, 1m8x2m - cao 30cm từ mặt đất lên vạt giường"},{"name":"Màu sắc","value":"trắng, kem, hồng"},{"name":"Chất liệu sắt","value":"sắt hộp vuông 5x10"},{"name":"Chất liệu sơn","value":"Sơn tĩnh điện"},{"name":"Đối tượng sử dụng","value":"Học sinh, mọi người"},{"name":"Bảo hành","value":"3 tháng"}],"is_show_commit":true,"table_commit":["Sản phẩm chính hãng","Đổi một trong vòng 3 tháng","Miễn Phí giao hàng tại tp Hồ Chí Minh","Bảo hành 2 năm"]}'
         },
         {
           value:4,
-          text:'giường sắt tầng sắt'
+          text:'giường sắt tầng sắt',
+          data:'{"name":"giường sắt tầng sắt","tag":"Giường sắt","thumnail":"","price_ss":"400000","attribute_name":"Kích thước","is_show_price_table":true,"table_price":[{"name":"tầng trên 1m2 x dưới 1m2","price_v":"1400000","price_og":"150000","price_profit":"400000","price_sale":"NaN440400400040000400000400000400000400000400000400000400000400000400000400000400000400000400000400000"},{"name":"tầng trên 1m4 x dưới 1m4","price_v":"1500000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000400000400000400000400000"},{"name":"tầng trên 1m6 x dưới 1m6","price_v":"1650000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000400000400000400000400000400000"},{"name":"tầng trên 1m8 x dưới 1m8","price_v":"1950000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000"},{"name":"tầng trên 80cm x dưới 80cm","price_v":"1950000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000"}],"is_show_infor":true,"table_infor":[{"name":"Xuất xứ","value":"Việt Nam"},{"name":"Thương hiệu","value":"An Bình"},{"name":"Kích thước","value":"1mx2m, 1m2x2m, 1m4x2m, 1m6x2m, 1m8x2m - cao 30cm từ mặt đất lên vạt giường"},{"name":"Màu sắc","value":"trắng, kem, hồng"},{"name":"Chất liệu sắt","value":"sắt hộp vuông 5x10"},{"name":"Chất liệu sơn","value":"Sơn tĩnh điện"},{"name":"Đối tượng sử dụng","value":"Học sinh, mọi người"},{"name":"Bảo hành","value":"3 tháng"}],"is_show_commit":true,"table_commit":["Sản phẩm chính hãng","Đổi một trong vòng 3 tháng","Miễn Phí giao hàng tại tp Hồ Chí Minh","Bảo hành 2 năm"]}'
         },
-        {
-          value:5,
-          text:'giường sắt ống tròn'
-        },
-      ]
+      ],
+      //ho tro
+      table_attribute:{
+        table_price:[],
+        table_infor:[],
+        img:''
+      },
+      is_hidden_1:true
     }
   }
   render() {
-    let {data}=this.state;
+    let {data,table_attribute}=this.state;
     return (
       <div className='wrap-editer-post'>
         <Container>
@@ -210,8 +218,26 @@ export default class Editer_post extends Component {
                   labeled
                   search
                   icon='table'
-                  options={this.state.test}
-                  text='Chọn thuộc tính'
+                  placeholder='Chọn thuộc tính'
+                  options={this.state.attribute_list}
+                  value={data.attribute_id}
+                  onChange={(e, { value }) => {
+                    let {data,attribute_list}=this.state;
+                    data.attribute_id=value;
+                    let data_attribute=attribute_list.filter(e => e.value === value);
+                    let table_attribute={
+                      table_price:[],
+                      table_infor:[],
+                      img:''
+                    }
+                    if(data_attribute.length>0){
+                      data_attribute=JSON.parse(data_attribute[0].data);
+                      table_attribute.table_price=data_attribute.table_price;
+                      table_attribute.table_infor=data_attribute.table_infor;
+                      table_attribute.img=data_attribute.thumnail;
+                    } 
+                    this.setState({ data: data,table_attribute:table_attribute })
+                  }}
                 />
               </Grid.Column>
               <Grid.Column width={4}> Hình ảnh sản phẩm: &nbsp;
@@ -235,82 +261,51 @@ export default class Editer_post extends Component {
                   <thead>
                     <tr>
                       <th scope="col">Loại sản phẩm</th>
-                      <th scope="col">Giá gốc</th>
-                      <th scope="col">Giá khuyến mãi</th>
+                      <th scope="col">Giá vốn</th>
+                      <th scope="col">Giá bán</th>
                       <th scope="col">Chọn làm giá hiển thị</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>tầng trên 1m x tầng dưới 1m2 x dài 2m</td>
-                      <td><del class="txt-price-alt">1.700.000đ</del></td>
-                      <td><strong>1.700.000 đ</strong></td>
-                      <td> <Radio toggle /></td>
-                    </tr>
-                    <tr>
-                      <td>1m4x2m</td>
-                      <td><del class="txt-price-alt">1.800.000đ</del></td>
-                      <td><strong>1.800.000 đ</strong></td>
-                      <td> <Radio toggle /></td>
-                    </tr>
-                    <tr>
-                      <td>1m6x2m</td>
-                      <td><del class="txt-price-alt">1.900.000đ</del></td>
-                      <td><strong>1.900.000 đ</strong> </td>
-                      <td> <Radio toggle /></td>
-                    </tr>
-                    <tr>
-                      <td>1m8x2m</td>
-                      <td><del class="txt-price-alt">2.700.000đ</del></td>
-                      <td><strong>2.000.000 đ</strong> </td>
-                      <td> <Radio toggle /></td>
-                    </tr>
+                    {
+                      table_attribute.table_price.map((e,i) => {
+                         return <tr key={i}>
+                        	<td>{e.name}</td>
+                        	<td><span class="txt-price-alt">{Number(e.price_v).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</span></td>
+                        	<td><strong>{(Number(e.price_v)+Number(e.price_profit)).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</strong></td>
+                        	<td> <Radio toggle 
+                            checked={data.index_price==i?true:false}
+                            onChange={()=>{
+                              if(data.index_price!=i){
+                                let {data}=this.state;
+                                data.index_price=i;
+                                this.setState({data:data})
+                              }
+                            }}
+                          /></td>
+                      	</tr>
+                      })
+                    }
                   </tbody>
                 </table>
-                <div class="table-ct">
+                <div class="table-ct"  style={this.state.is_hidden_1?{}:{maxHeight:"inherit"}}>
                   <span>Thông số kĩ thuật :</span>
                   <table class="st-pd-table">
                       <tbody>
-                          <tr>
-                              <td>Màn hình</td>
-                              <td>13.3 inch, 2560 x 1600 Pixels, IPS, IPS LCD LED Backlit, True Tone</td>
-                          </tr>
-                          <tr>
-                              <td>CPU</td>
-                              <td>Apple, M1</td>
-                          </tr>
-                          <tr>
-                              <td>RAM</td>
-                              <td>8 GB, LPDDR4</td>
-                          </tr>
-                          <tr>
-                              <td>Ổ cứng</td>
-                              <td>SSD 256 GB</td>
-                          </tr>
-                          <tr>
-                              <td>Đồ họa</td>
-                              <td>Apple M1 GPU 7 nhân</td>
-                          </tr>
-                          <tr>
-                              <td>Trọng lượng</td>
-                              <td>1.29 kg</td>
-                          </tr>
-                          <tr>
-                              <td>Kích thước</td>
-                              <td>304.1 x 212.4 x 4.1 ~ 16.1 mm</td>
-                          </tr>
-                          <tr>
-                              <td>Xuất xứ</td>
-                              <td>Trung Quốc</td>
-                          </tr>
-                          <tr>
-                              <td>Năm ra mắt</td>
-                              <td>2020</td>
-                          </tr>
+                        {
+                          table_attribute.table_infor.map((e,i)=>{
+                            return <tr key={i}>
+                            <td>{e.name}</td>
+                            <td>{e.value}</td>
+                        </tr>
+                          })
+                        }
                       </tbody>
                   </table>
               </div>
-              <div><span className='mdrx'>mở rộng</span></div>
+              <div><span className='mdrx'
+                onClick={()=>this.setState({is_hidden_1:!this.state.is_hidden_1})}
+              >{this.state.is_hidden_1?'mở rộng':'thu nhỏ'}</span></div>
               </Grid.Column>
               <Grid.Column width={9}>
                 <div>
