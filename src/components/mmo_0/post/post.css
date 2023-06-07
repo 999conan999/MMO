@@ -390,7 +390,15 @@ blockquote>p {
    border: 1px solid red !IMPORTANT;
    background-color: antiquewhite !important;
 }
-.input_table_price input:not(.ktzx){
+.iput-1{
    border: none;
-   color: #9ba38c;
+   font-weight: 700;
+   color: #767676;
+   outline: none;
+}
+.iput-2{
+   border: none;
+   color: brown;
+   font-weight: 700;
+   outline: none;
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // import { toast } from 'react-toastify';
-import Input_img from '../lib/input_img/index'
+import Input_img from '../lib/input_img/index';
+import { moveElement } from '../lib/fs';
 import { Container, Grid, Button,Input,Checkbox, Image, Table, Header,Form } from 'semantic-ui-react'
 export default class Editer_attribute extends Component {
   constructor(props) {
@@ -17,14 +18,50 @@ export default class Editer_attribute extends Component {
         is_show_price_table:true,
         table_price:[],
         is_show_infor:true,
-        table_infor:[],
+        table_infor:[
+          {
+            name:'Xuất xứ',
+            value:''
+          },
+          {
+            name:'Thương hiệu',
+            value:''
+          },
+          {
+            name:'Kích thước',
+            value:''
+          },
+          {
+            name:'Màu sắc',
+            value:''
+          },
+          {
+            name:'Chất liệu 1',
+            value:''
+          },
+          {
+            name:'Chất liệu 2',
+            value:''
+          },
+          {
+            name:'Đối tượng sử dụng',
+            value:''
+          },
+          {
+            name:'Bảo hành',
+            value:''
+          },
+
+        ],
         is_show_commit:true,
         table_commit:[]
-      }
+      },
+      //phu tro
+      index_show_input_table_price:-1
     }
   }
   render() {
-    let {data}=this.state;
+    let {data,index_show_input_table_price}=this.state;
     return (
       <div className='wrap-editer-post attr-wrap'>
         <Container>
@@ -126,8 +163,9 @@ export default class Editer_attribute extends Component {
                       <Table.Row>
                           <Table.HeaderCell>{data.attribute_name}</Table.HeaderCell>
                           <Table.HeaderCell>Giá Vốn (1.200.000đ)</Table.HeaderCell>
-                          <Table.HeaderCell>Giá gốc hiển thị (+100.000đ)</Table.HeaderCell>
-                          <Table.HeaderCell>Giá khuyến mãi hiển thị (+50.000đ)</Table.HeaderCell>
+                          <Table.HeaderCell>Lời*(+600.000đ)</Table.HeaderCell>
+                          <Table.HeaderCell>Giá sẽ bán hiển thị</Table.HeaderCell>
+                          <Table.HeaderCell>Giá gốc ảo hiển thị (+100.000đ)</Table.HeaderCell>
                           <Table.HeaderCell></Table.HeaderCell>
                       </Table.Row>
                       </Table.Header>
@@ -136,48 +174,60 @@ export default class Editer_attribute extends Component {
                         {
                           data.table_price.map((e,i)=>{
                             return<Table.Row key={i}>
-                              <Table.Cell>
-                                  <input type="text" class="danh-input ktzx" placeholder="1m x 2m..." 
+                              <Table.Cell className='re'>
+                                  {index_show_input_table_price!==i&&<i className="fa-solid fa-pen-to-square abs hv" style={{left:'-10px',top:'12px'}}
+                                   onClick={()=>this.setState({index_show_input_table_price:i})}
+                                  ></i>}
+                                  {index_show_input_table_price===i&&<i className="fa-solid fa-square-check abs hv" style={{left:'-10px',top:'12px'}}
+                                    onClick={()=>this.setState({index_show_input_table_price:-1})}
+                                  ></i>}
+                                  {index_show_input_table_price===i&&<input type="text" class="danh-input ktzx" placeholder="1m x 2m..." 
                                     value={e.name}
                                     onChange={(e)=>{
                                       let {data}=this.state;
                                       data.table_price[i].name=e.target.value
                                       this.setState({data:data})
                                     }}
-                                  />
+                                  />}
+                                  {index_show_input_table_price!==i&&<span>{e.name}</span>}
                               </Table.Cell>
                               <Table.Cell className='re'>
-                                  <span className='abs' style={{top:"-6px",paddingLeft:'2px',color:"blue"}}>{Number(e.price_v).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</span>
-                                  <input class="danh-input" placeholder="+1200000" type="number" step={50000}
+                                  {index_show_input_table_price!==i&&<span style={{color:"blue"}}>{Number(e.price_v).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</span>}
+                                  {index_show_input_table_price===i&&<input class="danh-input" placeholder="1200000" type="number" step={50000}
                                     value={e.price_v}
                                     onChange={(e)=>{
                                       let {data}=this.state;
-                                      data.table_price[i].price_v=e.target.value
+                                      data.table_price[i].price_v=e.target.value;
+                                      data.table_price[i].price_sale=data.table_price[i].price_sale+data.table_price[i].price_profit;
                                       this.setState({data:data})
                                     }}
-                                  />
+                                  />}
                               </Table.Cell>
                               <Table.Cell className='re'>
-                                 <del className='abs' style={{top:"-6px",paddingLeft:'2px',color:"red"}}>{(Number(e.price_v)+Number(e.price_og)).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</del>
-                                  <input class="danh-input" placeholder="+1200000" type="number" step={50000}
+                                  {index_show_input_table_price!==i&&<span style={{color:"red"}}>+{Number(e.price_profit).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</span>}
+                                  {index_show_input_table_price===i&&<input class="danh-input" placeholder="+600000" type="number" step={50000}
+                                    value={e.price_profit}
+                                    onChange={(e)=>{
+                                      let {data}=this.state;
+                                      data.table_price[i].price_profit=e.target.value;
+                                      data.table_price[i].price_sale=data.table_price[i].price_sale+data.table_price[i].price_profit;
+                                      this.setState({data:data})
+                                    }}
+                                  />}
+                              </Table.Cell>
+                              <Table.Cell className='re'>
+                                  {index_show_input_table_price!==i&&<span  style={{color:"green"}}>{(Number(e.price_profit)+Number(e.price_v)).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</span>}
+                              </Table.Cell>
+                              <Table.Cell className='re'>
+                                 {index_show_input_table_price!==i&&<del  style={{color:"#9d9696"}}>{(Number(e.price_v)+Number(e.price_og)+Number(e.price_profit)).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</del>}
+                                 {index_show_input_table_price===i&& <input class="danh-input" placeholder="+1200000" type="number" step={50000}
                                     value={e.price_og}
                                     onChange={(e)=>{
                                       let {data}=this.state;
                                       data.table_price[i].price_og=e.target.value
                                       this.setState({data:data})
                                     }}
-                                  />
-                              </Table.Cell>
-                              <Table.Cell className='re'>
-                                  <span className='abs' style={{top:"-6px",paddingLeft:'2px',color:"green"}}>{(Number(e.price_sale)+Number(e.price_v)).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</span>
-                                  <input class="danh-input" placeholder="+1200000" type="number" step={50000} 
-                                    value={e.price_sale}
-                                    onChange={(e)=>{
-                                      let {data}=this.state;
-                                      data.table_price[i].price_sale=e.target.value
-                                      this.setState({data:data})
-                                    }}
-                                  />
+                                  />}
                               </Table.Cell>
                               <Table.Cell>
                                   <i class="fa-solid fa-trash edit-db"
@@ -200,27 +250,37 @@ export default class Editer_attribute extends Component {
                   <div className='add-tbatx'><Button primary icon='add square'
                     onClick={()=>{
                       let {data}=this.state;
-                      data.table_price.push({
-                        name:'',
-                        price_v:0,
-                        price_og:0,
-                        price_sale:0
-                      });
-                      this.setState({data:data})
+                      let l=data.table_price.length;
+                      if(data.table_price.length===0){
+                          data.table_price.push({
+                            name:'',
+                            price_v:0,
+                            price_og:150000,
+                            price_profit:0,
+                          });
+                      }else{
+                        data.table_price.push({
+                          name:data.table_price[l-1].name,
+                          price_v:data.table_price[l-1].price_v,
+                          price_og:data.table_price[l-1].price_og,
+                          price_profit:data.table_price[l-1].price_profit,
+                        });
+                      }
+                      this.setState({data:data,index_show_input_table_price:data.table_price.length-1})
                     }}
                   /></div>
                 </div>
               </Grid.Column>
             </Grid>
           </div>
-          <div className='wrap-s'>
+          <div className='wrap-s input_table_infor'>
             <Grid>
               <Grid.Column width={16}>
                 <Form>
                   <Header as='h1' textAlign="center">*Thông số kĩ thuật</Header>
                 </Form>
               </Grid.Column>
-              <Grid.Column width={12}>
+              <Grid.Column width={16}>
                 <Form>
                     <Header as='h4' className='mgb-8'>*Bảng thông số:</Header>
                     <Checkbox toggle label={data.is_show_infor?'Hiển thị bảng thông số(đang Bật)':'Hiển thị bảng thông số(đang Tắt)'} style={{margin:"26px"}}
@@ -236,28 +296,70 @@ export default class Editer_attribute extends Component {
                   <Table singleLine>
                       <Table.Header>
                       <Table.Row>
-                          <Table.HeaderCell>Tên</Table.HeaderCell>
-                          <Table.HeaderCell>Thông số</Table.HeaderCell>
+                          <Table.HeaderCell width={6}>Tên</Table.HeaderCell>
+                          <Table.HeaderCell width={10}>Thông số</Table.HeaderCell>
                           <Table.HeaderCell></Table.HeaderCell>
                       </Table.Row>
                       </Table.Header>
 
                       <Table.Body>
-                      <Table.Row>
-                          <Table.Cell>
-                              <input type="text" class="danh-input" placeholder="1m x 2m..." />
-                          </Table.Cell>
-                          <Table.Cell>
-                              <input class="danh-input" placeholder="1200000" type="text" step={50000}  />
-                          </Table.Cell>
-                          <Table.Cell>
-                              <i class="fa-solid fa-trash edit-db"></i>
-                          </Table.Cell>
-                      </Table.Row>
+                        {
+                          data.table_infor.map((e,i)=>{
+                            return <Table.Row key={i}>
+                            <Table.Cell className='re'>
+                                {i>0&&<i class="fa-solid fa-up-long abs hv" style={{left:'-10px',top:'12px'}}
+                                  onClick={()=>{
+                                    let {data}=this.state;
+                                    data.table_infor=moveElement(data.table_infor,i,i-1);
+                                    this.setState({data:data})
+                                  }}
+                                ></i>}
+                                <input type="text" class="danh-input iput-1" placeholder="..." 
+                                  value={e.name}
+                                  onChange={(e)=>{
+                                    let {data}=this.state;
+                                    data.table_infor[i].name=e.target.value;
+                                    this.setState({data:data})
+                                  }}
+                                />
+                            </Table.Cell>
+                            <Table.Cell>
+                                <input class="danh-input iput-2" placeholder="..." type="text"  
+                                    value={e.value}
+                                    onChange={(e)=>{
+                                      let {data}=this.state;
+                                      data.table_infor[i].value=e.target.value;
+                                      this.setState({data:data})
+                                    }}
+                                />
+                            </Table.Cell>
+                            <Table.Cell>
+                                <i class="fa-solid fa-trash edit-db"
+                                onClick={()=>{
+                                  if(window.confirm(`Xác nhận xóa: "${e.name}"`)){
+                                    let {data}=this.state;
+                                    data.table_infor.splice(i,1);
+                                    this.setState({data:data})
+                                  }
+                                }}
+                                ></i>
+                            </Table.Cell>
+                        </Table.Row>
+                          })
+                        }
               
                       </Table.Body>
                   </Table>
-                  <div className='add-tbatx'><Button primary icon='add square'/></div>
+                  <div className='add-tbatx'><Button primary icon='add square'
+                    onClick={()=>{
+                      let {data}=this.state;
+                      data.table_infor.push({
+                        name:'',
+                        value:''
+                      })
+                      this.setState({data:data})
+                    }}
+                  /></div>
                 </div>
               </Grid.Column>
             </Grid>
@@ -282,30 +384,63 @@ export default class Editer_attribute extends Component {
                 <div className='re'>
                   <Table singleLine>
                       <Table.Body>
-                      <Table.Row>
-                          <Table.Cell width={14}>
-                            <p><Input fluid icon='shield alternate' placeholder='Search...' /></p>
+                        {data.table_commit.map((e,i)=>{
+                          return <Table.Row key={i}>
+                          <Table.Cell width={14} className='re'>
+                              {i>0&&<i class="fa-solid fa-up-long abs hv" style={{left:'-10px',top:'12px'}}
+                                onClick={()=>{
+                                  let {data}=this.state;
+                                  data.table_commit=moveElement(data.table_commit,i,i-1);
+                                  this.setState({data:data})
+                                }}
+                              ></i>}
+                            <p><Input fluid icon='shield alternate' placeholder='...'
+                                value={e}
+                                onChange={(e)=>{
+                                  let {data}=this.state;
+                                  data.table_commit[i]=e.target.value;
+                                  this.setState({data:data})
+                                }}
+                            /></p>
                           </Table.Cell>
                           <Table.Cell width={2}>
-                              <i class="fa-solid fa-trash edit-db"></i>
+                              <i class="fa-solid fa-trash edit-db"
+                                onClick={()=>{
+                                  if(window.confirm(`Xác nhận xóa: "${e}"`)){
+                                    let {data}=this.state;
+                                    data.table_commit.splice(i,1);
+                                    this.setState({data:data})
+                                  }
+                                }}
+                              ></i>
                           </Table.Cell>
                       </Table.Row>
+                        })}
+                      
               
                       </Table.Body>
                   </Table>
-                  <div className='add-tbatx'><Button primary icon='add square'/></div>
+                  <div className='add-tbatx'><Button primary icon='add square'
+                    onClick={()=>{
+                      let {data}=this.state;
+                      data.table_commit.push('')
+                      this.setState({data:data})
+                    }}
+                  /></div>
                 </div>
               </Grid.Column>
             </Grid>
           </div>
- 
-         
-          
         </Container>
 
         <div className='footer-edit'>
           <Button size='medium' color='grey'>Hủy</Button>
-          <Button primary className='createx'>Tạo bài viết mới</Button>
+          <Button primary className='createx'
+            onClick={()=>{
+              let {data}=this.state;
+              console.log(JSON.stringify(data))
+            }}
+          >Tạo bài viết mới</Button>
         </div>
       </div>
     );
