@@ -144,13 +144,35 @@ function add_to_cart(){
     update_count_cart();
 }
 try{
+    let is_render_img=false;
     var A_offset = $('#thong-so-ki-thuat').offset().top-100;
     $(window).scroll(function() {
             var scroll_pos = $(window).scrollTop();
             if (scroll_pos >= A_offset) {
                 document.getElementById("scrollTop").style.display = "block";
+                if(!is_render_img){
+                    render_imgs();
+                    is_render_img=true;
+                }
             }else{
                 document.getElementById("scrollTop").style.display = "none";
             }
     });
 }catch(e){}
+// hien thi hinh anh
+
+function render_imgs(){
+    let items = document.querySelectorAll('.get-img');
+    let html_imgs='<span class="xu-huong">Hình ảnh thực tế</span>';
+    items.forEach(function(item) {
+        let img = item.querySelector('img');
+        let imageUrl = img.getAttribute('src');
+        html_imgs+=`<div class="col-12 col-md-6 col-xl-4 img-cs">
+                <div class="danhdev-product">
+                    <img src="${imageUrl}"
+                        class="card-imgs zz">
+                </div>
+            </div>`;
+    });
+    document.getElementById("show-img").innerHTML = html_imgs;
+}
