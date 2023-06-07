@@ -49,7 +49,8 @@ export default class Editer_post extends Component {
         related_keyword:[],
         status:'private',
         is_best_seller:false,
-        index_price:0
+        index_price:0,
+        show_price:0
       },
       //
       category_list:[
@@ -279,6 +280,7 @@ export default class Editer_post extends Component {
                               if(data.index_price!=i){
                                 let {data}=this.state;
                                 data.index_price=i;
+                                data.show_price=Number(e.price_v)+Number(e.price_profit);
                                 this.setState({data:data})
                               }
                             }}

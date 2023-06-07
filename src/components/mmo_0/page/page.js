@@ -99,7 +99,7 @@ export default class Pages extends Component {
                   </Table>
                 </Segment>
               </Grid.Column>
-              {/* <Editer_page/> */}
+              <Editer_page/>
               {false&&<div className='dimerz'></div>}
         </React.Fragment>
       );
