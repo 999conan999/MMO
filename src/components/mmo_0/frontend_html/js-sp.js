@@ -167,12 +167,14 @@ function render_imgs(){
     items.forEach(function(item) {
         let img = item.querySelector('img');
         let imageUrl = img.getAttribute('src');
-        html_imgs+=`<div class="col-12 col-md-6 col-xl-4 img-cs">
+        if(imageUrl!=undefined&&imageUrl!=null&&imageUrl!=""){
+             html_imgs+=`<div class="col-12 col-md-6 col-xl-4 img-cs">
                 <div class="danhdev-product re">
                     <img src="${imageUrl}" class="card-imgs zz">
                     <div class="w-btn-mua" style="bottom: 16px;"><button class="btn-mua" onclick="set_kt('${imageUrl}')"><span class="icon-cartx"></span>Mua ngay!</button></div>
                 </div>
             </div>`;
+        }
     });
     document.getElementById("show-img").innerHTML = html_imgs;
 }

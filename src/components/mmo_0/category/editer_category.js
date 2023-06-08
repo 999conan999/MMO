@@ -31,12 +31,76 @@ export default class Editer_category extends Component {
         title:'',
         short_des:'',
         long_des:test_html,
-        related_list:[]
+        related_list:[],
+        dm:[
+          {
+            name:"Giường sắt hộp vuông",
+            sp_list_id:[1,2,3]
+          },
+          {
+            name:"Giường sắt ống tròn",
+            sp_list_id:[6,7]
+          },
+        ],
+      },
+      //
+      list_sp:{
+        1:{
+          id:1,
+          img:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg',
+          title:'Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau 1',
+          price:1350000
+        },
+        2:{
+          id:2,
+          img:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-sat-don-gian-s6.jpg',
+          title:'Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau 2',
+          price:1250000
+        },
+        3:{
+          id:3,
+          img:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-cho-ba-de.jpg',
+          title:'Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau 3',
+          price:1550000
+        },
+        4:{
+          id:4,
+          img:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-sat-mau-trang-gia-re-binh-duong.jpg',
+          title:'Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau 4',
+          price:1650000
+        },
+        5:{
+          id:5,
+          img:'http://localhost/cofanew/wp-content/uploads/2023/05/giuong-tang-tre-em-2.jpg',
+          title:'Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau 5',
+          price:1250000
+        },
+        6:{
+          id:6,
+          img:'http://localhost/cofanew/wp-content/uploads/2023/05/giuong-tang-tre-em-3.jpg',
+          title:'Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau 6',
+          price:1850000
+        },
+        7:{
+          id:7,
+          img:'http://localhost/cofanew/wp-content/uploads/2023/05/giuong-tang-tre-em-4.jpg',
+          title:'Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau 7',
+          price:1950000
+        },
+      },
+      // ho tro
+      selected_sp:{
+        name:'',
+        is_show_pp_sp:false,
+        index:-1,
+        rs:[],
+        text:''
       }
     }
   }
   render() {
-    let {data}=this.state;
+    let {data,list_sp,selected_sp}=this.state;
+    let text_selected_sp_id='';
     return (
       <div className='wrap-editer-post'>
         <Container>
@@ -225,57 +289,104 @@ export default class Editer_category extends Component {
           {/*  */}
           <div>
             <Header as='h1' textAlign="center">*Phân loại sản phẩm </Header>
-            <Button content='Thêm phân loại' icon='add' labelPosition='right' color="blue" size='large'/>
+            <Button content='Thêm phân loại' icon='add' labelPosition='right' color="blue" size='large'
+              onClick={()=>{
+                let {data}=this.state;
+                data.dm.unshift({
+                  name:"",
+                  sp_list_id:[]
+                })
+                this.setState({data:data})
+              }}
+            />
           </div>
-            <Segment>
+          {
+            data.dm.map((e,i)=>{
+              return <Segment key={i}>
               <Grid>
                 <Grid.Column width={16} className='headerx re'>
                     <Form>
                       <Input
-                      // label={{ icon: 'asterisk' }}
-                      // labelPosition='left corner'
                       placeholder='Nhập nội dung ở đây...'
-                      // value={text}
-                      // onChange={(e,{value}) => {
-                      //   this.props.fs_result(value)
-                      // }}
+                      value={e.name}
+                      onChange={(e,{value}) => {
+                        let {data}=this.state;
+                        data.dm[i].name=value;
+                        this.setState({data:data})
+                      }}
                       />
                     </Form>
-                    <i className="fa-solid fa-hand-point-up up1 hv"></i>
-                    <i className="fa-solid fa-trash abs hv" style={{left:"16px",top:"16px"}}></i>
+                    {i>0&&<i className="fa-solid fa-hand-point-up up1 hv"
+                        onClick={()=>{
+                          let {data}=this.state;
+                          data.dm=moveElement(data.dm,i,i-1);
+                          this.setState({data:data})
+                        }}
+                    ></i>}
+                    <i className="fa-solid fa-trash abs hv" style={{left:"16px",top:"16px"}}
+                        onClick={()=>{
+                          if(window.confirm(`Xác nhận xóa : "${e.name}"`)){
+                            let {data}=this.state;
+                            data.dm.splice(i,1);
+                            this.setState({data:data})
+                          }
+                        }}
+                    ></i>
                 </Grid.Column>
-                <Grid.Column width={4} >
-                  <Card className='re'>
-                    <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
-                    <i className="fa-solid fa-x abs hv" style={{right:"16px",top:"16px",fontSize:"20px"}}></i>
-                    <i className="fa-solid fa-left-long abs hv" style={{left:"16px",top:"16px",fontSize:"26px"}}></i>
-                   
-                    <Card.Content>
-                    <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
-                      <Card.Meta>
-                        <span className='clr'>1.250.000đ</span>
-                      </Card.Meta>
-                    </Card.Content>
-                  </Card>
-                </Grid.Column>
-                <Grid.Column width={4} >
-                  <Card className='re'>
-                    <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
-                    <i className="fa-solid fa-x abs hv" style={{right:"16px",top:"16px",fontSize:"20px"}}></i>
-                    <i className="fa-solid fa-left-long abs hv" style={{left:"16px",top:"16px",fontSize:"26px"}}></i>
-                    <Card.Content>
-                    <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
-                      <Card.Meta>
-                        <span className='clr'>1.250.000đ</span>
-                      </Card.Meta>
-                    </Card.Content>
-                  </Card>
-                </Grid.Column>
+                {
+                  e.sp_list_id.map((a,j)=>{
+                    text_selected_sp_id+=','+a+',';
+                          if(list_sp[a]!=undefined){
+                              return <Grid.Column width={4} key={i+''+j}>
+                                <Card className='re'>
+                                  <Image src={list_sp[a].img} wrapped ui={false} />
+                                  <i className="fa-solid fa-x abs hv" style={{right:"16px",top:"16px",fontSize:"20px"}}
+                                    onClick={()=>{
+                                      if(window.confirm(`Xác nhận xóa : "${list_sp[a].title}"`)){
+                                        let {data}=this.state;
+                                        data.dm[i].sp_list_id.splice(j,1);
+                                        this.setState({data:data})
+                                      }
+                                    }}
+                                  ></i>
+                                  {j>0&&<i className="fa-solid fa-left-long abs hv" style={{left:"16px",top:"16px",fontSize:"26px"}}
+                                    onClick={()=>{
+                                      let {data}=this.state;
+                                      data.dm[i].sp_list_id=moveElement(data.dm[i].sp_list_id,j,j-1);
+                                      this.setState({data:data})
+                                    }}
+                                  ></i>}
+                                  <Card.Content>
+                                  <Header as='h5'>{list_sp[a].title}</Header>
+                                    <Card.Meta>
+                                      <span className='clr'>{(Number(list_sp[a].price)).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</span>
+                                    </Card.Meta>
+                                  </Card.Content>
+                                </Card>
+                              </Grid.Column>
+                          }
+                      })
+                    }
               </Grid>
-              <Button icon className='add-nxas' color='blue'>
+              <Button icon className='add-nxas' color='blue'
+                  onClick={()=>{
+                    this.setState({
+                      selected_sp:{
+                        name:e.name,
+                        is_show_pp_sp:true,
+                        index:i,
+                        rs:[],
+                        text:''
+                      }
+                    })
+                  }}
+              >
                 <Icon name='add' />
               </Button>
             </Segment>
+            })
+          }
+     
           {/*  */}
         </Container>
 
@@ -303,171 +414,87 @@ export default class Editer_category extends Component {
             }
           }}
         />}
-          {true&&<div>
-            <div className='card-sp'>
+          {selected_sp.is_show_pp_sp&&<div>
+            <div className='card-sp'
+                onClick={(e)=>{
+                  if (e.target.classList.contains('card-sp')) {
+                    this.setState({
+                      selected_sp:{
+                        is_show_pp_sp:false,
+                        index:-1,
+                        rs:[],
+                        text:''
+                      }
+                    })
+                  }
+                }}
+            >
             <Container>
               <Segment>
                 <Grid className='re'>
-                  <Grid.Column width={4} >
-                    <Card className='re cs active1'>
-                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
-                      <Card.Content>
-                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
-                        <Card.Meta>
-                          <span className='clr'>1.250.000đ</span>
-                        </Card.Meta>
-                      </Card.Content>
-                    </Card>
-                  </Grid.Column>
-                  <Grid.Column width={4} >
-                    <Card className='re'>
-                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
-                      <Card.Content>
-                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
-                        <Card.Meta>
-                          <span className='clr'>1.250.000đ</span>
-                        </Card.Meta>
-                      </Card.Content>
-                    </Card>
-                  </Grid.Column>
-                  <Grid.Column width={4} >
-                    <Card className='re'>
-                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
-                      <Card.Content>
-                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
-                        <Card.Meta>
-                          <span className='clr'>1.250.000đ</span>
-                        </Card.Meta>
-                      </Card.Content>
-                    </Card>
-                  </Grid.Column>
-                  <Grid.Column width={4} >
-                    <Card className='re'>
-                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
-                      <Card.Content>
-                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
-                        <Card.Meta>
-                          <span className='clr'>1.250.000đ</span>
-                        </Card.Meta>
-                      </Card.Content>
-                    </Card>
-                  </Grid.Column>
-                  <Grid.Column width={4} >
-                    <Card className='re'>
-                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
-                      <Card.Content>
-                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
-                        <Card.Meta>
-                          <span className='clr'>1.250.000đ</span>
-                        </Card.Meta>
-                      </Card.Content>
-                    </Card>
-                  </Grid.Column>
-                  <Grid.Column width={4} >
-                    <Card className='re'>
-                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
-                      <Card.Content>
-                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
-                        <Card.Meta>
-                          <span className='clr'>1.250.000đ</span>
-                        </Card.Meta>
-                      </Card.Content>
-                    </Card>
-                  </Grid.Column>
-                  <Grid.Column width={4} >
-                    <Card className='re'>
-                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
-                      <Card.Content>
-                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
-                        <Card.Meta>
-                          <span className='clr'>1.250.000đ</span>
-                        </Card.Meta>
-                      </Card.Content>
-                    </Card>
-                  </Grid.Column>
-                  <Grid.Column width={4} >
-                    <Card className='re'>
-                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
-                      <Card.Content>
-                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
-                        <Card.Meta>
-                          <span className='clr'>1.250.000đ</span>
-                        </Card.Meta>
-                      </Card.Content>
-                    </Card>
-                  </Grid.Column>
-                  <Grid.Column width={4} >
-                    <Card className='re'>
-                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
-                      <Card.Content>
-                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
-                        <Card.Meta>
-                          <span className='clr'>1.250.000đ</span>
-                        </Card.Meta>
-                      </Card.Content>
-                    </Card>
-                  </Grid.Column>
-                  <Grid.Column width={4} >
-                    <Card className='re'>
-                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
-                      <Card.Content>
-                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
-                        <Card.Meta>
-                          <span className='clr'>1.250.000đ</span>
-                        </Card.Meta>
-                      </Card.Content>
-                    </Card>
-                  </Grid.Column>
-                  <Grid.Column width={4} >
-                    <Card className='re'>
-                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
-                      <Card.Content>
-                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
-                        <Card.Meta>
-                          <span className='clr'>1.250.000đ</span>
-                        </Card.Meta>
-                      </Card.Content>
-                    </Card>
-                  </Grid.Column>
-                  <Grid.Column width={4} >
-                    <Card className='re'>
-                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
-                      <Card.Content>
-                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
-                        <Card.Meta>
-                          <span className='clr'>1.250.000đ</span>
-                        </Card.Meta>
-                      </Card.Content>
-                    </Card>
-                  </Grid.Column>
-                  <Grid.Column width={4} >
-                    <Card className='re'>
-                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
-                      <Card.Content>
-                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
-                        <Card.Meta>
-                          <span className='clr'>1.250.000đ</span>
-                        </Card.Meta>
-                      </Card.Content>
-                    </Card>
-                  </Grid.Column>
-                  <Grid.Column width={4} >
-                    <Card className='re'>
-                      <Image src='https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg' wrapped ui={false} />
-                      <Card.Content>
-                      <Header as='h5'>Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau</Header>
-                        <Card.Meta>
-                          <span className='clr'>1.250.000đ</span>
-                        </Card.Meta>
-                      </Card.Content>
-                    </Card>
-                  </Grid.Column>
+                  {
+                    Object.keys(list_sp).map((key, i)=> {
+                      if(text_selected_sp_id.search(","+key+",")===-1){
+                        let {selected_sp}=this.state;
+                        let active1=selected_sp.text.search(","+key+",")==-1?false:true;
+                        return <Grid.Column width={4} key={key} >
+                        <Card as={'div'} className={active1?'re cs active1':'re'} onClick={()=>{
+                          if(active1){// co
+                            selected_sp.rs.splice(i,1);
+                            selected_sp.text=selected_sp.text.replace(","+key+",","");
+                          }else{// chua active
+                            selected_sp.rs.push(key);
+                            selected_sp.text+=","+key+",";
+                          }
+                          this.setState({selected_sp:selected_sp})
+                        }}>
+                          <Image src={list_sp[key].img} wrapped ui={false} />
+                          <Card.Content>
+                          <Header as='h5'>{list_sp[key].title}</Header>
+                            <Card.Meta>
+                              <span className='clr'>{(Number(list_sp[key].price)).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</span>
+                            </Card.Meta>
+                          </Card.Content>
+                        </Card>
+                      </Grid.Column>;
+                      }
+                    })
+                  }
+ 
                 </Grid>
               </Segment>
             </Container>
+            <section className='ttxs'><Container><b>{selected_sp.name}</b></Container></section>
             </div>
             <div className='btn-okx'>
-                <Button color='violet' >OK</Button>
+                <Button color='brown'
+                    onClick={()=>{
+                    this.setState({
+                      selected_sp:{
+                        is_show_pp_sp:false,
+                        index:-1,
+                        rs:[],
+                        text:''
+                      }
+                    })
+                  }}
+                >Hủy</Button>
+                <Button className='mgl-50' color='violet' 
+                  onClick={()=>{
+                    let {data,selected_sp}=this.state;
+                    if(selected_sp.rs.length>0){
+                      data.dm[selected_sp.index].sp_list_id=[...data.dm[selected_sp.index].sp_list_id,...selected_sp.rs]
+                    }
+                    selected_sp={
+                      is_show_pp_sp:false,
+                      index:-1,
+                      rs:[],
+                      text:''
+                    }
+                    this.setState({data:data,selected_sp:selected_sp})
+
+                  }}
+                >OK</Button>
             </div>
           </div>}
       </div>

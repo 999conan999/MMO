@@ -47,6 +47,7 @@ export default class Editer_post extends Component {
         long_des:test_html,
         price:1250000,
         related_keyword:[],
+        is_best_seller:false,
         status:'private',
         is_best_seller:false,
         index_price:0,

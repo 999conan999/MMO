@@ -105,9 +105,10 @@ export default class Posts extends Component {
                           </div>
                         </Table.Cell>
                         <Table.Cell>
-                          {/* <a className='tagx'>S.P</a> */}
+                          <a className='tagx'>S.P</a>
                           <a className='tagx clonxe'>S.P_clone</a>
-                          {/* <a className='tagx colrfs'>B.V</a> */}
+                          <a className='tagx clonxes'>S.P_seo</a>
+                          <a className='tagx colrfs'>B.V</a>
                         </Table.Cell>
                         <Table.Cell>
                           <div>(3) 

@@ -283,6 +283,9 @@ blockquote>p {
 .clonxe{
    background-color: #50a150 !important;
 }
+.clonxes{
+   background-color: brown !important;
+}
 .anh-xa{
    color: #673AB7;
    font-weight: 800;
@@ -370,6 +373,9 @@ blockquote>p {
    padding: 10px;
    position: relative;
 }
+.card-sp>div>div{
+   min-height: 77vh;
+}
 .cs{
    cursor: pointer;
 }
@@ -402,3 +408,21 @@ blockquote>p {
    font-weight: 700;
    outline: none;
 }
+.mgl-50{
+   margin-left: 32px !important;
+}
+.ttxs{
+   position: absolute;
+   top: 14px;
+   left: 0px;
+   width: 100%;
+}
+.ttxs > div>b{
+   padding: 5px 12px;
+   font-size: 29px;
+   background-color: white;
+   margin-left: 12px;
+   border-radius: 4px;
+   color: silver;
+}
+ 
