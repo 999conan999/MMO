@@ -1860,30 +1860,38 @@ h3.title-h3-2 {
     padding: 0px;
 }
 .a-bv{
-    display: flex;
     background-color: white;
     border-radius: 5px;
     padding: 8px;
     text-decoration-line: none;
+    cursor: pointer;
 }
-.a-bv:hover{
+.a-bv>a:hover{
     color:#0d6efd;
     text-decoration-line: underline;
+}
+.a-bv>a{
+    font-size: 12px;
+    margin-bottom: 3px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
 }
 .bv-cart{
     margin-bottom: 3px;
     padding: 4px;
 }
 .a-bv>p{
-    height: 80px;
+    height: 36px;
     overflow: hidden;
-    line-height: 20px;
+    line-height: 17px;
     word-wrap: break-word;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;
-    
+    -webkit-line-clamp: 2;
+    font-size: 11px;
+    color: #858b8b;
 }
 @media (min-width: 768px){
     .ulz a{

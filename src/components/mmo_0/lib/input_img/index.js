@@ -25,10 +25,11 @@ componentWillReceiveProps(nextProps){
 
 
   render() {
-      let { is_muti, }=this.props;
+      let { is_muti,size }=this.props;
+      let btn_show_size=size===undefined?"md":size;
       return (
         <React.Fragment>
-              <button className='buzz re'
+              {btn_show_size=='md'&&<button className='buzz re'
                   onClick={()=>{
                     let keyLock=makeid(6);
                     this.setState({
@@ -44,7 +45,22 @@ componentWillReceiveProps(nextProps){
                 }}
                 >
                   <i className="fa-solid fa-photo-film"></i> <span>Add Media</span>
-                </button>
+                </button>}
+                {btn_show_size=='mini'&&<button className="ui icon button"
+                  onClick={()=>{
+                    let keyLock=makeid(6);
+                    this.setState({
+                        selected_img:{
+                            type:keyLock,
+                        }
+                    });
+                    this.props.openAction({
+                        type:"OPEN",
+                        is_muti_selected:is_muti==undefined?false:is_muti,
+                        keyLock:keyLock
+                    })
+                }}
+                ><i aria-hidden="true" className="medrt icon"></i></button>}
         </React.Fragment>
       );
   }

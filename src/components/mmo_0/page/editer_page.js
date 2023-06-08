@@ -49,7 +49,6 @@ export default class Editer_page extends Component {
                   <Input_img
                     is_muti={false}
                     fs_result={(rs) => {
-                      console.log('line 120+ ',rs)
                       let {data}=this.state;
                       data.thumnail=rs[0].url;
                       this.setState({ data: data })

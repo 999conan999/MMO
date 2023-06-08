@@ -374,7 +374,7 @@ blockquote>p {
    cursor: pointer;
 }
 .btn-okx{
-   position: absolute;
+   position: fixed;
    left: 0px;
    bottom: 2vh;
    width: 100%;
