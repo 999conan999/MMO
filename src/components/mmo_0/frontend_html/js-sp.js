@@ -147,16 +147,18 @@ try{
     let is_render_img=false;
     var A_offset = $('#thong-so-ki-thuat').offset().top-100;
     $(window).scroll(function() {
-            var scroll_pos = $(window).scrollTop();
-            if (scroll_pos >= A_offset) {
-                document.getElementById("scrollTop").style.display = "block";
-                if(!is_render_img){
-                    render_imgs();
-                    is_render_img=true;
-                }
-            }else{
-                document.getElementById("scrollTop").style.display = "none";
-            }
+        if(!is_render_img){
+            render_imgs();
+            show_camKet_khuyenMai();
+            is_render_img=true;
+        }
+        //
+        var scroll_pos = $(window).scrollTop();
+        if (scroll_pos >= A_offset) {
+            document.getElementById("scrollTop").style.display = "block";
+        }else{
+            document.getElementById("scrollTop").style.display = "none";
+        }
     });
 }catch(e){}
 // hien thi hinh anh
@@ -189,4 +191,38 @@ function set_more(){
         document.getElementById("long-des").style.height = "200px";
         document.getElementById("btn-more").innerHTML = "Xem thêm";
     }
+}
+//
+
+function show_camKet_khuyenMai(){
+    let currentDate = new Date();
+    let currentMonth = currentDate.getMonth() + 1;
+    let targetElement = document.getElementById("khuyen-mai");
+    let old_html=targetElement.innerHTML;
+    let cam_ket=window.data.cam_ket;
+    let khuyen_mai=window.data.khuyen_mai;
+    if(cam_ket.length==0&&khuyen_mai.length==0||cam_ket.length>0&&khuyen_mai.length>0){
+        //old_html=12
+        old_html=old_html.replace("col-md-8","col-md-12")
+    }
+    // xu ly cam ket
+    let rs_cam_ket='';
+    let a='';
+    if(cam_ket.length>0){
+        cam_ket.forEach(e => {
+            a+=`<p>${e}</p>`
+        });
+        rs_cam_ket=`<div class="col-sm-12 col-md-4 card-dr"><div class="cam-dt"><div class="cam-tt-dt">Cam kết</div><div class="content-cam-dt">${a}</div></div></div>`
+    }
+    // xu ly khuyen_mai
+    let rs_khuyen_mai='';
+    a='';
+    if(khuyen_mai.length>0){
+        khuyen_mai.forEach(e => {
+            a+=`<p>${e}</p>`
+        });
+        rs_khuyen_mai=`<div class="col-sm-12 col-md-8 card-dr"><div class="panel-heading"><div class="heading-dt">Khuyến mãi trong tháng ${currentMonth}</div><div class="promo-detail">${a}</div></div></div>`
+    }
+    let rs=rs_cam_ket+rs_khuyen_mai+old_html;
+    targetElement.innerHTML=rs;
 }
