@@ -18,8 +18,8 @@
  .foot-tbaks{
     background-color:#d3d3d3 !important;
  }
- .active-da{
-    background-color: #50a150 !important;
+ .active-da,.active-da>td{
+    background-color: #d0f3d0 !important;
  }
  .wrap-editer-post{
     background-color: #dbdbda;
@@ -56,7 +56,7 @@
 }
 .keyworsx{
    position: absolute;
-   width: 250%;
+   width: 35vw;
    padding: 10px 30px;
    left: -9px;
    background-color: #deb887;
@@ -425,4 +425,8 @@ blockquote>p {
    border-radius: 4px;
    color: silver;
 }
- 
+.clearxa{
+   background-color: #f0f8ff00 !important;
+   border: none !important;
+   box-shadow: none !important;
+}
