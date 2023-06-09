@@ -178,3 +178,15 @@ function render_imgs(){
     });
     document.getElementById("show-img").innerHTML = html_imgs;
 }
+//
+function set_more(){
+    if(window.is_more==undefined||window.is_more==null||window.is_more==false){
+        window.is_more=true;
+        document.getElementById("long-des").style.height = "auto";
+        document.getElementById("btn-more").innerHTML = "Thu gọn";
+    }else{
+        window.is_more=false;
+        document.getElementById("long-des").style.height = "200px";
+        document.getElementById("btn-more").innerHTML = "Xem thêm";
+    }
+}
