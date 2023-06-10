@@ -33,7 +33,7 @@ export default class Posts extends Component {
           key_word:'Giường sắt hộp vuông',
           price:2250000,
           quantity_sold:12,
-          type:'sp_main',
+          type:'sp_seo',
           related_keyword:{
             rs_id:[],
             rs_obj:[]
@@ -60,7 +60,12 @@ export default class Posts extends Component {
         rs_obj:[]
       },
       //
-      text_check:""
+      text_check:"",
+      //
+      search_id:"",
+      search_title:"",
+      search_type:"All",
+      search_status:"All",
     }
   }
  async componentDidMount(){
@@ -69,7 +74,7 @@ export default class Posts extends Component {
     this.setState({text_check:text_check})
   }
   render() {
-    let {control_edit,data,select_quantity_sold,select_related_keyword,text_check}=this.state;
+    let {control_edit,data,select_quantity_sold,select_related_keyword,text_check,search_id,search_title,search_type,search_status}=this.state;
     let option_related_keyword=data.map((e)=> {
       return {
         value:e.id,
@@ -77,6 +82,26 @@ export default class Posts extends Component {
         url:e.url
       }
     })
+    // search id
+    if(search_id.length>0){
+      data=data.filter((e)=>e.id==search_id)
+    }
+    // search id
+    if(search_type!="All"){
+      data=data.filter((e)=>e.type==search_type)
+    }
+    // search id
+    if(search_status!="All"){
+      data=data.filter((e)=>e.status==search_status)
+    }
+    // search id
+    if(search_title.length>0){
+      data=data.filter((e)=>{
+        var normalizedTitle = e.title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        var normalizedSearchTitle = search_title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        return normalizedTitle.search(normalizedSearchTitle)>-1 ;
+      })
+    }
       return (
         <React.Fragment>
               <Grid>
@@ -129,13 +154,51 @@ export default class Posts extends Component {
                   <Table celled structured basic  size="small" striped className='table-da'>
                     <Table.Header className='head-tbaks'>
                       <Table.Row>
-                        <Table.HeaderCell width={1} className='idzx'>id <Input transparent placeholder='Search...' size='tiny' type='number'/></Table.HeaderCell>
+                        <Table.HeaderCell width={1} className='idzx'>id <Input transparent placeholder='Search...' size='tiny' type='number'
+                          value={search_id}
+                          onChange={(e,{value})=>{
+                            this.setState({search_id:value})
+                          }}
+                        /></Table.HeaderCell>
                         <Table.HeaderCell width={1}>Thumnail</Table.HeaderCell>
-                        <Table.HeaderCell width={4}>Tiêu đề: <Input transparent placeholder='Search...' size='tiny' /></Table.HeaderCell>
+                        <Table.HeaderCell width={4}>Tiêu đề: <Input transparent placeholder='Search...' size='tiny'
+                              value={search_title}
+                              onChange={(e,{value})=>{
+                                this.setState({search_title:value})
+                              }}
+                        /></Table.HeaderCell>
                         <Table.HeaderCell width={1}>Đã bán</Table.HeaderCell>
-                        <Table.HeaderCell width={1}>Type  <Button size='mini' basic icon="sort amount down"/></Table.HeaderCell>
+                        <Table.HeaderCell width={1}>Type  <Button size='mini' basic 
+                          onClick={()=>{
+                            let {search_type}=this.state;
+                            if(search_type=="All"){
+                              search_type="bv"
+                            }else if(search_type=="bv"){
+                              search_type="sp_main"
+                            }else if(search_type=="sp_main"){
+                              search_type="sp_seo"
+                            }else if(search_type=="sp_seo"){
+                              search_type="sp_clone"
+                            }else if(search_type=="sp_clone"){
+                              search_type="All"
+                            }
+                            this.setState({search_type:search_type})
+                          }}
+                        >{search_type}</Button></Table.HeaderCell>
                         <Table.HeaderCell width={1}>Related keywork</Table.HeaderCell>
-                        <Table.HeaderCell width={2}>Trạng thái <Button size='mini' basic >All</Button> </Table.HeaderCell>
+                        <Table.HeaderCell width={2}>Trạng thái <Button size='mini' basic 
+                          onClick={()=>{
+                            let {search_status}=this.state;
+                            if(search_status=="All"){
+                              search_status="publish"
+                            }else if(search_status=="publish"){
+                              search_status="private"
+                            }else if(search_status=="private"){
+                              search_status="All"
+                            }
+                            this.setState({search_status:search_status})
+                          }}
+                        >{search_status}</Button> </Table.HeaderCell>
                         <Table.HeaderCell width={4}>Điều chỉnh</Table.HeaderCell>
                         <Table.HeaderCell width={1}>Best Seller</Table.HeaderCell>
                         <Table.HeaderCell width={1}>Cache</Table.HeaderCell>
@@ -187,7 +250,7 @@ export default class Posts extends Component {
                                       </div>
                                     </Table.Cell>
                                     <Table.Cell>
-                                      {e.type=="sp_main"&&<a className='tagx'>S.P</a>}
+                                      {e.type=="sp_main"&&<a className='tagx'>S.P_main</a>}
                                       {e.type=="sp_clone"&&<a className='tagx clonxe'>S.P_clone</a>}
                                       {e.type=="sp_seo"&&<a className='tagx clonxes'>S.P_seo</a>}
                                       {e.type=="bv"&&<a className='tagx colrfs'>B.V</a>}

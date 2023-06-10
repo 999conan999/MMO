@@ -13,7 +13,7 @@ export default class Attribute extends Component {
             id:1,
             thumnail:'https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg',
             name:'Giường sắt ống tròn',
-            tag:'Giường ngủ',
+            tag:'Giường sắt',
             price:1250000,
             price_ss:300000,
           },
@@ -41,7 +41,10 @@ export default class Attribute extends Component {
           type:""
         },
         //
-        text_check:""
+        text_check:"",
+        //
+        search_id:"",
+        search_tag:"",
 
     }
   }
@@ -51,8 +54,20 @@ export default class Attribute extends Component {
     this.setState({text_check:text_check})
   }
   render() {
-    let {data,control_edit,text_check}=this.state;
-      return (
+    let {data,control_edit,text_check,search_id,search_tag}=this.state;
+    // search id
+    if(search_id.length>0){
+      data=data.filter((e)=>e.id==search_id)
+    }
+    // search id
+    if(search_tag.length>0){
+      data=data.filter((e)=>{
+        var normalizedTitle = e.tag.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        var normalizedSearchTitle = search_tag.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        return normalizedTitle.search(normalizedSearchTitle)>-1 ;
+      })
+    }
+    return (
         <React.Fragment>
               <Grid>
                 <Grid.Column width={4}>
@@ -79,10 +94,20 @@ export default class Attribute extends Component {
                   <Table celled structured basic  size="small" striped className='table-da'>
                     <Table.Header className='head-tbaks'>
                       <Table.Row>
-                        <Table.HeaderCell width={1} className='idzx'>id <Input transparent placeholder='Search...' size='tiny' type='number'/></Table.HeaderCell>
+                        <Table.HeaderCell width={1} className='idzx'>id <Input transparent placeholder='Search...' size='tiny' type='number'
+                          value={search_id}
+                          onChange={(e,{value})=>{
+                            this.setState({search_id:value})
+                          }}
+                        /></Table.HeaderCell>
                         <Table.HeaderCell width={1}>Thumnail</Table.HeaderCell>
                         <Table.HeaderCell width={2}>Tên thuộc tính</Table.HeaderCell>
-                        <Table.HeaderCell width={2}>Tag <Input transparent placeholder='Search...' size='tiny' type='number'/></Table.HeaderCell>
+                        <Table.HeaderCell width={2}>Tag <Input transparent placeholder='Search...' size='tiny'
+                          value={search_tag}
+                          onChange={(e,{value})=>{
+                            this.setState({search_tag:value})
+                          }}
+                        /></Table.HeaderCell>
                         <Table.HeaderCell width={1}>Giá ban đầu</Table.HeaderCell>
                         <Table.HeaderCell width={1}>Giá trị chuyển đổi</Table.HeaderCell>
                         <Table.HeaderCell width={4}>Điều chỉnh</Table.HeaderCell>

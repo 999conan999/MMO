@@ -42,8 +42,10 @@ export default class Categorys extends Component {
           type:""
         },
         //
-        text_check:""
-      
+        text_check:"",
+      //
+      search_id:"",
+      search_title:"",
     }
   }
   async componentDidMount(){
@@ -52,7 +54,19 @@ export default class Categorys extends Component {
     this.setState({text_check:text_check})
   }
   render() {
-    let {data,control_edit,text_check}=this.state;
+    let {data,control_edit,text_check,search_id,search_title}=this.state;
+    // search id
+    if(search_id.length>0){
+      data=data.filter((e)=>e.id==search_id)
+    }
+    // search id
+    if(search_title.length>0){
+      data=data.filter((e)=>{
+        var normalizedTitle = e.title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        var normalizedSearchTitle = search_title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        return normalizedTitle.search(normalizedSearchTitle)>-1 ;
+      })
+    }
       return (
         <React.Fragment>
               <Grid>
@@ -80,9 +94,19 @@ export default class Categorys extends Component {
                   <Table celled structured basic  size="small" striped className='table-da'>
                     <Table.Header className='head-tbaks'>
                       <Table.Row>
-                        <Table.HeaderCell width={1} className='idzx'>id <Input transparent placeholder='Search...' size='tiny' type='number'/></Table.HeaderCell>
+                        <Table.HeaderCell width={1} className='idzx'>id <Input transparent placeholder='Search...' size='tiny' type='number'
+                          value={search_id}
+                          onChange={(e,{value})=>{
+                            this.setState({search_id:value})
+                          }}
+                        /></Table.HeaderCell>
                         <Table.HeaderCell width={1}>Thumnail</Table.HeaderCell>
-                        <Table.HeaderCell width={4}>Tiêu đề: <Input transparent placeholder='Search...' size='tiny' /></Table.HeaderCell>
+                        <Table.HeaderCell width={4}>Tiêu đề: <Input transparent placeholder='Search...' size='tiny'
+                              value={search_title}
+                              onChange={(e,{value})=>{
+                                this.setState({search_title:value})
+                              }}
+                        /></Table.HeaderCell>
                         <Table.HeaderCell width={4}>Điều chỉnh</Table.HeaderCell>
                         <Table.HeaderCell width={1}>Cache</Table.HeaderCell>
                       </Table.Row>
@@ -91,8 +115,20 @@ export default class Categorys extends Component {
                     <Table.Body>
                       {
                         data.map((e,i)=>{
-                          return <Table.Row className='todo' key={i}>
-                          <Table.Cell>{e.id}</Table.Cell>
+                          let is_active=text_check.search(","+e.id+",")!=-1?true:false;
+                          return <Table.Row className={is_active?'todo active-da':'todo'} key={i}>
+                          <Table.Cell
+                            onClick={()=>{
+                              let {text_check}=this.state;
+                              if(is_active){
+                                text_check=text_check.replace(","+e.id+",","");
+                              }else{
+                                text_check+=(","+e.id+",");
+                              }
+                              localStorage.setItem("cate_text_index",text_check);
+                              this.setState({text_check:text_check})
+                            }}
+                          >{e.id}</Table.Cell>
                           <Table.Cell textAlign='middle'>
                             <Image src={e.thumnail} className='imgthm'/>
                           </Table.Cell>

@@ -204,6 +204,7 @@ function show_camKet_khuyenMai(){
     if(cam_ket.length==0&&khuyen_mai.length==0||cam_ket.length>0&&khuyen_mai.length>0){
         //old_html=12
         old_html=old_html.replace("col-md-8","col-md-12")
+        old_html=old_html.replace(/col-md-3/g,"col-md-2")
     }
     // xu ly cam ket
     let rs_cam_ket='';

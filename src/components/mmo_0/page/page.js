@@ -26,7 +26,7 @@ export default class Pages extends Component {
           id:3,
           thumnail:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-cho-ba-de.jpg',
           title:'Giường sắt hộp 5x10',
-          status:'publish',
+          status:'private',
         },
       ],
       //ho tro
@@ -36,12 +36,37 @@ export default class Pages extends Component {
         type:""
       },
       //
-      text_check:""
+      text_check:"",
+      //
+      search_id:"",
+      search_title:"",
+      search_status:"All",
     }
   }
+  async componentDidMount(){
+    let text_check= localStorage.getItem("page_text_index");
+    if(text_check==null||text_check==undefined) text_check="";
+    this.setState({text_check:text_check})
+  }
   render() {
-    let {data,control_edit}=this.state
-      return (
+    let {data,control_edit,text_check,search_id,search_title,search_status}=this.state;
+    // search id
+    if(search_id.length>0){
+      data=data.filter((e)=>e.id==search_id)
+    }
+    // search id
+    if(search_title.length>0){
+      data=data.filter((e)=>{
+        var normalizedTitle = e.title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        var normalizedSearchTitle = search_title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        return normalizedTitle.search(normalizedSearchTitle)>-1 ;
+      })
+    } 
+    // search id
+    if(search_status!="All"){
+      data=data.filter((e)=>e.status==search_status)
+    }
+    return (
         <React.Fragment>
               <Grid>
                 <Grid.Column width={4}>
@@ -68,10 +93,32 @@ export default class Pages extends Component {
                   <Table celled structured basic  size="small" striped className='table-da'>
                     <Table.Header className='head-tbaks'>
                       <Table.Row>
-                        <Table.HeaderCell width={1} className='idzx'>id <Input transparent placeholder='Search...' size='tiny' type='number'/></Table.HeaderCell>
+                        <Table.HeaderCell width={1} className='idzx'>id <Input transparent placeholder='Search...' size='tiny' type='number'
+                          value={search_id}
+                          onChange={(e,{value})=>{
+                            this.setState({search_id:value})
+                          }}
+                        /></Table.HeaderCell>
                         <Table.HeaderCell width={1}>Thumnail</Table.HeaderCell>
-                        <Table.HeaderCell width={4}>Tiêu đề: <Input transparent placeholder='Search...' size='tiny' /></Table.HeaderCell>
-                        <Table.HeaderCell width={2}>Trạng thái <Button size='mini' basic >All</Button> </Table.HeaderCell>
+                        <Table.HeaderCell width={4}>Tiêu đề:  <Input transparent placeholder='Search...' size='tiny'
+                              value={search_title}
+                              onChange={(e,{value})=>{
+                                this.setState({search_title:value})
+                              }}
+                        /></Table.HeaderCell>
+                        <Table.HeaderCell width={2}>Trạng thái <Button size='mini' basic 
+                          onClick={()=>{
+                            let {search_status}=this.state;
+                            if(search_status=="All"){
+                              search_status="publish"
+                            }else if(search_status=="publish"){
+                              search_status="private"
+                            }else if(search_status=="private"){
+                              search_status="All"
+                            }
+                            this.setState({search_status:search_status})
+                          }}
+                        >{search_status}</Button> </Table.HeaderCell>
                         <Table.HeaderCell width={4}>Điều chỉnh</Table.HeaderCell>
                         <Table.HeaderCell width={1}>Cache</Table.HeaderCell>
                       </Table.Row>
@@ -80,15 +127,27 @@ export default class Pages extends Component {
                     <Table.Body>
                       {
                         data.map((e,i)=>{
-                          return <Table.Row className='todo' key={i}>
-                          <Table.Cell>{e.id}</Table.Cell>
+                          let is_active=text_check.search(","+e.id+",")!=-1?true:false;
+                          return <Table.Row className={is_active?'todo active-da':'todo'} key={i}>
+                          <Table.Cell
+                              onClick={()=>{
+                                let {text_check}=this.state;
+                                if(is_active){
+                                  text_check=text_check.replace(","+e.id+",","");
+                                }else{
+                                  text_check+=(","+e.id+",");
+                                }
+                                localStorage.setItem("page_text_index",text_check);
+                                this.setState({text_check:text_check})
+                              }}
+                          >{e.id}</Table.Cell>
                           <Table.Cell textAlign='middle'>
                             <Image src={e.thumnail} className='imgthm'/>
                           </Table.Cell>
                           <Table.Cell>{e.title}</Table.Cell>
                           <Table.Cell>
-                            <Button content='Riêng tư' basic size="mini" />
-                            {/* <Button positive  size="mini">Công khai</Button> */}
+                            {e.status=="private"&&<Button content='Riêng tư' basic size="mini" />}
+                            {e.status=="publish"&&<Button positive  size="mini">Công khai</Button>}
                           </Table.Cell>
                           <Table.Cell>
                             <Button animated='vertical'>
