@@ -15,18 +15,21 @@ export default class Pages extends Component {
           thumnail:'https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg',
           title:'Giường sắt ống tròn',
           status:'publish',
+          url:"#"
         },
         {
           id:2,
           thumnail:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg',
           title:'Giường sắt hộp 4x8',
           status:'publish',
+          url:"#"
         },
         {
           id:3,
           thumnail:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-cho-ba-de.jpg',
           title:'Giường sắt hộp 5x10',
           status:'private',
+          url:"#"
         },
       ],
       //ho tro
@@ -144,7 +147,7 @@ export default class Pages extends Component {
                           <Table.Cell textAlign='middle'>
                             <Image src={e.thumnail} className='imgthm'/>
                           </Table.Cell>
-                          <Table.Cell>{e.title}</Table.Cell>
+                          <Table.Cell><a href={e.url} target='_blank'>{e.title}</a></Table.Cell>
                           <Table.Cell>
                             {e.status=="private"&&<Button content='Riêng tư' basic size="mini" />}
                             {e.status=="publish"&&<Button positive  size="mini">Công khai</Button>}

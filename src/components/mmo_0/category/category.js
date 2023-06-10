@@ -17,6 +17,7 @@ export default class Categorys extends Component {
             tag:'Giường ngủ',
             price:1250000,
             price_ss:300000,
+            url:'#'
           },
           {
             id:2,
@@ -25,6 +26,7 @@ export default class Categorys extends Component {
             tag:'Giường ngủ',
             price:2250000,
             price_ss:400000,
+            url:'#'
           },
           {
             id:3,
@@ -33,6 +35,7 @@ export default class Categorys extends Component {
             tag:'Giường ngủ',
             price:3250000,
             price_ss:500000,
+            url:'#'
           },
         ],
         //ho tro
@@ -132,7 +135,7 @@ export default class Categorys extends Component {
                           <Table.Cell textAlign='middle'>
                             <Image src={e.thumnail} className='imgthm'/>
                           </Table.Cell>
-                          <Table.Cell>{e.title}</Table.Cell>
+                          <Table.Cell><a href={e.url} target='_blank'>{e.title}</a></Table.Cell>
                           <Table.Cell>
                             <Button animated='vertical'>
                               <Button.Content hidden >Xóa</Button.Content>

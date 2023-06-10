@@ -7,10 +7,7 @@ import Media from './lib/media/Media';
 import Attributes from './attribute/attribute';
 import Categorys from './category/category';
 import Pages from './page/page';
-const design_by={
-    name:"Võ Danh",
-    url:'#'
-}
+import Notify from './notify/notify';
 export default class Index_menu extends Component {
   constructor (props) {
     super(props)
@@ -74,6 +71,13 @@ export default class Index_menu extends Component {
                         >
                             <i className="fa-brands fa-slack"></i> <span className="hgfs"> Thuộc tính sản phẩm</span>
                         </li>
+                        {/*  */}
+                        <li 
+                            onClick={()=>this.setState({seleted:'Notify'})}  
+                            className={seleted==='Notify'?'active iconz':' iconz'}
+                        >
+                            <i className="fa-solid fa-volume-high"></i> <span className="hgfs"> Thông báo</span>
+                        </li>
                        
                     </ul>
                     {/* <div className='design-by'>
@@ -87,8 +91,7 @@ export default class Index_menu extends Component {
                         {seleted==='Categorys'&&<Categorys />}
                         {seleted==='Pages'&&<Pages />}
                         {seleted==='Attributes'&&<Attributes />}
-                        {/*{seleted==='setups'&&<Setups />}
-                        {seleted==='orders'&&<Orders />} */}
+                        {seleted==='Notify'&&<Notify />}
                      </div>
                 </div>
             </div>

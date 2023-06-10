@@ -217,12 +217,8 @@ function show_camKet_khuyenMai(){
     }
     // xu ly khuyen_mai
     let rs_khuyen_mai='';
-    a='';
     if(khuyen_mai.length>0){
-        khuyen_mai.forEach(e => {
-            a+=`<p>${e}</p>`
-        });
-        rs_khuyen_mai=`<div class="col-sm-12 col-md-8 card-dr"><div class="panel-heading"><div class="heading-dt">Khuyến mãi trong tháng ${currentMonth}</div><div class="promo-detail">${a}</div></div></div>`
+        rs_khuyen_mai=`<div class="col-sm-12 col-md-8 card-dr"><div class="panel-heading"><div class="heading-dt">Khuyến mãi trong tháng ${currentMonth}</div><div class="promo-detail">${khuyen_mai}</div></div></div>`
     }
     let rs=rs_cam_ket+rs_khuyen_mai+old_html;
     targetElement.innerHTML=rs;

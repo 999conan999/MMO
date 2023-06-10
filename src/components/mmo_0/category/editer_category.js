@@ -9,16 +9,7 @@ export default class Editer_category extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      // data:[],
-      test: [
-        { text: 'Hiển thị tất cả danh mục', value: 'English' },
-        { text: 'French', value: 'French' },
-        { text: 'Spanish', value: 'Spanish' },
-        { text: 'German', value: 'German' },
-        { text: 'Chinese', value: 'Chinese' },
-      ],
-      selected_test: 'English',
-      selected_test_arr: [],
+ 
       //
       editer_option:{
         is_open:false,
@@ -391,15 +382,6 @@ export default class Editer_category extends Component {
         </Container>
 
         <div className='footer-edit'>
-        <div style={{display:"inline-block",paddingRight:"50px"}}>
-            <Dropdown 
-              value={this.state.selected_test}
-              options={this.state.test}
-              onChange={(e, { value }) => {
-                this.setState({ selected_test: value })
-              }}
-            />
-          </div>
           <Button size='medium' color='grey' onClick={()=>this.props.fs_close()}>Hủy</Button>
           <Button primary className='createx'>{this.props.type=="edit"?"Cập nhật":"Tạo mới"}</Button>
         </div>
