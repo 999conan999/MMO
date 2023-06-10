@@ -7,26 +7,67 @@ export default class Attribute extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      // data:[],
-        test:[
-          { text: 'Hiển thị tất cả danh mục', value: 'English' },
-          {text: 'Giường sắt', value: 'French' },
-          { text: 'GIường ngủ', value: 'Spanish' },
-          {text: 'giường gỗ', value: 'German' },
-          { text: 'Chinese', value: 'Chinese' },
+      // main
+        data:[
+          {
+            id:1,
+            thumnail:'https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg',
+            name:'Giường sắt ống tròn',
+            tag:'Giường ngủ',
+            price:1250000,
+            price_ss:300000,
+          },
+          {
+            id:2,
+            thumnail:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg',
+            name:'Giường sắt hộp 4x8',
+            tag:'Giường ngủ',
+            price:2250000,
+            price_ss:400000,
+          },
+          {
+            id:3,
+            thumnail:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-cho-ba-de.jpg',
+            name:'Giường sắt hộp 5x10',
+            tag:'Giường ngủ',
+            price:3250000,
+            price_ss:500000,
+          },
         ],
-        selected_test:'English',
-        selected_test_arr:[]
-      
+        //ho tro
+        control_edit:{
+          is_open:false,
+          id:-1,
+          type:""
+        },
+        //
+        text_check:""
+
     }
   }
+  async componentDidMount(){
+    let text_check= localStorage.getItem("attr_text_index");
+    if(text_check==null||text_check==undefined) text_check="";
+    this.setState({text_check:text_check})
+  }
   render() {
+    let {data,control_edit,text_check}=this.state;
       return (
         <React.Fragment>
               <Grid>
                 <Grid.Column width={4}>
                   <div className='tao-moi-post pdt-50 mgb-8'>
-                    <Button content='Tạo thuộc tính mới' icon='add' labelPosition='right' color="blue" size='large'/>
+                    <Button content='Tạo thuộc tính mới' icon='add' labelPosition='right' color="blue" size='large'
+                      onClick={()=>
+                        this.setState({
+                          control_edit:{
+                            is_open:true,
+                            id:-1,
+                            type:"create"
+                          }
+                        })
+                      }
+                    />
                   </div>
                 </Grid.Column>
                 <Grid.Column width={12}></Grid.Column>
@@ -50,65 +91,99 @@ export default class Attribute extends Component {
                     </Table.Header>
 
                     <Table.Body>
-                      <Table.Row className='todo'>
-                      {/* <Table.Row className='active-da'> */}
-                        <Table.Cell>176</Table.Cell>
-                        <Table.Cell textAlign='middle'>
-                          <Image src='https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg' className='imgthm'/>
-                        </Table.Cell>
-                        <Table.Cell>None</Table.Cell>
-                        <Table.Cell>
-                          {/* <a className='tagx'>S.P</a> */}
-                          <a className='tagx colrfs'>Giường sắt</a>
-                        </Table.Cell>
-                        <Table.Cell>
-                          1.250.000đ
-                        </Table.Cell>
-                        <Table.Cell>
-                          1.250.000đ
-                        </Table.Cell>
-                        <Table.Cell>
-                          <Button animated='vertical'>
-                            <Button.Content hidden >Xóa</Button.Content>
-                            <Button.Content visible>
-                              <Icon name='trash alternate' />
-                            </Button.Content>
-                          </Button>
-                          <Button animated='vertical'>
-                            <Button.Content hidden>Copy</Button.Content>
-                            <Button.Content visible>
-                              <Icon name='copy' />
-                            </Button.Content>
-                          </Button>
-                          <Button animated='vertical'>
-                            <Button.Content hidden>Edit</Button.Content>
-                            <Button.Content visible>
-                              <Icon name='edit' />
-                            </Button.Content>
-                          </Button>
-                        </Table.Cell>
-                        <Table.Cell>
-                          <Button circular icon='quidditch' size='big' color='gray'/>
-                        </Table.Cell>
-                      </Table.Row>
+                      {
+                        data.map((e,i)=>{
+                          let is_active=text_check.search(","+e.id+",")!=-1?true:false;
+                          return <Table.Row className={is_active?'todo active-da':'todo'} key={i}>
+                            <Table.Cell>{e.id}</Table.Cell>
+                            <Table.Cell textAlign='middle'>
+                              <Image src={e.thumnail} className='imgthm'/>
+                            </Table.Cell>
+                            <Table.Cell>{e.name}</Table.Cell>
+                            <Table.Cell>
+                              <a className='tagx colrfs'>{e.tag}</a>
+                            </Table.Cell>
+                            <Table.Cell>
+                            {(Number(e.price)).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}
+                            </Table.Cell>
+                            <Table.Cell>
+                              <b style={{color:"blue"}}>{(Number(e.price_ss)).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</b>
+                            </Table.Cell>
+                            <Table.Cell>
+                              <Button animated='vertical'>
+                                <Button.Content hidden >Xóa</Button.Content>
+                                <Button.Content visible>
+                                  <Icon name='trash alternate' />
+                                </Button.Content>
+                              </Button>
+                              <Button animated='vertical'
+                                onClick={()=>
+                                  this.setState({
+                                    control_edit:{
+                                      is_open:true,
+                                      id:e.id,
+                                      type:"copy"
+                                    }
+                                  })
+                                }
+                              >
+                                <Button.Content hidden>Copy</Button.Content>
+                                <Button.Content visible>
+                                  <Icon name='copy' />
+                                </Button.Content>
+                              </Button>
+                              <Button animated='vertical'
+                                  onClick={()=>
+                                    this.setState({
+                                      control_edit:{
+                                        is_open:true,
+                                        id:e.id,
+                                        type:"edit"
+                                      }
+                                    })
+                                  }
+                              >
+                                <Button.Content hidden>Edit</Button.Content>
+                                <Button.Content visible>
+                                  <Icon name='edit' />
+                                </Button.Content>
+                              </Button>
+                            </Table.Cell>
+                            <Table.Cell>
+                              <Button circular icon='quidditch' size='big' color='gray'
+                                  onClick={()=>{
+                                    let {text_check}=this.state;
+                                    if(is_active){
+                                      text_check=text_check.replace(","+e.id+",","");
+                                    }else{
+                                      text_check+=(","+e.id+",");
+                                    }
+                                    localStorage.setItem("attr_text_index",text_check);
+                                    this.setState({text_check:text_check})
+                                  }}
+                              />
+                            </Table.Cell>
+                          </Table.Row>
+                        })
+                      }
                       
-                       
-                    
                     </Table.Body>
-
-                    <Table.Footer  className='foot-tbaks'>
-                      <Table.Row>
-                        <Table.HeaderCell colSpan='10'>
-                          <div style={{textAlign:"center"}}>
-                            {/* <span className="op">Xem thêm</span> */}
-                          </div>
-                        </Table.HeaderCell>
-                      </Table.Row>
-                    </Table.Footer>
                   </Table>
                 </Segment>
               </Grid.Column>
-              <Editer_attribute/>
+              {control_edit.is_open&&<Editer_attribute
+                id={control_edit.id}
+                type={control_edit.type}
+                fs_close={()=>{
+                  this.setState({
+                    control_edit:{
+                      is_open:false,
+                      id:-1,
+                      type:""
+                    }
+                  })
+                }}
+              />}
         </React.Fragment>
       );
   }

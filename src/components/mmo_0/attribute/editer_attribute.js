@@ -65,7 +65,7 @@ export default class Editer_attribute extends Component {
     return (
       <div className='wrap-editer-post attr-wrap'>
         <Container>
-          <Header as='h1'>*Tạo thuộc tính mới</Header>
+          <Header as='h1'>*{this.props.type=="edit"?"Cập nhật":"Tạo mới"}</Header>
 
           <div className='wrap-s'>
             <Grid>
@@ -432,13 +432,15 @@ export default class Editer_attribute extends Component {
         </Container>
 
         <div className='footer-edit'>
-          <Button size='medium' color='grey'>Hủy</Button>
+          <Button size='medium' color='grey'
+            onClick={()=>this.props.fs_close()}
+          >Hủy</Button>
           <Button primary className='createx'
             onClick={()=>{
               let {data}=this.state;
               console.log(JSON.stringify(data))
             }}
-          >Tạo bài viết mới</Button>
+          >{this.props.type=="edit"?"Cập nhật":"Tạo mới"}</Button>
         </div>
       </div>
     );

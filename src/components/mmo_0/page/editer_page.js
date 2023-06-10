@@ -39,7 +39,7 @@ export default class Editer_page extends Component {
     return (
       <div className='wrap-editer-post'>
         <Container>
-          <Header as='h1'>*Tạo trang mới</Header>
+          <Header as='h1'>*{this.props.type=="edit"?"Cập nhật":"Tạo mới"}</Header>
 
           <div className='wrap-s'>
             <Grid>
@@ -154,8 +154,8 @@ export default class Editer_page extends Component {
               }}
             />
           </div>
-          <Button size='medium' color='grey'>Hủy</Button>
-          <Button primary className='createx'>Tạo bài viết mới</Button>
+          <Button size='medium' color='grey' onClick={()=>this.props.fs_close()}>Hủy</Button>
+          <Button primary className='createx'>{this.props.type=="edit"?"Cập nhật":"Tạo mới"}</Button>
         </div>
         {this.state.editer_option.is_open && <Editer
           close={() => this.setState({ editer_option: { is_open: false, text_html: '', index: -1 } })}

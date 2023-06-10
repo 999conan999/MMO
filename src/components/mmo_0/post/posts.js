@@ -8,16 +8,6 @@ export default class Posts extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      // data:[],
-        test:[
-          { text: 'Hiển thị tất cả danh mục', value: 'English' },
-          {text: 'Giường sắt', value: 'French' },
-          { text: 'GIường ngủ', value: 'Spanish' },
-          {text: 'giường gỗ', value: 'German' },
-          { text: 'Chinese', value: 'Chinese' },
-        ],
-        selected_test:'English',
-        selected_test_arr:[],
       // main
       data:[
         {
@@ -156,7 +146,7 @@ export default class Posts extends Component {
                       {
                         data.map((e,i)=>{
                           let is_active=text_check.search(","+e.id+",")!=-1?true:false;
-                          return<Table.Row className={is_active?'todo active-da':'todo'}>
+                          return<Table.Row className={is_active?'todo active-da':'todo'} key={i}>
                                     <Table.Cell 
                                       onClick={()=>{
                                         let {text_check}=this.state;
