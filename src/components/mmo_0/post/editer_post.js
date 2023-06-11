@@ -393,7 +393,7 @@ export default class Editer_post extends Component {
                   <Form>
                     <Header as='h4'>*Tiêu đề bài viết</Header>
                     <Input
-                      className="input-1"
+                      fluid
                       value={data.title}
                       onChange={(e,{value}) => {
                         let {data}=this.state;

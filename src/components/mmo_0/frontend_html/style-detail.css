@@ -225,6 +225,7 @@ p.danh-price {
     border: 1px solid #3d61a1;
     background-color: #ffffff;
     border-radius: 4px;
+    height: 100%;
 }
 .heading-dt {
     font-size: 22px;
