@@ -2,26 +2,32 @@ import React, { Component } from 'react';
 import './setup.css'
 // import { toast } from 'react-toastify';
 import { Container, Grid, Button, Table, Segment, Input, Image, Radio, Header, TextArea, Form } from 'semantic-ui-react';
+import { moveElement } from '../lib/fs';
 import Input_img from '../lib/input_img';
 export default class Setup extends Component {
   constructor (props) {
     super(props)
     this.state = {
       data:{
-        menu:[
-          {
-            name:'Giường sắt',
-            url:'#1'
-          },
-          // {
-          //   name:'Giường ngủ',
-          //   url:'#2'
-          // },
-          // {
-          //   name:'Giường ống tròn',
-          //   url:'#3'
-          // },
-        ]
+        menu:[],
+        mini_icon:"",
+        logo_icon:"",
+        chao_mung:"",
+        lien_he_zalo:"",
+        lien_he_sdt:"",
+        lien_he_fb:"",
+        lien_he_dc:"",
+        thong_tin:[],
+        chinh_sach:[],
+        tuyen_dung:[],
+        design_by:"",
+        gg_header:"",
+        gg_body:"",
+        dat_hang_cd:0,
+        zalo_cd:0,
+        fb_cd:0,
+        phone_cd:0,
+
       }
     }
   }
@@ -38,16 +44,15 @@ export default class Setup extends Component {
                     <Input_img
                       is_muti={false}
                       fs_result={(rs) => {
-                        // console.log('line 120+ ',rs)
-                        // let {data}=this.state;
-                        // data.thumnail=rs[0].url;
-                        // this.setState({ data: data })
+                        let {data}=this.state;
+                        data.mini_icon=rs[0].url;
+                        this.setState({ data: data })
                       }}
                     />
                     <Image
                       floated='right'
                       size='tiny'
-                      src={'https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02.jpg'}
+                      src={data.mini_icon}
                       className='abs hv'
                       style={{top:"-35px",left:"158px"}}
                     />
@@ -59,16 +64,15 @@ export default class Setup extends Component {
                     <Input_img
                       is_muti={false}
                       fs_result={(rs) => {
-                        // console.log('line 120+ ',rs)
-                        // let {data}=this.state;
-                        // data.thumnail=rs[0].url;
-                        // this.setState({ data: data })
+                        let {data}=this.state;
+                        data.logo_icon=rs[0].url;
+                        this.setState({ data: data })
                       }}
                     />
                     <Image
                       floated='right'
                       size='tiny'
-                      src={'https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02.jpg'}
+                      src={data.logo_icon}
                       className='abs hv'
                       style={{top:"-35px",left:"158px"}}
                     />
@@ -78,12 +82,12 @@ export default class Setup extends Component {
                   <Header as='h4'>*Lời chào mừng:</Header>
                   <Form>
                     <Input label='Lời chào mừng đến với website:' placeholder='Chào bạn đến với nội thất An Bình' fluid type='text'
-                      // value={data.quantity_sold}
-                      // onChange={(e,{value}) => {
-                      //   let {data}=this.state;
-                      //   data.quantity_sold=value;
-                      //   this.setState({ data: data })
-                      // }}
+                      value={data.chao_mung}
+                      onChange={(e,{value}) => {
+                        let {data}=this.state;
+                        data.chao_mung=value;
+                        this.setState({ data: data })
+                      }}
                     />
                   </Form>
                 </Grid.Column>
@@ -94,42 +98,42 @@ export default class Setup extends Component {
                 <Grid.Column width={16}>
                   <Header as='h4'>*Thông tin liên hệ:</Header>
                     <Input label='Liên hệ số điện thoại zalo:' placeholder='0938991602' fluid type='text'
-                      // value={data.quantity_sold}
-                      // onChange={(e,{value}) => {
-                      //   let {data}=this.state;
-                      //   data.quantity_sold=value;
-                      //   this.setState({ data: data })
-                      // }}
+                      value={data.lien_he_zalo}
+                      onChange={(e,{value}) => {
+                        let {data}=this.state;
+                        data.lien_he_zalo=value;
+                        this.setState({ data: data })
+                      }}
                     />
                 </Grid.Column>
                 <Grid.Column width={16}>
                     <Input label='Liên hệ số điện thoại Hotline:' placeholder='0938991602' fluid type='text'
-                      // value={data.quantity_sold}
-                      // onChange={(e,{value}) => {
-                      //   let {data}=this.state;
-                      //   data.quantity_sold=value;
-                      //   this.setState({ data: data })
-                      // }}
+                      value={data.lien_he_sdt}
+                      onChange={(e,{value}) => {
+                        let {data}=this.state;
+                        data.lien_he_sdt=value;
+                        this.setState({ data: data })
+                      }}
                     />
                 </Grid.Column>
                 <Grid.Column width={16}>
                     <Input label='Liên hệ facebook link:' placeholder='https://m.me/anbinhnewcom' fluid type='text'
-                      // value={data.quantity_sold}
-                      // onChange={(e,{value}) => {
-                      //   let {data}=this.state;
-                      //   data.quantity_sold=value;
-                      //   this.setState({ data: data })
-                      // }}
+                      value={data.lien_he_fb}
+                      onChange={(e,{value}) => {
+                        let {data}=this.state;
+                        data.lien_he_fb=value;
+                        this.setState({ data: data })
+                      }}
                     />
                 </Grid.Column>
                 <Grid.Column width={16}>
                     <Input label='Liên hệ Địa chỉ:' placeholder='Số nhà 19, đường số 17,quốc lộ 13 cũ, Hiệp Bình Phước, Quận Thủ Đức,tpHCM' fluid type='text'
-                      // value={data.quantity_sold}
-                      // onChange={(e,{value}) => {
-                      //   let {data}=this.state;
-                      //   data.quantity_sold=value;
-                      //   this.setState({ data: data })
-                      // }}
+                      value={data.lien_he_dc}
+                      onChange={(e,{value}) => {
+                        let {data}=this.state;
+                        data.lien_he_dc=value;
+                        this.setState({ data: data })
+                      }}
                     />
                 </Grid.Column>
               </Grid>
@@ -156,40 +160,40 @@ export default class Setup extends Component {
                             return <Table.Row key={i}>
                             <Table.Cell className='re'>
                                 {i>0&&<i className="fa-solid fa-up-long abs hv" style={{left:'-10px',top:'12px'}}
-                                  // onClick={()=>{
-                                  //   let {data}=this.state;
-                                  //   data.table_infor=moveElement(data.table_infor,i,i-1);
-                                  //   this.setState({data:data})
-                                  // }}
+                                  onClick={()=>{
+                                    let {data}=this.state;
+                                    data.menu=moveElement(data.menu,i,i-1);
+                                    this.setState({data:data})
+                                  }}
                                 ></i>}
                                 <input type="text" className="danh-input iput-1" placeholder="..." 
-                                  // value={e.name}
-                                  // onChange={(e)=>{
-                                  //   let {data}=this.state;
-                                  //   data.table_infor[i].name=e.target.value;
-                                  //   this.setState({data:data})
-                                  // }}
+                                  value={e.name}
+                                  onChange={(e)=>{
+                                    let {data}=this.state;
+                                    data.menu[i].name=e.target.value;
+                                    this.setState({data:data})
+                                  }}
                                 />
                             </Table.Cell>
                             <Table.Cell>
                                 <input className="danh-input iput-2" placeholder="..." type="text"  
-                                    // value={e.value}
-                                    // onChange={(e)=>{
-                                    //   let {data}=this.state;
-                                    //   data.table_infor[i].value=e.target.value;
-                                    //   this.setState({data:data})
-                                    // }}
+                                    value={e.value}
+                                    onChange={(e)=>{
+                                      let {data}=this.state;
+                                      data.menu[i].value=e.target.value;
+                                      this.setState({data:data})
+                                    }}
                                 />
                             </Table.Cell>
                             <Table.Cell>
                                 <i className="fa-solid fa-trash edit-db"
-                                // onClick={()=>{
-                                //   if(window.confirm(`Xác nhận xóa: "${e.name}"`)){
-                                //     let {data}=this.state;
-                                //     data.table_infor.splice(i,1);
-                                //     this.setState({data:data})
-                                //   }
-                                // }}
+                                onClick={()=>{
+                                  if(window.confirm(`Xác nhận xóa: "${e.name}"`)){
+                                    let {data}=this.state;
+                                    data.menu.splice(i,1);
+                                    this.setState({data:data})
+                                  }
+                                }}
                                 ></i>
                             </Table.Cell>
                         </Table.Row>
@@ -199,14 +203,14 @@ export default class Setup extends Component {
                       </Table.Body>
                   </Table>
                   <div className='add-tbatx'><Button primary icon='add square'
-                    // onClick={()=>{
-                    //   let {data}=this.state;
-                    //   data.table_infor.push({
-                    //     name:'',
-                    //     value:''
-                    //   })
-                    //   this.setState({data:data})
-                    // }}
+                    onClick={()=>{
+                      let {data}=this.state;
+                      data.menu.push({
+                        name:'',
+                        value:''
+                      })
+                      this.setState({data:data})
+                    }}
                   /></div>
                 </div>
               </Grid.Column>
@@ -230,44 +234,44 @@ export default class Setup extends Component {
 
                       <Table.Body>
                         {
-                          data.menu.map((e,i)=>{
+                          data.thong_tin.map((e,i)=>{
                             return <Table.Row key={i}>
                             <Table.Cell className='re'>
                                 {i>0&&<i className="fa-solid fa-up-long abs hv" style={{left:'-10px',top:'12px'}}
-                                  // onClick={()=>{
-                                  //   let {data}=this.state;
-                                  //   data.table_infor=moveElement(data.table_infor,i,i-1);
-                                  //   this.setState({data:data})
-                                  // }}
+                                  onClick={()=>{
+                                    let {data}=this.state;
+                                    data.thong_tin=moveElement(data.thong_tin,i,i-1);
+                                    this.setState({data:data})
+                                  }}
                                 ></i>}
                                 <input type="text" className="danh-input iput-1" placeholder="..." 
-                                  // value={e.name}
-                                  // onChange={(e)=>{
-                                  //   let {data}=this.state;
-                                  //   data.table_infor[i].name=e.target.value;
-                                  //   this.setState({data:data})
-                                  // }}
+                                  value={e.name}
+                                  onChange={(e)=>{
+                                    let {data}=this.state;
+                                    data.thong_tin[i].name=e.target.value;
+                                    this.setState({data:data})
+                                  }}
                                 />
                             </Table.Cell>
                             <Table.Cell>
                                 <input className="danh-input iput-2" placeholder="..." type="text"  
-                                    // value={e.value}
-                                    // onChange={(e)=>{
-                                    //   let {data}=this.state;
-                                    //   data.table_infor[i].value=e.target.value;
-                                    //   this.setState({data:data})
-                                    // }}
+                                    value={e.value}
+                                    onChange={(e)=>{
+                                      let {data}=this.state;
+                                      data.thong_tin[i].value=e.target.value;
+                                      this.setState({data:data})
+                                    }}
                                 />
                             </Table.Cell>
                             <Table.Cell>
                                 <i className="fa-solid fa-trash edit-db"
-                                // onClick={()=>{
-                                //   if(window.confirm(`Xác nhận xóa: "${e.name}"`)){
-                                //     let {data}=this.state;
-                                //     data.table_infor.splice(i,1);
-                                //     this.setState({data:data})
-                                //   }
-                                // }}
+                                onClick={()=>{
+                                  if(window.confirm(`Xác nhận xóa: "${e.name}"`)){
+                                    let {data}=this.state;
+                                    data.thong_tin.splice(i,1);
+                                    this.setState({data:data})
+                                  }
+                                }}
                                 ></i>
                             </Table.Cell>
                         </Table.Row>
@@ -277,14 +281,14 @@ export default class Setup extends Component {
                       </Table.Body>
                   </Table>
                   <div className='add-tbatx'><Button primary icon='add square'
-                    // onClick={()=>{
-                    //   let {data}=this.state;
-                    //   data.table_infor.push({
-                    //     name:'',
-                    //     value:''
-                    //   })
-                    //   this.setState({data:data})
-                    // }}
+                    onClick={()=>{
+                      let {data}=this.state;
+                      data.thong_tin.push({
+                        name:'',
+                        value:''
+                      })
+                      this.setState({data:data})
+                    }}
                   /></div>
                 </div>
               </Grid.Column>
@@ -308,44 +312,44 @@ export default class Setup extends Component {
 
                       <Table.Body>
                         {
-                          data.menu.map((e,i)=>{
+                          data.chinh_sach.map((e,i)=>{
                             return <Table.Row key={i}>
                             <Table.Cell className='re'>
                                 {i>0&&<i className="fa-solid fa-up-long abs hv" style={{left:'-10px',top:'12px'}}
-                                  // onClick={()=>{
-                                  //   let {data}=this.state;
-                                  //   data.table_infor=moveElement(data.table_infor,i,i-1);
-                                  //   this.setState({data:data})
-                                  // }}
+                                  onClick={()=>{
+                                    let {data}=this.state;
+                                    data.chinh_sach=moveElement(data.chinh_sach,i,i-1);
+                                    this.setState({data:data})
+                                  }}
                                 ></i>}
                                 <input type="text" className="danh-input iput-1" placeholder="..." 
-                                  // value={e.name}
-                                  // onChange={(e)=>{
-                                  //   let {data}=this.state;
-                                  //   data.table_infor[i].name=e.target.value;
-                                  //   this.setState({data:data})
-                                  // }}
+                                  value={e.name}
+                                  onChange={(e)=>{
+                                    let {data}=this.state;
+                                    data.chinh_sach[i].name=e.target.value;
+                                    this.setState({data:data})
+                                  }}
                                 />
                             </Table.Cell>
                             <Table.Cell>
                                 <input className="danh-input iput-2" placeholder="..." type="text"  
-                                    // value={e.value}
-                                    // onChange={(e)=>{
-                                    //   let {data}=this.state;
-                                    //   data.table_infor[i].value=e.target.value;
-                                    //   this.setState({data:data})
-                                    // }}
+                                    value={e.value}
+                                    onChange={(e)=>{
+                                      let {data}=this.state;
+                                      data.chinh_sach[i].value=e.target.value;
+                                      this.setState({data:data})
+                                    }}
                                 />
                             </Table.Cell>
                             <Table.Cell>
                                 <i className="fa-solid fa-trash edit-db"
-                                // onClick={()=>{
-                                //   if(window.confirm(`Xác nhận xóa: "${e.name}"`)){
-                                //     let {data}=this.state;
-                                //     data.table_infor.splice(i,1);
-                                //     this.setState({data:data})
-                                //   }
-                                // }}
+                                onClick={()=>{
+                                  if(window.confirm(`Xác nhận xóa: "${e.name}"`)){
+                                    let {data}=this.state;
+                                    data.chinh_sach.splice(i,1);
+                                    this.setState({data:data})
+                                  }
+                                }}
                                 ></i>
                             </Table.Cell>
                         </Table.Row>
@@ -355,14 +359,14 @@ export default class Setup extends Component {
                       </Table.Body>
                   </Table>
                   <div className='add-tbatx'><Button primary icon='add square'
-                    // onClick={()=>{
-                    //   let {data}=this.state;
-                    //   data.table_infor.push({
-                    //     name:'',
-                    //     value:''
-                    //   })
-                    //   this.setState({data:data})
-                    // }}
+                    onClick={()=>{
+                      let {data}=this.state;
+                      data.chinh_sach.push({
+                        name:'',
+                        value:''
+                      })
+                      this.setState({data:data})
+                    }}
                   /></div>
                 </div>
               </Grid.Column>
@@ -386,44 +390,44 @@ export default class Setup extends Component {
 
                       <Table.Body>
                         {
-                          data.menu.map((e,i)=>{
+                          data.tuyen_dung.map((e,i)=>{
                             return <Table.Row key={i}>
                             <Table.Cell className='re'>
                                 {i>0&&<i className="fa-solid fa-up-long abs hv" style={{left:'-10px',top:'12px'}}
-                                  // onClick={()=>{
-                                  //   let {data}=this.state;
-                                  //   data.table_infor=moveElement(data.table_infor,i,i-1);
-                                  //   this.setState({data:data})
-                                  // }}
+                                  onClick={()=>{
+                                    let {data}=this.state;
+                                    data.tuyen_dung=moveElement(data.tuyen_dung,i,i-1);
+                                    this.setState({data:data})
+                                  }}
                                 ></i>}
                                 <input type="text" className="danh-input iput-1" placeholder="..." 
-                                  // value={e.name}
-                                  // onChange={(e)=>{
-                                  //   let {data}=this.state;
-                                  //   data.table_infor[i].name=e.target.value;
-                                  //   this.setState({data:data})
-                                  // }}
+                                  value={e.name}
+                                  onChange={(e)=>{
+                                    let {data}=this.state;
+                                    data.tuyen_dung[i].name=e.target.value;
+                                    this.setState({data:data})
+                                  }}
                                 />
                             </Table.Cell>
                             <Table.Cell>
                                 <input className="danh-input iput-2" placeholder="..." type="text"  
-                                    // value={e.value}
-                                    // onChange={(e)=>{
-                                    //   let {data}=this.state;
-                                    //   data.table_infor[i].value=e.target.value;
-                                    //   this.setState({data:data})
-                                    // }}
+                                    value={e.value}
+                                    onChange={(e)=>{
+                                      let {data}=this.state;
+                                      data.tuyen_dung[i].value=e.target.value;
+                                      this.setState({data:data})
+                                    }}
                                 />
                             </Table.Cell>
                             <Table.Cell>
                                 <i className="fa-solid fa-trash edit-db"
-                                // onClick={()=>{
-                                //   if(window.confirm(`Xác nhận xóa: "${e.name}"`)){
-                                //     let {data}=this.state;
-                                //     data.table_infor.splice(i,1);
-                                //     this.setState({data:data})
-                                //   }
-                                // }}
+                                onClick={()=>{
+                                  if(window.confirm(`Xác nhận xóa: "${e.name}"`)){
+                                    let {data}=this.state;
+                                    data.tuyen_dung.splice(i,1);
+                                    this.setState({data:data})
+                                  }
+                                }}
                                 ></i>
                             </Table.Cell>
                         </Table.Row>
@@ -433,14 +437,14 @@ export default class Setup extends Component {
                       </Table.Body>
                   </Table>
                   <div className='add-tbatx'><Button primary icon='add square'
-                    // onClick={()=>{
-                    //   let {data}=this.state;
-                    //   data.table_infor.push({
-                    //     name:'',
-                    //     value:''
-                    //   })
-                    //   this.setState({data:data})
-                    // }}
+                    onClick={()=>{
+                      let {data}=this.state;
+                      data.tuyen_dung.push({
+                        name:'',
+                        value:''
+                      })
+                      this.setState({data:data})
+                    }}
                   /></div>
                 </div>
               </Grid.Column>
@@ -451,12 +455,12 @@ export default class Setup extends Component {
                 <Grid.Column width={16}>
                   <Header as='h4'>*Thiết kế website bởi ai:</Header>
                     <Input label='Cuối trang, thiết kế bởi:' placeholder='0938991602' fluid type='text'
-                      // value={data.quantity_sold}
-                      // onChange={(e,{value}) => {
-                      //   let {data}=this.state;
-                      //   data.quantity_sold=value;
-                      //   this.setState({ data: data })
-                      // }}
+                      value={data.design_by}
+                      onChange={(e,{value}) => {
+                        let {data}=this.state;
+                        data.design_by=value;
+                        this.setState({ data: data })
+                      }}
                     />
                 </Grid.Column>
               </Grid>
@@ -467,22 +471,22 @@ export default class Setup extends Component {
                 <Grid.Column width={16}>
                   <Form>
                     <TextArea placeholder='Header' style={{ minHeight: 120 }}
-                      // value={data.short_des}
-                      // onChange={(e,{value}) => {
-                      //   let {data}=this.state;
-                      //   data.short_des=value;
-                      //   this.setState({ data: data })
-                      // }}
+                      value={data.gg_header}
+                      onChange={(e,{value}) => {
+                        let {data}=this.state;
+                        data.gg_header=value;
+                        this.setState({ data: data })
+                      }}
                     />
                   </Form>
                   <Form>
                     <TextArea placeholder='Body' style={{ minHeight: 120,marginTop:"10px" }}
-                      // value={data.short_des}
-                      // onChange={(e,{value}) => {
-                      //   let {data}=this.state;
-                      //   data.short_des=value;
-                      //   this.setState({ data: data })
-                      // }}
+                      value={data.gg_body}
+                      onChange={(e,{value}) => {
+                        let {data}=this.state;
+                        data.gg_body=value;
+                        this.setState({ data: data })
+                      }}
                     />
                   </Form>
                   
@@ -496,45 +500,48 @@ export default class Setup extends Component {
                   <Header as='h4'>*Cài đặt giá trị chuyển đổi::</Header>
                   <span>Ví dụ: giá trị lợi nhuận cho đơn hàng là 200.000đ; vậy giá trị đặt hàng thành công thanh toán cho gg là 0.5 nghĩa là 1 chuyển đổi đó sẽ cho gg 0.5*200.000=100.000đ; tương tự cho zalo, fb. cuộc gọi.</span>
                     <Input label='Chuyển đổi đặt hàng thành công, sẽ chi trả cho gg bao nhiêu %:' className='mgt-50' placeholder='0.8' fluid type='number'
-                      // value={data.quantity_sold}
-                      // onChange={(e,{value}) => {
-                      //   let {data}=this.state;
-                      //   data.quantity_sold=value;
-                      //   this.setState({ data: data })
-                      // }}
+                      value={data.dat_hang_cd}
+                      onChange={(e,{value}) => {
+                        let {data}=this.state;
+                        data.dat_hang_cd=value;
+                        this.setState({ data: data })
+                      }}
                     />
                 </Grid.Column>
                 <Grid.Column width={16}>
                     <Input label='Chuyển đổi nhắn tin zalo, sẽ chi trả cho gg bao nhiêu %:' placeholder='0.6' fluid type='number'
-                      // value={data.quantity_sold}
-                      // onChange={(e,{value}) => {
-                      //   let {data}=this.state;
-                      //   data.quantity_sold=value;
-                      //   this.setState({ data: data })
-                      // }}
+                      value={data.zalo_cd}
+                      onChange={(e,{value}) => {
+                        let {data}=this.state;
+                        data.zalo_cd=value;
+                        this.setState({ data: data })
+                      }}
                     />
                 </Grid.Column>
                 <Grid.Column width={16}>
                     <Input label='Chuyển đổi nhắn tin facebook, sẽ chi trả cho gg bao nhiêu %:' placeholder='0.4' fluid type='number'
-                      // value={data.quantity_sold}
-                      // onChange={(e,{value}) => {
-                      //   let {data}=this.state;
-                      //   data.quantity_sold=value;
-                      //   this.setState({ data: data })
-                      // }}
+                      value={data.fb_cd}
+                      onChange={(e,{value}) => {
+                        let {data}=this.state;
+                        data.fb_cd=value;
+                        this.setState({ data: data })
+                      }}
                     />
                 </Grid.Column>
                 <Grid.Column width={16}>
                     <Input label='Chuyển đổi nhắn tin cuộc gọi, sẽ chi trả cho gg bao nhiêu %:' placeholder='0.5' fluid type='number'
-                      // value={data.quantity_sold}
-                      // onChange={(e,{value}) => {
-                      //   let {data}=this.state;
-                      //   data.quantity_sold=value;
-                      //   this.setState({ data: data })
-                      // }}
+                      value={data.phone_cd}
+                      onChange={(e,{value}) => {
+                        let {data}=this.state;
+                        data.phone_cd=value;
+                        this.setState({ data: data })
+                      }}
                     />
                 </Grid.Column>
               </Grid>
+            </div>
+            <div style={{position:"fixed",right:"10px",bottom:"26px"}}>
+              <Button primary className='createx'>Cập nhật</Button>
             </div>
           </Container>
         </React.Fragment>
