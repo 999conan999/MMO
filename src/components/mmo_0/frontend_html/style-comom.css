@@ -1865,6 +1865,7 @@ h3.title-h3-2 {
     padding: 8px;
     text-decoration-line: none;
     cursor: pointer;
+    display: flex;
 }
 .a-bv>a:hover{
     color:#0d6efd;
@@ -1877,6 +1878,7 @@ h3.title-h3-2 {
     text-decoration: none;
     display: inline-block;
 }
+.dbl-block{display: block;}
 .bv-cart{
     margin-bottom: 3px;
     padding: 4px;

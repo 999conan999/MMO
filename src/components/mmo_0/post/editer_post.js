@@ -19,7 +19,7 @@ export default class Editer_post extends Component {
       // 
       data:{
         id:1,
-        type:'sp_main',//sp||bv||sp_clone||sp_seo;
+        type:'sp_main',//sp_main||bv||sp_clone||sp_seo;
         category_id:-1,
         thumnail:'',
         key_word:'',
@@ -98,7 +98,8 @@ export default class Editer_post extends Component {
       table_attribute:{
         table_price:[],
         table_infor:[],
-        img:''
+        img:'',
+        attribute_name:''
       },
       is_hidden_1:true,
 
@@ -133,6 +134,17 @@ export default class Editer_post extends Component {
   }
   render() {
     let {data,table_attribute,list_sp_anh_xa}=this.state;
+    let data_prompt_GPT=null;
+    if((data.type=='sp_main'||data.type=='sp_seo')){
+      if(table_attribute.attribute_name!=""&&table_attribute.attribute_name!=undefined&&data.key_word!=""){
+        data_prompt_GPT={
+          table_price:table_attribute.table_price,
+          table_infor:table_attribute.table_infor,
+          attribute_name:table_attribute.attribute_name,
+          key_word:data.key_word
+        }
+      }
+    }
     return (
       <div className='wrap-editer-post'>
         <Segment className='clearxa'
@@ -263,6 +275,7 @@ export default class Editer_post extends Component {
                         data_attribute=JSON.parse(data_attribute[0].data);
                         table_attribute.table_price=data_attribute.table_price;
                         table_attribute.table_infor=data_attribute.table_infor;
+                        table_attribute.attribute_name=data_attribute.attribute_name;
                         table_attribute.img=data_attribute.thumnail;
                       } 
                       this.setState({ data: data,table_attribute:table_attribute })
@@ -468,6 +481,7 @@ export default class Editer_post extends Component {
           <Button primary className='createx'>{this.props.type=="edit"?"Cập nhật bài viết":"Tạo bài viết mới"}</Button>
         </div>
         {this.state.editer_option.is_open && <Editer
+          data_prompt_GPT={data_prompt_GPT}
           close={() => this.setState({ editer_option: { is_open: false, text_html: '', index: -1 } })}
           data={this.state.editer_option.text_html}
           rs_data={(rs) => {
