@@ -4,6 +4,7 @@ import Editer from '../lib/editer/Editer';
 import Input_img from '../lib/input_img';
 import { moveElement } from '../lib/fs';
 // import { toast } from 'react-toastify';
+import {action_create_or_edit_post} from '../lib/axios'
 import { Container, Grid, Button, Dropdown, Segment, Input, Image, Radio, Header, TextArea, Form } from 'semantic-ui-react'
 // const test_html = '<p>Giường được làm bằng sắt ống tròn phi 49, có thể tháo ráp dễ dàng.</p> <p>Giường được sơn bằng&nbsp;<span style="color: rgb(186, 55, 42);"><strong>sơn tĩnh điện</strong></span>&nbsp;chống rỉ sét.</p> <p>Hỗ trợ kích thước:&nbsp;<span style="color: rgb(186, 55, 42);"><strong>80cmx2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1mx2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1m2x2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1m4x2m</strong></span>, <span style="color: rgb(186, 55, 42);"><strong>1m6x2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1m8x2m</strong></span>.</p> <p><strong>Giá rẻ nhất</strong>&nbsp;trong các dòng giường sắt, sử dụng cũng khá bền.&nbsp;<span style="color: rgb(186, 55, 42);"><strong>Nếu như các bạn đang cần một chiếc giường và không cần quá cầu kì, thì đây là sự lựa chọn giúp bạn tiết kiệm khá nhiều chi phí đấy nhé!</strong></span></p>'
 export default class Editer_post extends Component {
@@ -18,10 +19,15 @@ export default class Editer_post extends Component {
       },
       // 
       data:{
-        id:1,
+        id:-1,
         type:'sp_main',//sp_main||bv||sp_clone||sp_seo;
         category_id:-1,
-        thumnail:'',
+        thumnail:{
+          id:0,
+          url:"",
+          url150:"",
+          url300:"",
+        },
         key_word:'',
         canonical:"",
         comments_id:-1,
@@ -34,13 +40,12 @@ export default class Editer_post extends Component {
         title:'',
         short_des:'',
         long_des:'',
-        price:0,
         related_keyword:[],
         is_best_seller:false,
         status:'private',
         is_best_seller:false,
         index_price:0,
-        show_price:0
+        price:0
       },
       //
       category_list:[
@@ -107,9 +112,10 @@ export default class Editer_post extends Component {
   }
   async componentDidMount(){
     let {id,type,list_sp}=this.props;
-    console.log("🚀 ~ file: editer_post.js:113 ~ Editer_post ~ componentDidMount ~ list_sp_anh_xa:", list_sp)
-    console.log("🚀 ~ file: editer_post.js:106 ~ Editer_post ~ componentDidMount ~ type:", type)
-    console.log("🚀 ~ file: editer_post.js:117 ~ Editer_post ~ componentDidMount ~ id:", id)
+    let {data}=this.state;
+    // console.log("🚀 ~ file: editer_post.js:113 ~ Editer_post ~ componentDidMount ~ list_sp_anh_xa:", list_sp)
+    // console.log("🚀 ~ file: editer_post.js:106 ~ Editer_post ~ componentDidMount ~ type:", type)
+    // console.log("🚀 ~ file: editer_post.js:117 ~ Editer_post ~ componentDidMount ~ id:", id)
     // 1
    let list_sp_covert=list_sp.map((e)=>{
       return {
@@ -122,7 +128,13 @@ export default class Editer_post extends Component {
       text:'Chọn chính trang này là trang comments',
       value:-1,
     })
+    if(type=="create"){
 
+    }else if(type=="copy"){
+      
+    }else if(type=="edit"){
+
+    }
 
 
     this.setState({
@@ -187,14 +199,19 @@ export default class Editer_post extends Component {
                       fs_result={(rs) => {
                         console.log('line 120+ ',rs)
                         let {data}=this.state;
-                        data.thumnail=rs[0].url;
+                        data.thumnail={
+                          id:rs[0].id,
+                          url:rs[0].url,
+                          url150:rs[0].url150,
+                          url300:rs[0].url300,
+                        };
                         this.setState({ data: data })
                       }}
                     />
                     <Image
                       floated='right'
                       size='tiny'
-                      src={data.thumnail}
+                      src={data.thumnail.url300}
                       className='thuasda'
                     />
                   </div>
@@ -321,7 +338,7 @@ export default class Editer_post extends Component {
                                 if(data.index_price!=i){
                                   let {data}=this.state;
                                   data.index_price=i;
-                                  data.show_price=Number(e.price_v)+Number(e.price_profit);
+                                  data.price=Number(e.price_v)+Number(e.price_profit);
                                   this.setState({data:data})
                                 }
                               }}
@@ -378,23 +395,6 @@ export default class Editer_post extends Component {
                       </div>
                       })
                     }
-                    
-                    {/* <div className='img-muti'>
-                      <Image
-                        size='tiny'
-                        src="https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg"
-                      />
-                      <i className="fa-solid fa-angles-left icon-img-muitxx"
-                        // onClick={()=>this.props.move_left_action(i)}
-                      ></i>
-                      <i className="fa-solid fa-trash icon-x-imgxx"
-                        // onClick={()=>{
-                        //   if(window.confirm("Xác nhận xóa!")){
-                        //     this.props.removeAction(e.id)
-                        //   }
-                        // }}
-                      ></i>
-                    </div> */}
                   </div>
                 </Grid.Column>
 
@@ -478,7 +478,37 @@ export default class Editer_post extends Component {
           <Button size='medium' color='grey'
             onClick={()=>this.props.close_edit()}
           >Hủy</Button>
-          <Button primary className='createx'>{this.props.type=="edit"?"Cập nhật bài viết":"Tạo bài viết mới"}</Button>
+          <Button primary className='createx'
+            onClick={async()=>{
+              let {data}=this.state;
+              let thumnail=JSON.stringify(data.thumnail);
+              let title=data.title;
+              let price=data.price;
+              let quantity_sold=data.quantity_sold;
+              let key_word=data.key_word;
+              let related_keyword=JSON.stringify(data.related_keyword);
+              let status=data.status;
+              let is_best_seller=data.is_best_seller;
+              let type=data.type;
+              let short_des=data.short_des;
+              let rs={
+                id:data.id,
+                category_id:data.category_id,
+                json_data:JSON.stringify(data),
+                thumnail:thumnail,
+                title:title,
+                price:price,
+                quantity_sold:quantity_sold,
+                key_word:key_word,
+                related_keyword:related_keyword,
+                status:status,
+                is_best_seller:is_best_seller,
+                type:type,
+                short_des:short_des
+              }
+              let a=await action_create_or_edit_post(rs);
+            }}
+          >{this.props.type=="edit"?"Cập nhật bài viết":"Tạo bài viết mới"}</Button>
         </div>
         {this.state.editer_option.is_open && <Editer
           data_prompt_GPT={data_prompt_GPT}

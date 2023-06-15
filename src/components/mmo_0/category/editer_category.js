@@ -33,6 +33,7 @@ export default class Editer_category extends Component {
             sp_list_id:[6,7]
           },
         ],
+        price_ss:0,
       },
       //
       list_sp:{
@@ -130,6 +131,21 @@ export default class Editer_category extends Component {
                     onChange={(e,{value}) => {
                       let {data}=this.state;
                       data.title=value;
+                      this.setState({ data: data })
+                    }}
+                  />
+                </Form>
+              </Grid.Column>
+              <Grid.Column width={4}>
+                <Form>
+                  <Header as='h4'>*Giá trị chuyển đổi trung bình</Header>
+                  <Input
+                    fluid
+                    type='number'
+                    value={data.price_ss}
+                    onChange={(e,{value}) => {
+                      let {data}=this.state;
+                      data.price_ss=value;
                       this.setState({ data: data })
                     }}
                   />
