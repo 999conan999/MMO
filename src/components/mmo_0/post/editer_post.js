@@ -4,8 +4,9 @@ import Editer from '../lib/editer/Editer';
 import Input_img from '../lib/input_img';
 import { moveElement } from '../lib/fs';
 // import { toast } from 'react-toastify';
-import {action_create_or_edit_post} from '../lib/axios'
+import {action_create_or_edit_post,get_infor_post} from '../lib/axios'
 import { Container, Grid, Button, Dropdown, Segment, Input, Image, Radio, Header, TextArea, Form } from 'semantic-ui-react'
+import { toast } from 'react-toastify';
 // const test_html = '<p>Giường được làm bằng sắt ống tròn phi 49, có thể tháo ráp dễ dàng.</p> <p>Giường được sơn bằng&nbsp;<span style="color: rgb(186, 55, 42);"><strong>sơn tĩnh điện</strong></span>&nbsp;chống rỉ sét.</p> <p>Hỗ trợ kích thước:&nbsp;<span style="color: rgb(186, 55, 42);"><strong>80cmx2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1mx2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1m2x2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1m4x2m</strong></span>, <span style="color: rgb(186, 55, 42);"><strong>1m6x2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1m8x2m</strong></span>.</p> <p><strong>Giá rẻ nhất</strong>&nbsp;trong các dòng giường sắt, sử dụng cũng khá bền.&nbsp;<span style="color: rgb(186, 55, 42);"><strong>Nếu như các bạn đang cần một chiếc giường và không cần quá cầu kì, thì đây là sự lựa chọn giúp bạn tiết kiệm khá nhiều chi phí đấy nhé!</strong></span></p>'
 export default class Editer_post extends Component {
   constructor(props) {
@@ -40,7 +41,10 @@ export default class Editer_post extends Component {
         title:'',
         short_des:'',
         long_des:'',
-        related_keyword:[],
+        related_keyword:{
+              rs_id:[],
+              rs_obj:[]
+            },
         is_best_seller:false,
         status:'private',
         is_best_seller:false,
@@ -52,26 +56,6 @@ export default class Editer_post extends Component {
         {
           text:"Chưa chọn danh mục",
           value:-1
-        },
-        {
-          text:"Giường sắt",
-          value:1
-        },
-        {
-          text:"Giường gỗ",
-          value:2
-        },
-        {
-          text:"Giường tre",
-          value:3
-        },
-        {
-          text:"Giường xếp",
-          value:4
-        },
-        {
-          text:"Giường ngủ giá rẻ",
-          value:5
         },
       ],
       //
@@ -107,21 +91,18 @@ export default class Editer_post extends Component {
         attribute_name:''
       },
       is_hidden_1:true,
-
+      is_loading:true
     }
   }
   async componentDidMount(){
-    let {id,type,list_sp}=this.props;
+    let {id,type,list_sp,category_list}=this.props;
     let {data}=this.state;
-    // console.log("🚀 ~ file: editer_post.js:113 ~ Editer_post ~ componentDidMount ~ list_sp_anh_xa:", list_sp)
-    // console.log("🚀 ~ file: editer_post.js:106 ~ Editer_post ~ componentDidMount ~ type:", type)
-    // console.log("🚀 ~ file: editer_post.js:117 ~ Editer_post ~ componentDidMount ~ id:", id)
     // 1
    let list_sp_covert=list_sp.map((e)=>{
       return {
         text:e.title,
         value:e.id,
-        image:{ avatar: true, src: e.thumnail }
+        image:{ avatar: true, src: e.thumnail.url300 }
       }
     })
     list_sp_covert.unshift({
@@ -129,23 +110,38 @@ export default class Editer_post extends Component {
       value:-1,
     })
     if(type=="create"){
-
+      this.setState({is_loading:false});
+      if(category_list[1]!=undefined) data.category_id=category_list[1].value;
     }else if(type=="copy"){
-      
+      let data=await get_infor_post(id);
+      if(data.id!=undefined){
+        this.reload_table_price();
+        data.id=-1;
+        this.setState({data:data,is_loading:false})
+      }else{
+        toast.info("Lỗi rồi", { theme: "colored" })
+      }
     }else if(type=="edit"){
-
+      let data=await get_infor_post(id);
+      if(data.id!=undefined){
+        this.reload_table_price()
+        this.setState({data:data,is_loading:false})
+      }else{
+        toast.info("Lỗi rồi", { theme: "colored" })
+      }
     }
 
 
     this.setState({
-      list_sp_anh_xa:list_sp_covert
+      list_sp_anh_xa:list_sp_covert,
+      category_list:category_list
     })
 
 
 
   }
   render() {
-    let {data,table_attribute,list_sp_anh_xa}=this.state;
+    let {data,table_attribute,list_sp_anh_xa,is_loading}=this.state;
     let data_prompt_GPT=null;
     if((data.type=='sp_main'||data.type=='sp_seo')){
       if(table_attribute.attribute_name!=""&&table_attribute.attribute_name!=undefined&&data.key_word!=""){
@@ -160,11 +156,10 @@ export default class Editer_post extends Component {
     return (
       <div className='wrap-editer-post'>
         <Segment className='clearxa'
-          // loading
+          loading={is_loading}
         >
           <Container>
             <Header as='h1'>*{this.props.type=="edit"?"Cập nhật bài viết":"Tạo bài viết mới"}</Header>
-
             <div className='wrap-s'>
               <Grid>
                 <Grid.Column width={4}>
@@ -294,6 +289,9 @@ export default class Editer_post extends Component {
                         table_attribute.table_infor=data_attribute.table_infor;
                         table_attribute.attribute_name=data_attribute.attribute_name;
                         table_attribute.img=data_attribute.thumnail;
+                        if(data_attribute.table_price.length>0){
+                          data.price=Number(data_attribute.table_price[0].price_v)+Number(data_attribute.table_price[0].price_profit);;
+                        }
                       } 
                       this.setState({ data: data,table_attribute:table_attribute })
                     }}
@@ -491,22 +489,51 @@ export default class Editer_post extends Component {
               let is_best_seller=data.is_best_seller;
               let type=data.type;
               let short_des=data.short_des;
-              let rs={
-                id:data.id,
-                category_id:data.category_id,
-                json_data:JSON.stringify(data),
-                thumnail:thumnail,
-                title:title,
-                price:price,
-                quantity_sold:quantity_sold,
-                key_word:key_word,
-                related_keyword:related_keyword,
-                status:status,
-                is_best_seller:is_best_seller,
-                type:type,
-                short_des:short_des
+              if(title.length>8&&data.category_id!=-1){
+                let rs={
+                  id:data.id,
+                  category_id:data.category_id,
+                  json_data:JSON.stringify(data),
+                  thumnail:thumnail,
+                  title:title,
+                  price:price,
+                  quantity_sold:quantity_sold,
+                  key_word:key_word,
+                  related_keyword:related_keyword,
+                  status:status,
+                  is_best_seller:is_best_seller,
+                  type:type,
+                  short_des:short_des
+                }
+                let a=await action_create_or_edit_post(rs);
+                if(a.status){
+                  let rs_change={
+                    id:a.id,
+                    thumnail:data.thumnail,
+                    title:title,
+                    key_word:key_word,
+                    price:price,
+                    quantity_sold:quantity_sold,
+                    type:type,
+                    related_keyword:data.related_keyword,
+                    status:status,
+                    is_best_seller:is_best_seller,
+                    url:a.url
+                  }
+                  if(data.id==-1){
+                    toast.success('Tạo mới thành công.', { theme: "colored" });
+                  }else{
+                    toast.success('Cập nhật thành công', { theme: "colored" });
+                  }
+                  this.props.fs_change_posts(data.id,rs_change)
+                }else{
+                  toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                }
+              }else{
+                toast.info("Tiêu đề quá ngắn hoặc chưa chọn danh mục", { theme: "colored" })
               }
-              let a=await action_create_or_edit_post(rs);
+
+
             }}
           >{this.props.type=="edit"?"Cập nhật bài viết":"Tạo bài viết mới"}</Button>
         </div>
@@ -524,6 +551,26 @@ export default class Editer_post extends Component {
         />}
       </div>
     );
+  }
+  reload_table_price=async()=>{
+    // setTimeout(()=>{
+      let {data,attribute_list}=this.state;
+      let value=data.attribute_id;
+      let data_attribute=attribute_list.filter(e => e.value === value);
+      let table_attribute={
+        table_price:[],
+        table_infor:[],
+        img:''
+      }
+      if(data_attribute.length>0){
+        data_attribute=JSON.parse(data_attribute[0].data);
+        table_attribute.table_price=data_attribute.table_price;
+        table_attribute.table_infor=data_attribute.table_infor;
+        table_attribute.attribute_name=data_attribute.attribute_name;
+        table_attribute.img=data_attribute.thumnail;
+      } 
+      this.setState({ data: data,table_attribute:table_attribute })
+    // },1000)
   }
 }
 

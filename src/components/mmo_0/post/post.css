@@ -48,6 +48,7 @@
    text-align: right;
    width: 100%;
    padding-right: 85px !important;
+   z-index: 9999;
 }
 .createx{
    margin-left: 16px !important;

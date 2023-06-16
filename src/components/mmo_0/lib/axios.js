@@ -1,6 +1,19 @@
 const axios = require('axios');
 const { toast } =require ('react-toastify');
 var url_home=window.url;
+//
+async function fs_gets(url){
+    let data= await axios.get(url)
+    .then(function (response) {
+        return response.data
+    })
+    .catch(function (error) {
+        toast.error('ERROR!',{theme: "colored"})
+        console.log(error)
+        return false;
+    })
+    return data;
+}
  // upload file 
 const url_upload=url_home+'/wp-content/themes/shopseo/templates/ajax/media/upload_core.php';
 export async function upload_core(data,tag){
@@ -115,6 +128,130 @@ export async function action_create_or_edit_post(data){
     });
     //
     let response= axios.post(url_create_or_edit_post, 
+        data_send
+    )
+    .then(function (response) {
+        console.log("🚀 ~ file: axios.js:121 ~ response:", response)
+        return response.data;
+    })
+    .catch(function (error) {
+        console.log("🚀 ~ file: axios.js ~ line 44 ~ action_create_or_edit_post ~ error", error)
+        return {}
+    })
+    return response;
+}
+//
+const url_get_cate_v1=url_home+'/wp-content/themes/shopseo/templates/ajax/posts/get_cate_v1.php';
+export async function get_cate_v1(){
+   return fs_gets(url_get_cate_v1)
+}
+const url_get_posts=url_home+'/wp-content/themes/shopseo/templates/ajax/posts/get_posts.php';
+export async function get_posts(id_category){
+   let url=url_get_posts+"?id="+id_category;
+   return fs_gets(url)
+}
+const url_get_infor_post=url_home+'/wp-content/themes/shopseo/templates/ajax/posts/get_infor_post.php';
+export async function get_infor_post(id_post){
+   let url=url_get_infor_post+"?id="+id_post;
+   return fs_gets(url)
+}
+//
+let url_edit_quatity_sold=url_home+'/wp-content/themes/shopseo/templates/ajax/posts/edit_quatity_sold.php'
+export async function action_edit_quatity_sold(data){
+    console.log("🚀 ~ file: axios.js:111 ~ action_create_or_edit_post ~ data:", data)
+    let data_send=new FormData();
+    Object.keys(data).forEach(function(key) {
+        data_send.append(key,data[key]);
+    });
+    //
+    let response= axios.post(url_edit_quatity_sold, 
+        data_send
+    )
+    .then(function (response) {
+        console.log("🚀 ~ file: axios.js:121 ~ response:", response)
+        return response.data;
+    })
+    .catch(function (error) {
+        console.log("🚀 ~ file: axios.js ~ line 44 ~ action_create_or_edit_post ~ error", error)
+        return {}
+    })
+    return response;
+}
+//
+let url_edit_related_keyword=url_home+'/wp-content/themes/shopseo/templates/ajax/posts/edit_related_keyword.php'
+export async function action_edit_related_keyword(data){
+    console.log("🚀 ~ file: axios.js:111 ~ action_create_or_edit_post ~ data:", data)
+    let data_send=new FormData();
+    Object.keys(data).forEach(function(key) {
+        data_send.append(key,data[key]);
+    });
+    //
+    let response= axios.post(url_edit_related_keyword, 
+        data_send
+    )
+    .then(function (response) {
+        console.log("🚀 ~ file: axios.js:121 ~ response:", response)
+        return response.data;
+    })
+    .catch(function (error) {
+        console.log("🚀 ~ file: axios.js ~ line 44 ~ action_create_or_edit_post ~ error", error)
+        return {}
+    })
+    return response;
+}
+//
+let url_edit_status=url_home+'/wp-content/themes/shopseo/templates/ajax/posts/edit_status.php'
+export async function edit_status(data){
+    console.log("🚀 ~ file: axios.js:111 ~ action_create_or_edit_post ~ data:", data)
+    let data_send=new FormData();
+    Object.keys(data).forEach(function(key) {
+        data_send.append(key,data[key]);
+    });
+    //
+    let response= axios.post(url_edit_status, 
+        data_send
+    )
+    .then(function (response) {
+        console.log("🚀 ~ file: axios.js:121 ~ response:", response)
+        return response.data;
+    })
+    .catch(function (error) {
+        console.log("🚀 ~ file: axios.js ~ line 44 ~ action_create_or_edit_post ~ error", error)
+        return {}
+    })
+    return response;
+}
+//
+let url_edit_is_best_seller=url_home+'/wp-content/themes/shopseo/templates/ajax/posts/edit_is_best_seller.php'
+export async function edit_is_best_seller(data){
+    console.log("🚀 ~ file: axios.js:111 ~ action_create_or_edit_post ~ data:", data)
+    let data_send=new FormData();
+    Object.keys(data).forEach(function(key) {
+        data_send.append(key,data[key]);
+    });
+    //
+    let response= axios.post(url_edit_is_best_seller, 
+        data_send
+    )
+    .then(function (response) {
+        console.log("🚀 ~ file: axios.js:121 ~ response:", response)
+        return response.data;
+    })
+    .catch(function (error) {
+        console.log("🚀 ~ file: axios.js ~ line 44 ~ action_create_or_edit_post ~ error", error)
+        return {}
+    })
+    return response;
+}
+//
+let url_delete_post=url_home+'/wp-content/themes/shopseo/templates/ajax/posts/delete_post.php'
+export async function delete_post(data){
+    let data_send=new FormData();
+    Object.keys(data).forEach(function(key) {
+        data_send.append(key,data[key]);
+    });
+    //
+    let response= axios.post(url_delete_post, 
         data_send
     )
     .then(function (response) {
