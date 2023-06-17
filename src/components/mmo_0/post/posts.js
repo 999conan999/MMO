@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 // import Template_input from '../lib/template_input/Template_input';
 import { Container,Table,Grid,Button,Dropdown,Segment,Input,Image,Icon } from 'semantic-ui-react'
 import Editer_post from './editer_post';
-import {get_cate_v1,get_posts,action_edit_quatity_sold,action_edit_related_keyword,edit_status,edit_is_best_seller,delete_post} from '../lib/axios'
+import {get_cate_v1,get_posts,action_edit_quatity_sold,action_edit_related_keyword,edit_status,edit_is_best_seller,delete_post,get_attribute_list_v2} from '../lib/axios'
 export default class Posts extends Component {
   constructor (props) {
     super(props)
@@ -75,17 +75,19 @@ export default class Posts extends Component {
       search_title:"",
       search_type:"All",
       search_status:"All",
+      attribute_list_v2:[]
     }
   }
  async componentDidMount(){
     let text_check= localStorage.getItem("post_text_index");
     if(text_check==null||text_check==undefined) text_check="";
     let cate_v1=await get_cate_v1();
+    let attribute_list_v2=await get_attribute_list_v2();
     cate_v1.unshift({text:"Chọn danh mục",value:-1})
-    this.setState({text_check:text_check,category_list:cate_v1})
+    this.setState({text_check:text_check,category_list:cate_v1,attribute_list_v2:attribute_list_v2})
   }
   render() {
-    let {control_edit,data,select_quantity_sold,select_related_keyword,text_check,search_id,search_title,search_type,search_status,category_list}=this.state;
+    let {control_edit,data,select_quantity_sold,select_related_keyword,text_check,search_id,search_title,search_type,search_status,category_list,attribute_list_v2}=this.state;
     let option_related_keyword=data.map((e)=> {
       return {
         value:e.id,
@@ -221,7 +223,7 @@ export default class Posts extends Component {
                                       }}
                                     >{e.id}</Table.Cell>
                                     <Table.Cell >
-                                      <Image src={e.thumnail.url300} className='imgthm'/>
+                                      <Image src={e.thumnail.url150} className='imgthm'/>
                                     </Table.Cell>
                                     <Table.Cell>
                                       <a href={e.url} target='_blank'>{e.title}</a>
@@ -481,7 +483,7 @@ export default class Posts extends Component {
                 </Segment>
               </Grid.Column>
               {control_edit.is_open&&<Editer_post 
-
+                attribute_list_v2={attribute_list_v2}
                 category_list={category_list}
                 list_sp={data}
                 id={control_edit.id}

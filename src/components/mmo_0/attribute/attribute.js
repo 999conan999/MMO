@@ -1,38 +1,15 @@
 import React, { Component } from 'react';
 import '../post/post.css'
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { Container,Table,Grid,Button,Dropdown,Segment,Input,Image,Icon } from 'semantic-ui-react';
 import Editer_attribute from './editer_attribute';
+import {get_attributes,delete_attribute} from '../lib/axios'
 export default class Attribute extends Component {
   constructor (props) {
     super(props)
     this.state = {
       // main
         data:[
-          {
-            id:1,
-            thumnail:'https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg',
-            name:'Giường sắt ống tròn',
-            tag:'Giường sắt',
-            price:1250000,
-            price_ss:300000,
-          },
-          {
-            id:2,
-            thumnail:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg',
-            name:'Giường sắt hộp 4x8',
-            tag:'Giường ngủ',
-            price:2250000,
-            price_ss:400000,
-          },
-          {
-            id:3,
-            thumnail:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-cho-ba-de.jpg',
-            name:'Giường sắt hộp 5x10',
-            tag:'Giường ngủ',
-            price:3250000,
-            price_ss:500000,
-          },
         ],
         //ho tro
         control_edit:{
@@ -51,7 +28,13 @@ export default class Attribute extends Component {
   async componentDidMount(){
     let text_check= localStorage.getItem("attr_text_index");
     if(text_check==null||text_check==undefined) text_check="";
-    this.setState({text_check:text_check})
+    let data=await get_attributes();
+    if(data.length>0){
+      this.setState({text_check:text_check,data:data})
+    }else{
+      this.setState({text_check:text_check})
+    }
+    
   }
   render() {
     let {data,control_edit,text_check,search_id,search_tag}=this.state;
@@ -124,7 +107,7 @@ export default class Attribute extends Component {
                             <Table.Cell textAlign='middle'>
                               <Image src={e.thumnail} className='imgthm'/>
                             </Table.Cell>
-                            <Table.Cell>{e.name}</Table.Cell>
+                            <Table.Cell>{e.title}</Table.Cell>
                             <Table.Cell>
                               <a className='tagx colrfs'>{e.tag}</a>
                             </Table.Cell>
@@ -135,7 +118,23 @@ export default class Attribute extends Component {
                               <b style={{color:"blue"}}>{(Number(e.price_ss)).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</b>
                             </Table.Cell>
                             <Table.Cell>
-                              <Button animated='vertical'>
+                              <Button animated='vertical'
+                                onClick={async()=>{
+                                if(window.confirm(`Xác nhận Xóa:"${e.title}"`)){
+                                  let {data}=this.state;
+                                  let a=await delete_attribute({
+                                    id:e.id
+                                  })
+                                  if(a.status){
+                                    data.splice(i,1)
+                                    toast.success('Xóa thành công.', { theme: "colored" });
+                                  }else{
+                                    toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                                  }
+                                  this.setState({data:data})
+                                }
+                              }}
+                              >
                                 <Button.Content hidden >Xóa</Button.Content>
                                 <Button.Content visible>
                                   <Icon name='trash alternate' />
@@ -201,6 +200,28 @@ export default class Attribute extends Component {
                 type={control_edit.type}
                 fs_close={()=>{
                   this.setState({
+                    control_edit:{
+                      is_open:false,
+                      id:-1,
+                      type:""
+                    }
+                  })
+                }}
+                fs_change_attribute={(id,rs)=>{
+                  let {data}=this.state;
+                  if(id==-1){
+                    data.unshift(rs)
+                  }else{
+                    let index=-1;
+                    for (let i = 0; i < data.length; i++) {
+                      if(data[i].id==id) index=i;
+                    }
+                    if(index>-1){
+                      data[index]=rs;
+                    }
+                  }
+                  this.setState({
+                    data:data,
                     control_edit:{
                       is_open:false,
                       id:-1,

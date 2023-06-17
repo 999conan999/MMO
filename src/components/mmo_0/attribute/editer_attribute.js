@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Input_img from '../lib/input_img/index';
 import { moveElement } from '../lib/fs';
+import {create_edit_attributes,get_attributes_infor} from '../lib/axios'
 import { Container, Grid, Button,Input,Checkbox, Image, Table, Header,Form } from 'semantic-ui-react'
 export default class Editer_attribute extends Component {
   constructor(props) {
@@ -9,12 +10,12 @@ export default class Editer_attribute extends Component {
     this.state = {
       // main
       data:{
-        name:'Giường sắt ống tròn',
-        tag:'Giường sắt',
+        id:-1,
+        title:'',
+        tag:'',
         thumnail:'',
-        // price_v:1200000,
-        price_ss:300000,
-        attribute_name:'Kích thước',
+        price_ss:0,
+        attribute_name:'',
         is_show_price_table:true,
         table_price:[],
         is_show_infor:true,
@@ -60,6 +61,37 @@ export default class Editer_attribute extends Component {
       index_show_input_table_price:-1
     }
   }
+  async componentDidMount(){
+      let {id,type}=this.props;
+      let {data}=this.state;
+      // 1
+  
+      if(type=="create"){
+        
+      }else if(type=="copy"){
+        let data=await get_attributes_infor(id);
+        if(data.id!=undefined){
+          data.id=-1;
+          this.setState({data:data})
+        }else{
+          toast.info("Lỗi rồi", { theme: "colored" })
+        }
+      }else if(type=="edit"){
+        let data=await get_attributes_infor(id);
+        if(data.id!=undefined){
+          this.setState({data:data})
+        }else{
+          toast.info("Lỗi rồi", { theme: "colored" })
+        }
+      }
+
+
+      // this.setState({
+      //   list_sp_anh_xa:list_sp_covert,
+      //   category_list:category_list
+      // })
+
+  }
   render() {
     let {data,index_show_input_table_price}=this.state;
     return (
@@ -73,10 +105,10 @@ export default class Editer_attribute extends Component {
                 <Form>
                   <Header as='h4'>*Tên thuộc tính</Header>
                   <Input fluid
-                    value={data.name}
+                    value={data.title}
                     onChange={(e,{value}) => {
                       let {data}=this.state;
-                      data.name=value;
+                      data.title=value;
                       this.setState({ data: data })
                     }}
                   />
@@ -102,7 +134,7 @@ export default class Editer_attribute extends Component {
                     is_muti={false}
                     fs_result={(rs) => {
                       let {data}=this.state;
-                      data.thumnail=rs[0].url300;
+                      data.thumnail=rs[0].url150;
                       this.setState({ data: data })
                     }}
                   />
@@ -436,9 +468,40 @@ export default class Editer_attribute extends Component {
             onClick={()=>this.props.fs_close()}
           >Hủy</Button>
           <Button primary className='createx'
-            onClick={()=>{
+            onClick={async()=>{
               let {data}=this.state;
-              console.log(JSON.stringify(data))
+              let price=0;
+              if(data.table_price[0]!=undefined){
+                price=Number(data.table_price[0].price_v)+Number(data.table_price[0].price_profit);
+              }
+              let rs={
+                id:data.id,
+                thumnail:data.thumnail,
+                title:data.title,
+                tag:data.tag,
+                price_ss:data.price_ss,
+                price:price,
+                json_data:JSON.stringify(data)
+              }
+              let rs_change={
+                id:data.id,
+                thumnail:data.thumnail,
+                title:data.title,
+                tag:data.tag,
+                price_ss:data.price_ss,
+                price:price,
+              }
+              let a=await create_edit_attributes(rs);
+              if(a.status){
+                if(data.id==-1){
+                  toast.success('Tạo mới thành công.', { theme: "colored" });
+                }else{
+                  toast.success('Cập nhật thành công', { theme: "colored" });
+                }
+                this.props.fs_change_attribute(data.id,rs_change)
+              }else{
+                toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+              }
             }}
           >{this.props.type=="edit"?"Cập nhật":"Tạo mới"}</Button>
         </div>

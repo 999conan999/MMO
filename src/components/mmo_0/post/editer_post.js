@@ -60,26 +60,26 @@ export default class Editer_post extends Component {
       ],
       //
       attribute_list:[
-        {
-          value:1,
-          text:'giường sắt ống tròn',
-          data:'{"name":"Giường sắt ống tròn","tag":"Giường sắt","thumnail":"","price_ss":300000,"attribute_name":"Kích thước","is_show_price_table":true,"table_price":[{"name":"1mx2m","price_v":"850000","price_og":"150000","price_profit":"400000","price_sale":"NaN440400400040000400000"},{"name":"1m2x2m","price_v":"950000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000"},{"name":"1m4x2m","price_v":"1050000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000"},{"name":"1m6x2m","price_v":"1150000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000"},{"name":"1m8x2m","price_v":"1250000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000"}],"is_show_infor":true,"table_infor":[{"name":"Xuất xứ","value":"Việt Nam"},{"name":"Thương hiệu","value":"An Bình"},{"name":"Kích thước","value":"1mx2m, 1m2x2m, 1m4x2m, 1m6x2m, 1m8x2m - cao 30cm từ mặt đất lên vạt giường"},{"name":"Màu sắc","value":"trắng, kem, xanh dương"},{"name":"Chất liệu sắt","value":"sắt ống tròn phi 49; dày 8zem"},{"name":"Chất liệu sơn","value":"Sơn tĩnh điện"},{"name":"Đối tượng sử dụng","value":"Học sinh, mọi người"},{"name":"Bảo hành","value":"3 tháng"}],"is_show_commit":true,"table_commit":["Sản phẩm chính hãng","Đổi một trong vòng 3 tháng","Miễn Phí giao hàng tại tp Hồ Chí Minh","Bảo hành 2 năm"]}'
-        },
-        {
-          value:2,
-          text:'giường sắt hộp 4x8',
-          data:'{"name":"giường sắt hộp 4x8","tag":"Giường sắt","thumnail":"","price_ss":"400000","attribute_name":"Kích thước","is_show_price_table":true,"table_price":[{"name":"1mx2m","price_v":"1100000","price_og":"150000","price_profit":"400000","price_sale":"NaN440400400040000400000400000400000400000400000400000"},{"name":"1m2x2m","price_v":"1250000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000"},{"name":"1m4x2m","price_v":"1400000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000"},{"name":"1m6x2m","price_v":"1500000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000"},{"name":"1m8x2m","price_v":"1600000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000"}],"is_show_infor":true,"table_infor":[{"name":"Xuất xứ","value":"Việt Nam"},{"name":"Thương hiệu","value":"An Bình"},{"name":"Kích thước","value":"1mx2m, 1m2x2m, 1m4x2m, 1m6x2m, 1m8x2m - cao 30cm từ mặt đất lên vạt giường"},{"name":"Màu sắc","value":"trắng, kem, xanh dương"},{"name":"Chất liệu sắt","value":"sắt hộp vuông 4x8"},{"name":"Chất liệu sơn","value":"Sơn tĩnh điện"},{"name":"Đối tượng sử dụng","value":"Học sinh, mọi người"},{"name":"Bảo hành","value":"3 tháng"}],"is_show_commit":true,"table_commit":["Sản phẩm chính hãng","Đổi một trong vòng 3 tháng","Miễn Phí giao hàng tại tp Hồ Chí Minh","Bảo hành 2 năm"]}'
-        },
-        {
-          value:3,
-          text:'giường sắt hộp 5x10',
-          data:'{"name":"giường sắt hộp 5x10","tag":"Giường sắt","thumnail":"","price_ss":"400000","attribute_name":"Kích thước","is_show_price_table":true,"table_price":[{"name":"1mx2m","price_v":"1300000","price_og":"150000","price_profit":"400000","price_sale":"NaN440400400040000400000400000400000400000400000400000400000400000400000400000"},{"name":"1m2x2m","price_v":"1500000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000400000400000400000400000"},{"name":"1m4x2m","price_v":"1650000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000400000400000400000400000400000"},{"name":"1m6x2m","price_v":"1800000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000"},{"name":"1m8x2m","price_v":"1950000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000"}],"is_show_infor":true,"table_infor":[{"name":"Xuất xứ","value":"Việt Nam"},{"name":"Thương hiệu","value":"An Bình"},{"name":"Kích thước","value":"1mx2m, 1m2x2m, 1m4x2m, 1m6x2m, 1m8x2m - cao 30cm từ mặt đất lên vạt giường"},{"name":"Màu sắc","value":"trắng, kem, hồng"},{"name":"Chất liệu sắt","value":"sắt hộp vuông 5x10"},{"name":"Chất liệu sơn","value":"Sơn tĩnh điện"},{"name":"Đối tượng sử dụng","value":"Học sinh, mọi người"},{"name":"Bảo hành","value":"3 tháng"}],"is_show_commit":true,"table_commit":["Sản phẩm chính hãng","Đổi một trong vòng 3 tháng","Miễn Phí giao hàng tại tp Hồ Chí Minh","Bảo hành 2 năm"]}'
-        },
-        {
-          value:4,
-          text:'giường sắt tầng sắt',
-          data:'{"name":"giường sắt tầng sắt","tag":"Giường sắt","thumnail":"","price_ss":"400000","attribute_name":"Kích thước","is_show_price_table":true,"table_price":[{"name":"tầng trên 1m2 x dưới 1m2","price_v":"1400000","price_og":"150000","price_profit":"400000","price_sale":"NaN440400400040000400000400000400000400000400000400000400000400000400000400000400000400000400000400000"},{"name":"tầng trên 1m4 x dưới 1m4","price_v":"1500000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000400000400000400000400000"},{"name":"tầng trên 1m6 x dưới 1m6","price_v":"1650000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000400000400000400000400000400000"},{"name":"tầng trên 1m8 x dưới 1m8","price_v":"1950000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000"},{"name":"tầng trên 80cm x dưới 80cm","price_v":"1950000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000"}],"is_show_infor":true,"table_infor":[{"name":"Xuất xứ","value":"Việt Nam"},{"name":"Thương hiệu","value":"An Bình"},{"name":"Kích thước","value":"1mx2m, 1m2x2m, 1m4x2m, 1m6x2m, 1m8x2m - cao 30cm từ mặt đất lên vạt giường"},{"name":"Màu sắc","value":"trắng, kem, hồng"},{"name":"Chất liệu sắt","value":"sắt hộp vuông 5x10"},{"name":"Chất liệu sơn","value":"Sơn tĩnh điện"},{"name":"Đối tượng sử dụng","value":"Học sinh, mọi người"},{"name":"Bảo hành","value":"3 tháng"}],"is_show_commit":true,"table_commit":["Sản phẩm chính hãng","Đổi một trong vòng 3 tháng","Miễn Phí giao hàng tại tp Hồ Chí Minh","Bảo hành 2 năm"]}'
-        },
+        // {
+        //   value:1,
+        //   text:'giường sắt ống tròn',
+        //   data:'{"name":"Giường sắt ống tròn","tag":"Giường sắt","thumnail":"","price_ss":300000,"attribute_name":"Kích thước","is_show_price_table":true,"table_price":[{"name":"1mx2m","price_v":"850000","price_og":"150000","price_profit":"400000","price_sale":"NaN440400400040000400000"},{"name":"1m2x2m","price_v":"950000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000"},{"name":"1m4x2m","price_v":"1050000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000"},{"name":"1m6x2m","price_v":"1150000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000"},{"name":"1m8x2m","price_v":"1250000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000"}],"is_show_infor":true,"table_infor":[{"name":"Xuất xứ","value":"Việt Nam"},{"name":"Thương hiệu","value":"An Bình"},{"name":"Kích thước","value":"1mx2m, 1m2x2m, 1m4x2m, 1m6x2m, 1m8x2m - cao 30cm từ mặt đất lên vạt giường"},{"name":"Màu sắc","value":"trắng, kem, xanh dương"},{"name":"Chất liệu sắt","value":"sắt ống tròn phi 49; dày 8zem"},{"name":"Chất liệu sơn","value":"Sơn tĩnh điện"},{"name":"Đối tượng sử dụng","value":"Học sinh, mọi người"},{"name":"Bảo hành","value":"3 tháng"}],"is_show_commit":true,"table_commit":["Sản phẩm chính hãng","Đổi một trong vòng 3 tháng","Miễn Phí giao hàng tại tp Hồ Chí Minh","Bảo hành 2 năm"]}'
+        // },
+        // {
+        //   value:2,
+        //   text:'giường sắt hộp 4x8',
+        //   data:'{"name":"giường sắt hộp 4x8","tag":"Giường sắt","thumnail":"","price_ss":"400000","attribute_name":"Kích thước","is_show_price_table":true,"table_price":[{"name":"1mx2m","price_v":"1100000","price_og":"150000","price_profit":"400000","price_sale":"NaN440400400040000400000400000400000400000400000400000"},{"name":"1m2x2m","price_v":"1250000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000"},{"name":"1m4x2m","price_v":"1400000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000"},{"name":"1m6x2m","price_v":"1500000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000"},{"name":"1m8x2m","price_v":"1600000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000"}],"is_show_infor":true,"table_infor":[{"name":"Xuất xứ","value":"Việt Nam"},{"name":"Thương hiệu","value":"An Bình"},{"name":"Kích thước","value":"1mx2m, 1m2x2m, 1m4x2m, 1m6x2m, 1m8x2m - cao 30cm từ mặt đất lên vạt giường"},{"name":"Màu sắc","value":"trắng, kem, xanh dương"},{"name":"Chất liệu sắt","value":"sắt hộp vuông 4x8"},{"name":"Chất liệu sơn","value":"Sơn tĩnh điện"},{"name":"Đối tượng sử dụng","value":"Học sinh, mọi người"},{"name":"Bảo hành","value":"3 tháng"}],"is_show_commit":true,"table_commit":["Sản phẩm chính hãng","Đổi một trong vòng 3 tháng","Miễn Phí giao hàng tại tp Hồ Chí Minh","Bảo hành 2 năm"]}'
+        // },
+        // {
+        //   value:3,
+        //   text:'giường sắt hộp 5x10',
+        //   data:'{"name":"giường sắt hộp 5x10","tag":"Giường sắt","thumnail":"","price_ss":"400000","attribute_name":"Kích thước","is_show_price_table":true,"table_price":[{"name":"1mx2m","price_v":"1300000","price_og":"150000","price_profit":"400000","price_sale":"NaN440400400040000400000400000400000400000400000400000400000400000400000400000"},{"name":"1m2x2m","price_v":"1500000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000400000400000400000400000"},{"name":"1m4x2m","price_v":"1650000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000400000400000400000400000400000"},{"name":"1m6x2m","price_v":"1800000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000"},{"name":"1m8x2m","price_v":"1950000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000"}],"is_show_infor":true,"table_infor":[{"name":"Xuất xứ","value":"Việt Nam"},{"name":"Thương hiệu","value":"An Bình"},{"name":"Kích thước","value":"1mx2m, 1m2x2m, 1m4x2m, 1m6x2m, 1m8x2m - cao 30cm từ mặt đất lên vạt giường"},{"name":"Màu sắc","value":"trắng, kem, hồng"},{"name":"Chất liệu sắt","value":"sắt hộp vuông 5x10"},{"name":"Chất liệu sơn","value":"Sơn tĩnh điện"},{"name":"Đối tượng sử dụng","value":"Học sinh, mọi người"},{"name":"Bảo hành","value":"3 tháng"}],"is_show_commit":true,"table_commit":["Sản phẩm chính hãng","Đổi một trong vòng 3 tháng","Miễn Phí giao hàng tại tp Hồ Chí Minh","Bảo hành 2 năm"]}'
+        // },
+        // {
+        //   value:4,
+        //   text:'giường sắt tầng sắt',
+        //   data:'{"name":"giường sắt tầng sắt","tag":"Giường sắt","thumnail":"","price_ss":"400000","attribute_name":"Kích thước","is_show_price_table":true,"table_price":[{"name":"tầng trên 1m2 x dưới 1m2","price_v":"1400000","price_og":"150000","price_profit":"400000","price_sale":"NaN440400400040000400000400000400000400000400000400000400000400000400000400000400000400000400000400000"},{"name":"tầng trên 1m4 x dưới 1m4","price_v":"1500000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000400000400000400000400000"},{"name":"tầng trên 1m6 x dưới 1m6","price_v":"1650000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000400000400000400000400000400000"},{"name":"tầng trên 1m8 x dưới 1m8","price_v":"1950000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000"},{"name":"tầng trên 80cm x dưới 80cm","price_v":"1950000","price_og":"150000","price_profit":"400000","price_sale":"undefined400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000400000"}],"is_show_infor":true,"table_infor":[{"name":"Xuất xứ","value":"Việt Nam"},{"name":"Thương hiệu","value":"An Bình"},{"name":"Kích thước","value":"1mx2m, 1m2x2m, 1m4x2m, 1m6x2m, 1m8x2m - cao 30cm từ mặt đất lên vạt giường"},{"name":"Màu sắc","value":"trắng, kem, hồng"},{"name":"Chất liệu sắt","value":"sắt hộp vuông 5x10"},{"name":"Chất liệu sơn","value":"Sơn tĩnh điện"},{"name":"Đối tượng sử dụng","value":"Học sinh, mọi người"},{"name":"Bảo hành","value":"3 tháng"}],"is_show_commit":true,"table_commit":["Sản phẩm chính hãng","Đổi một trong vòng 3 tháng","Miễn Phí giao hàng tại tp Hồ Chí Minh","Bảo hành 2 năm"]}'
+        // },
       ],
       //
       list_sp_anh_xa:[],
@@ -95,7 +95,8 @@ export default class Editer_post extends Component {
     }
   }
   async componentDidMount(){
-    let {id,type,list_sp,category_list}=this.props;
+    let {id,type,list_sp,category_list,attribute_list_v2}=this.props;
+    console.log("🚀 ~ file: editer_post.js:99 ~ Editer_post ~ componentDidMount ~ attribute_list_v2:", attribute_list_v2)
     let {data}=this.state;
     // 1
    let list_sp_covert=list_sp.map((e)=>{
@@ -131,13 +132,11 @@ export default class Editer_post extends Component {
       }
     }
 
-
     this.setState({
       list_sp_anh_xa:list_sp_covert,
-      category_list:category_list
+      category_list:category_list,
+      attribute_list:attribute_list_v2
     })
-
-
 
   }
   render() {
@@ -206,7 +205,7 @@ export default class Editer_post extends Component {
                     <Image
                       floated='right'
                       size='tiny'
-                      src={data.thumnail.url300}
+                      src={data.thumnail.url150}
                       className='thuasda'
                     />
                   </div>

@@ -264,3 +264,60 @@ export async function delete_post(data){
     })
     return response;
 }
+//
+let url_edit_attributes=url_home+'/wp-content/themes/shopseo/templates/ajax/attributes/create_edit_attributes.php'
+export async function create_edit_attributes(data){
+    let data_send=new FormData();
+    Object.keys(data).forEach(function(key) {
+        data_send.append(key,data[key]);
+    });
+    //
+    let response= axios.post(url_edit_attributes, 
+        data_send
+    )
+    .then(function (response) {
+        console.log("🚀 ~ file: axios.js:121 ~ response:", response)
+        return response.data;
+    })
+    .catch(function (error) {
+        console.log("🚀 ~ file: axios.js ~ line 44 ~ action_create_or_edit_post ~ error", error)
+        return {}
+    })
+    return response;
+}
+const url_get_attribute_list_v2=url_home+'/wp-content/themes/shopseo/templates/ajax/attributes/get_attribute_list_v2.php';
+export async function get_attribute_list_v2(){
+   let url=url_get_attribute_list_v2;
+   return fs_gets(url)
+}
+const url_get_attributes=url_home+'/wp-content/themes/shopseo/templates/ajax/attributes/get_attributes.php';
+export async function get_attributes(){
+   let url=url_get_attributes;
+   return fs_gets(url)
+}
+const url_attributes_infor=url_home+'/wp-content/themes/shopseo/templates/ajax/attributes/get_attributes_infor.php';
+export async function get_attributes_infor(id){
+   let url=url_attributes_infor+"?id="+id;
+   return fs_gets(url)
+}
+//
+let url_delete_attribute=url_home+'/wp-content/themes/shopseo/templates/ajax/attributes/delete_attribute.php'
+export async function delete_attribute(data){
+    let data_send=new FormData();
+    Object.keys(data).forEach(function(key) {
+        data_send.append(key,data[key]);
+    });
+    //
+    let response= axios.post(url_delete_attribute, 
+        data_send
+    )
+    .then(function (response) {
+        console.log("🚀 ~ file: axios.js:121 ~ response:", response)
+        return response.data;
+    })
+    .catch(function (error) {
+        console.log("🚀 ~ file: axios.js ~ line 44 ~ action_create_or_edit_post ~ error", error)
+        return {}
+    })
+    return response;
+}
