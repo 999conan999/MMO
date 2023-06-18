@@ -1,23 +1,13 @@
 import React, { Component } from 'react';
 import Editer from '../lib/editer/Editer';
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Input_img from '../lib/input_img';
-import { Container, Grid, Button, Dropdown, Segment, Input, Image, Checkbox, Header, TextArea, Form } from 'semantic-ui-react'
-const test_html='<p>Giường được làm bằng sắt ống tròn phi 49, có thể tháo ráp dễ dàng.</p> <p>Giường được sơn bằng&nbsp;<span style="color: rgb(186, 55, 42);"><strong>sơn tĩnh điện</strong></span>&nbsp;chống rỉ sét.</p> <p>Hỗ trợ kích thước:&nbsp;<span style="color: rgb(186, 55, 42);"><strong>80cmx2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1mx2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1m2x2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1m4x2m</strong></span>, <span style="color: rgb(186, 55, 42);"><strong>1m6x2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1m8x2m</strong></span>.</p> <p><strong>Giá rẻ nhất</strong>&nbsp;trong các dòng giường sắt, sử dụng cũng khá bền.&nbsp;<span style="color: rgb(186, 55, 42);"><strong>Nếu như các bạn đang cần một chiếc giường và không cần quá cầu kì, thì đây là sự lựa chọn giúp bạn tiết kiệm khá nhiều chi phí đấy nhé!</strong></span></p>'
+import { Container, Grid, Button, Segment, Input, Image, Dropdown, Header, TextArea, Form } from 'semantic-ui-react'
+ import {action_create_or_edit_post,get_infor_post} from '../lib/axios'
 export default class Editer_page extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      // data:[],
-      test: [
-        { text: 'Hiển thị tất cả danh mục', value: 'English' },
-        { text: 'French', value: 'French' },
-        { text: 'Spanish', value: 'Spanish' },
-        { text: 'German', value: 'German' },
-        { text: 'Chinese', value: 'Chinese' },
-      ],
-      selected_test: 'English',
-      selected_test_arr: [],
       //
       editer_option:{
         is_open:false,
@@ -26,13 +16,38 @@ export default class Editer_page extends Component {
       },
       // main
       data:{
+        id:-1,
         thumnail:'',
         title:'',
         key_word:'',
         short_des:'',
-        long_des:test_html
+        long_des:'',
+        status:'private'
       }
     }
+  }
+  async componentDidMount(){
+    let {id,type}=this.props;
+    let {data}=this.state;
+ 
+    if(type=="create"){
+    }else if(type=="copy"){
+      let data=await get_infor_post(id);
+      if(data.id!=undefined){
+        data.id=-1;
+        this.setState({data:data})
+      }else{
+        toast.info("Lỗi rồi", { theme: "colored" })
+      }
+    }else if(type=="edit"){
+      let data=await get_infor_post(id);
+      if(data.id!=undefined){
+        this.setState({data:data })
+      }else{
+        toast.info("Lỗi rồi", { theme: "colored" })
+      }
+    }
+
   }
   render() {
     let {data}=this.state
@@ -50,14 +65,14 @@ export default class Editer_page extends Component {
                     is_muti={false}
                     fs_result={(rs) => {
                       let {data}=this.state;
-                      data.thumnail=rs[0].url;
+                      data.thumnail=rs[0];
                       this.setState({ data: data })
                     }}
                   />
                   <Image
                     floated='right'
                     size='tiny'
-                    src={data.thumnail}
+                    src={data.thumnail.url300}
                     className='thuasda'
                   />
                 </div>
@@ -145,17 +160,76 @@ export default class Editer_page extends Component {
         </Container>
 
         <div className='footer-edit'>
-        <div style={{display:"inline-block",paddingRight:"50px"}}>
-            <Dropdown 
-              value={this.state.selected_test}
-              options={this.state.test}
+        <div style={{ display: "inline-block", paddingRight: "50px" }}>
+            <Dropdown
+              value={data.status}
+              options={[
+                {
+                  text:'Công khai',
+                  value:'publish'
+                },
+                {
+                  text:'Riêng tư',
+                  value:'private'
+                },
+              ]}
               onChange={(e, { value }) => {
-                this.setState({ selected_test: value })
+                let {data}=this.state;
+                data.status=value;
+                this.setState({data:data})
               }}
             />
           </div>
           <Button size='medium' color='grey' onClick={()=>this.props.fs_close()}>Hủy</Button>
-          <Button primary className='createx'>{this.props.type=="edit"?"Cập nhật":"Tạo mới"}</Button>
+          <Button primary className='createx'
+            onClick={async()=>{
+              let {data}=this.state;
+              console.log("🚀 ~ file: editer_page.js:161 ~ Editer_page ~ render ~ data:", data)
+              if(data.title.length>8){
+                let rs={
+                  id:data.id,
+                  category_id:-1,
+                  json_data:JSON.stringify(data),
+                  thumnail:JSON.stringify(data.thumnail),
+                  title:data.title,
+                  price:0,
+                  quantity_sold:0,
+                  key_word:data.key_word,
+                  related_keyword:JSON.stringify([]),
+                  status:data.status,
+                  is_best_seller:'false',
+                  type:'page',
+                  short_des:data.short_des
+                }
+                let a=await action_create_or_edit_post(rs);
+                if(a.status){
+                  let rs_change={
+                    id:a.id,
+                    thumnail:data.thumnail,
+                    title:data.title,
+                    key_word:data.key_word,
+                    price:0,
+                    quantity_sold:0,
+                    type:'page',
+                    related_keyword:[],
+                    status:data.status,
+                    is_best_seller:'false',
+                    url:a.url
+                  }
+                  if(data.id==-1){
+                    toast.success('Tạo mới thành công.', { theme: "colored" });
+                  }else{
+                    toast.success('Cập nhật thành công', { theme: "colored" });
+                  }
+                  this.props.fs_change_page(data.id,rs_change)
+                }else{
+                  toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                }
+              }else{
+                toast.info("Tiêu đề quá ngắn hoặc chưa chọn danh mục", { theme: "colored" })
+              }
+            }}
+          >{this.props.type=="edit"?"Cập nhật":"Tạo mới"}</Button>
         </div>
         {this.state.editer_option.is_open && <Editer
           close={() => this.setState({ editer_option: { is_open: false, text_html: '', index: -1 } })}

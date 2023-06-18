@@ -321,3 +321,8 @@ export async function delete_attribute(data){
     })
     return response;
 }
+const url_get_pages=url_home+'/wp-content/themes/shopseo/templates/ajax/pages/get_pages.php';
+export async function get_pages(){
+   let url=url_get_pages;
+   return fs_gets(url)
+}

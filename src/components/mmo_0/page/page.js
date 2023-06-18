@@ -1,37 +1,16 @@
 import React, { Component } from 'react';
 import '../post/post.css'
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 // import Template_input from '../lib/template_input/Template_input';
 import { Container,Table,Grid,Button,Dropdown,Segment,Input,Image,Icon } from 'semantic-ui-react'
 import Editer_page from './editer_page';
+import {get_pages,delete_post,edit_status} from '../lib/axios'
 export default class Pages extends Component {
   constructor (props) {
     super(props)
     this.state = {
       // main
-      data:[
-        {
-          id:1,
-          thumnail:'https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg',
-          title:'Giường sắt ống tròn',
-          status:'publish',
-          url:"#"
-        },
-        {
-          id:2,
-          thumnail:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg',
-          title:'Giường sắt hộp 4x8',
-          status:'publish',
-          url:"#"
-        },
-        {
-          id:3,
-          thumnail:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-cho-ba-de.jpg',
-          title:'Giường sắt hộp 5x10',
-          status:'private',
-          url:"#"
-        },
-      ],
+      data:[],
       //ho tro
       control_edit:{
         is_open:false,
@@ -44,15 +23,19 @@ export default class Pages extends Component {
       search_id:"",
       search_title:"",
       search_status:"All",
+      is_loading:true
     }
   }
   async componentDidMount(){
     let text_check= localStorage.getItem("page_text_index");
     if(text_check==null||text_check==undefined) text_check="";
-    this.setState({text_check:text_check})
+    // 
+    let data=await get_pages()
+    console.log("🚀 ~ file: page.js:55 ~ Pages ~ componentDidMount ~ data:", data)
+    this.setState({text_check:text_check,data:data,is_loading:false})
   }
   render() {
-    let {data,control_edit,text_check,search_id,search_title,search_status}=this.state;
+    let {data,control_edit,text_check,search_id,search_title,search_status,is_loading}=this.state;
     // search id
     if(search_id.length>0){
       data=data.filter((e)=>e.id==search_id)
@@ -91,7 +74,7 @@ export default class Pages extends Component {
               </Grid>
               <Grid.Column width={12}>
                 <Segment className='clorg hg'
-                  // loading
+                  loading={is_loading}
                 >
                   <Table celled structured basic  size="small" striped className='table-da'>
                     <Table.Header className='head-tbaks'>
@@ -145,15 +128,65 @@ export default class Pages extends Component {
                               }}
                           >{e.id}</Table.Cell>
                           <Table.Cell textAlign='middle'>
-                            <Image src={e.thumnail} className='imgthm'/>
+                            <Image src={e.thumnail.url300} className='imgthm'/>
                           </Table.Cell>
                           <Table.Cell><a href={e.url} target='_blank'>{e.title}</a></Table.Cell>
                           <Table.Cell>
-                            {e.status=="private"&&<Button content='Riêng tư' basic size="mini" />}
-                            {e.status=="publish"&&<Button positive  size="mini">Công khai</Button>}
+                          {e.status=="private"&&<Button content='Riêng tư' basic size="mini"
+                                        onClick={async()=>{
+                                          if(window.confirm("Xác nhận đổi sang 'công khai'")){
+                                            let {data}=this.state;
+                                            let a=await edit_status({
+                                              id:e.id,
+                                              value:'publish'
+                                            })
+                                            if(a.status){
+                                              data[i].status="publish"
+                                              toast.success('Cập nhật thành công.', { theme: "colored" });
+                                            }else{
+                                              toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                                            }
+                                            this.setState({data:data})
+                                          }
+                                        }}
+                                      />}
+                                      {e.status=="publish"&&<Button positive  size="mini"
+                                        onClick={async()=>{
+                                          if(window.confirm("Xác nhận đổi sang 'Riêng tư'")){
+                                            let {data}=this.state;
+                                            let a=await edit_status({
+                                              id:e.id,
+                                              value:'private'
+                                            })
+                                            if(a.status){
+                                              data[i].status="private"
+                                              toast.success('Cập nhật thành công.', { theme: "colored" });
+                                            }else{
+                                              toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                                            }
+                                            this.setState({data:data})
+                                          }
+                                        }}
+                                      >Công khai</Button>}
                           </Table.Cell>
                           <Table.Cell>
-                            <Button animated='vertical'>
+                            <Button animated='vertical'
+                              onClick={async()=>{
+                                if(window.confirm(`Xác nhận Xóa:"${e.title}"`)){
+                                  let {data}=this.state;
+                                  let a=await delete_post({
+                                    id:e.id
+                                  })
+                                  if(a.status){
+                                    data.splice(i,1)
+                                    toast.success('Cập nhật thành công.', { theme: "colored" });
+                                  }else{
+                                    toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                                  }
+                                  this.setState({data:data})
+                                }
+                              }}
+                            >
                               <Button.Content hidden >Xóa</Button.Content>
                               <Button.Content visible>
                                 <Icon name='trash alternate' />
@@ -211,6 +244,28 @@ export default class Pages extends Component {
                       type:""
                     }
                   })
+                }}
+                fs_change_page={(id,rs) => {
+                  let {data}=this.state;
+                  if(id==-1){// tao moi
+                    data.unshift(rs)
+                  }else{
+                    let index=-1;
+                    for (let i = 0; i < data.length; i++) {
+                      if(data[i].id==id) index=i;
+                    }
+                    if(index>-1){
+                      data[index]=rs;
+                    }
+                   }
+                   this.setState({
+                      data:data,
+                      control_edit:{
+                        is_open:false,
+                        id:-1,
+                        type:""
+                      }
+                    })
                 }}
               />}
         </React.Fragment>

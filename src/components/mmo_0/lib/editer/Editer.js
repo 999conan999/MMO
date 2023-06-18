@@ -56,7 +56,7 @@ class Editer extends Component {
     let {data,loading,step,is_show_GPT_by_btn,data_bot}=this.state;
     let is_show_GPT_prompt_by_dk=false;
     let data_prompt=this.props.data_prompt_GPT;
-    console.log("🚀 ~ file: Editer.js:53 ~ Editer ~ render ~ data_prompt:", data_prompt)
+    // console.log("🚀 ~ file: Editer.js:53 ~ Editer ~ render ~ data_prompt:", data_prompt)
     if(this.props.data_prompt_GPT!=undefined&&this.props.data_prompt_GPT!=null){
         is_show_GPT_prompt_by_dk=true;
     }
@@ -308,7 +308,6 @@ Từ những thông tin ở trên và dữ liệu tìm kiếm từ google, hãy 
                     <div className='buttonz-editer'>
                         <button className="ui positive button ABZ bobo"
                             onClick={()=>{
-                                 toast.success('Cập nhật thành công!', { theme: "colored" });
                                  let {data}=this.state;
                                 data=data.replace(new RegExp('"', 'g'), "'")
                                  this.props.rs_data(data)

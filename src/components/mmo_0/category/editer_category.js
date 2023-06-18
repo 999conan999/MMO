@@ -23,6 +23,7 @@ export default class Editer_category extends Component {
         short_des:'',
         long_des:test_html,
         related_list:[],
+        price_ss:0,
         dm:[
           {
             name:"Giường sắt hộp vuông",
@@ -33,7 +34,6 @@ export default class Editer_category extends Component {
             sp_list_id:[6,7]
           },
         ],
-        price_ss:0,
       },
       //
       list_sp:{
@@ -399,7 +399,12 @@ export default class Editer_category extends Component {
 
         <div className='footer-edit'>
           <Button size='medium' color='grey' onClick={()=>this.props.fs_close()}>Hủy</Button>
-          <Button primary className='createx'>{this.props.type=="edit"?"Cập nhật":"Tạo mới"}</Button>
+          <Button primary className='createx'
+            onClick={()=>{
+              let {data}=this.state;
+              console.log("🚀 ~ file: editer_category.js:405 ~ Editer_category ~ render ~ data:", data)
+            }}
+          >{this.props.type=="edit"?"Cập nhật":"Tạo mới"}</Button>
         </div>
         {this.state.editer_option.is_open && <Editer
           close={() => this.setState({ editer_option: { is_open: false, text_html: '', index: -1 } })}
