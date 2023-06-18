@@ -326,3 +326,37 @@ export async function get_pages(){
    let url=url_get_pages;
    return fs_gets(url)
 }
+//
+let url_create_edit_category=url_home+'/wp-content/themes/shopseo/templates/ajax/terms/create_edit_category.php'
+export async function action_create_edit_category(data){
+    console.log("🚀 ~ file: axios.js:111 ~ action_create_edit_category ~ data:", data)
+    let data_send=new FormData();
+    Object.keys(data).forEach(function(key) {
+        data_send.append(key,data[key]);
+    });
+    //
+    let response= axios.post(url_create_edit_category, 
+        data_send
+    )
+    .then(function (response) {
+        console.log("🚀 ~ file: axios.js:121 ~ response:", response)
+        return response.data;
+    })
+    .catch(function (error) {
+        console.log("🚀 ~ file: axios.js ~ line 44 ~ action_create_edit_category ~ error", error)
+        return {}
+    })
+    return response;
+}
+const url_get_categorys=url_home+'/wp-content/themes/shopseo/templates/ajax/terms/get_categorys.php';
+export async function get_categorys(){
+   let url=url_get_categorys;
+   return fs_gets(url)
+}
+//
+const url_get_category_detail=url_home+'/wp-content/themes/shopseo/templates/ajax/terms/get_category_detail.php';
+export async function get_category_detail(id){
+   let url=url_get_category_detail+"?id="+id;
+   return fs_gets(url)
+}
+//

@@ -437,7 +437,6 @@ class Media extends Component {
                   }catch(e){
 
                   }
-                  toast.success('Tải lên thành công!', { theme: "colored" });
                 }}
               >Chọn</button>
             </div>

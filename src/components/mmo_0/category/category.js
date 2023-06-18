@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../post/post.css'
-// import { toast } from 'react-toastify';
-// import Template_input from '../lib/template_input/Template_input';
+import { toast } from 'react-toastify';
+import {get_categorys} from '../lib/axios'
 import { Container,Table,Grid,Button,Dropdown,Segment,Input,Image,Icon } from 'semantic-ui-react'
 import Editer_category from './editer_category';
 export default class Categorys extends Component {
@@ -10,33 +10,6 @@ export default class Categorys extends Component {
     this.state = {
         // main
         data:[
-          {
-            id:1,
-            thumnail:'https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg',
-            title:'Giường sắt ống tròn',
-            tag:'Giường ngủ',
-            price:1250000,
-            price_ss:300000,
-            url:'#'
-          },
-          {
-            id:2,
-            thumnail:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg',
-            title:'Giường sắt hộp 4x8',
-            tag:'Giường ngủ',
-            price:2250000,
-            price_ss:400000,
-            url:'#'
-          },
-          {
-            id:3,
-            thumnail:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-cho-ba-de.jpg',
-            title:'Giường sắt hộp 5x10',
-            tag:'Giường ngủ',
-            price:3250000,
-            price_ss:500000,
-            url:'#'
-          },
         ],
         //ho tro
         control_edit:{
@@ -54,7 +27,13 @@ export default class Categorys extends Component {
   async componentDidMount(){
     let text_check= localStorage.getItem("cate_text_index");
     if(text_check==null||text_check==undefined) text_check="";
-    this.setState({text_check:text_check})
+    let a=await get_categorys();
+    if(a.length>0){
+      this.setState({text_check:text_check,data:a})
+    }else{
+      this.setState({text_check:text_check})
+    }
+
   }
   render() {
     let {data,control_edit,text_check,search_id,search_title}=this.state;
@@ -133,7 +112,7 @@ export default class Categorys extends Component {
                             }}
                           >{e.id}</Table.Cell>
                           <Table.Cell textAlign='middle'>
-                            <Image src={e.thumnail} className='imgthm'/>
+                            <Image src={e.thumnail.url300} className='imgthm'/>
                           </Table.Cell>
                           <Table.Cell><a href={e.url} target='_blank'>{e.title}</a></Table.Cell>
                           <Table.Cell>
@@ -196,6 +175,28 @@ export default class Categorys extends Component {
                         type:""
                       }
                     })
+                  }}
+                  fs_change_category={(id,rs) => {
+                    let {data}=this.state;
+                    if(id==-1){// tao moi
+                      data.unshift(rs)
+                    }else{
+                      let index=-1;
+                      for (let i = 0; i < data.length; i++) {
+                        if(data[i].id==id) index=i;
+                      }
+                      if(index>-1){
+                        data[index]=rs;
+                      }
+                     }
+                     this.setState({
+                        data:data,
+                        control_edit:{
+                          is_open:false,
+                          id:-1,
+                          type:""
+                        }
+                      })
                   }}
               />}
               {false&&<div className='dimerz'></div>}

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Editer from '../lib/editer/Editer';
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Input_img from '../lib/input_img';
 import { moveElement } from '../lib/fs';
+import {action_create_edit_category,get_category_detail} from '../lib/axios'
 import { Container, Grid, Button, Dropdown, Segment, Input,Icon, Image, Table, Header, TextArea, Form,Card } from 'semantic-ui-react'
-const test_html='<p>Giường được làm bằng sắt ống tròn phi 49, có thể tháo ráp dễ dàng.</p> <p>Giường được sơn bằng&nbsp;<span style="color: rgb(186, 55, 42);"><strong>sơn tĩnh điện</strong></span>&nbsp;chống rỉ sét.</p> <p>Hỗ trợ kích thước:&nbsp;<span style="color: rgb(186, 55, 42);"><strong>80cmx2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1mx2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1m2x2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1m4x2m</strong></span>, <span style="color: rgb(186, 55, 42);"><strong>1m6x2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1m8x2m</strong></span>.</p> <p><strong>Giá rẻ nhất</strong>&nbsp;trong các dòng giường sắt, sử dụng cũng khá bền.&nbsp;<span style="color: rgb(186, 55, 42);"><strong>Nếu như các bạn đang cần một chiếc giường và không cần quá cầu kì, thì đây là sự lựa chọn giúp bạn tiết kiệm khá nhiều chi phí đấy nhé!</strong></span></p>'
 export default class Editer_category extends Component {
   constructor(props) {
     super(props)
@@ -18,10 +18,11 @@ export default class Editer_category extends Component {
       },
       // main
       data:{
+        id:-1,
         thumnail:'',
         title:'',
         short_des:'',
-        long_des:test_html,
+        long_des:'',
         related_list:[],
         price_ss:0,
         dm:[
@@ -86,10 +87,37 @@ export default class Editer_category extends Component {
         is_show_pp_sp:false,
         index:-1,
         rs:[],
-        text:''
+        text:'',
+      },
+      omg:'false'
+    }
+  }
+  async componentDidMount(){
+    let {id,type}=this.props;
+    let {data}=this.state;
+    if(type=="create"){
+    }else if(type=="copy"){
+      let a=await get_category_detail(id);
+      if(a.id!=undefined){
+        a.id=-1;
+        this.setState({data:a})
+      }else{
+        data.id=-1;
+        data.title=a.title;
+        this.setState({data:data})
+      }
+    }else if(type=="edit"){
+      let a=await get_category_detail(id);
+      if(a.id!=undefined){
+        this.setState({data:a})
+      }else{
+        data.id=id;
+        data.title=a.title;
+        this.setState({data:data,omg:'true'})
       }
     }
   }
+
   render() {
     let {data,list_sp,selected_sp}=this.state;
     let text_selected_sp_id='';
@@ -106,14 +134,14 @@ export default class Editer_category extends Component {
                     is_muti={false}
                     fs_result={(rs) => {
                       let {data}=this.state;
-                      data.thumnail=rs[0].url;
+                      data.thumnail=rs[0];
                       this.setState({ data: data })
                     }}
                   />
                   <Image
                     floated='right'
                     size='tiny'
-                    src={data.thumnail}
+                    src={data.thumnail.url300}
                     className='thuasda'
                   />
                 </div>
@@ -124,7 +152,7 @@ export default class Editer_category extends Component {
             <Grid>
               <Grid.Column width={12}>
                 <Form>
-                  <Header as='h4'>*Tiêu đề trang</Header>
+                  <Header as='h4'>*Tiêu đề Danh mục</Header>
                   <Input
                     fluid
                     value={data.title}
@@ -272,7 +300,7 @@ export default class Editer_category extends Component {
                 <Grid.Column width={16}>
                   <div className='wrap-x'>
                     <div className='text-dt' style={{maxHeight:'168px'}}>
-                      <div  dangerouslySetInnerHTML={{__html: test_html}}></div>
+                      <div  dangerouslySetInnerHTML={{__html: data.long_des}}></div>
                     </div>
                   </div>
                 </Grid.Column>
@@ -400,9 +428,39 @@ export default class Editer_category extends Component {
         <div className='footer-edit'>
           <Button size='medium' color='grey' onClick={()=>this.props.fs_close()}>Hủy</Button>
           <Button primary className='createx'
-            onClick={()=>{
-              let {data}=this.state;
-              console.log("🚀 ~ file: editer_category.js:405 ~ Editer_category ~ render ~ data:", data)
+            onClick={async()=>{
+              let {data,omg}=this.state;
+              if(data.title.length>4){
+                let rs={
+                  omg:omg,
+                  id:data.id,
+                  title:data.title,
+                  thumnail:JSON.stringify(data.thumnail),
+                  short_des:data.short_des,
+                  price_ss:data.price_ss,
+                  related_links:JSON.stringify(data.related_list),
+                  json_data:JSON.stringify(data)
+                }
+                let a=await action_create_edit_category(rs)
+                if(a.status){
+                  let rs_change= {
+                    id:a.id,
+                    thumnail:data.thumnail,
+                    title:data.title,
+                    url:a.url
+                  }
+                  if(data.id==-1){
+                    toast.success('Tạo mới thành công.', { theme: "colored" });
+                  }else{
+                    toast.success('Cập nhật thành công', { theme: "colored" });
+                  }
+                  this.props.fs_change_category(data.id,rs_change)
+                }else{
+                  toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                }
+              }else{
+                toast.info("Tiêu đề quá ngắn hoặc chưa chọn danh mục", { theme: "colored" })
+              }
             }}
           >{this.props.type=="edit"?"Cập nhật":"Tạo mới"}</Button>
         </div>
