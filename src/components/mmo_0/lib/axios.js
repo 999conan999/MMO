@@ -381,3 +381,9 @@ export async function delete_category(data){
     })
     return response;
 }
+//
+const url_get_list_sp=url_home+'/wp-content/themes/shopseo/templates/ajax/terms/get_list_sp.php';
+export async function get_list_sp(id){
+   let url=url_get_list_sp+"?id="+id;
+   return fs_gets(url)
+}

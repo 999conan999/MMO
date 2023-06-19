@@ -367,6 +367,7 @@ blockquote>p {
    padding: 50px;
    height: 100vh;
    background-color: #919191cc;
+   z-index: 9999;
 }
 .card-sp>div{
    display: block;
@@ -389,6 +390,7 @@ blockquote>p {
    bottom: 2vh;
    width: 100%;
    text-align: center;
+   z-index: 99999;
 }
 .btn-okx>button{
    width: 200px !important;

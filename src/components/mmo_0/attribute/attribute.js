@@ -22,7 +22,7 @@ export default class Attribute extends Component {
         //
         search_id:"",
         search_tag:"",
-
+        is_loading:true
     }
   }
   async componentDidMount(){
@@ -30,14 +30,14 @@ export default class Attribute extends Component {
     if(text_check==null||text_check==undefined) text_check="";
     let data=await get_attributes();
     if(data.length>0){
-      this.setState({text_check:text_check,data:data})
+      this.setState({text_check:text_check,data:data,is_loading:false})
     }else{
-      this.setState({text_check:text_check})
+      this.setState({text_check:text_check,is_loading:false})
     }
     
   }
   render() {
-    let {data,control_edit,text_check,search_id,search_tag}=this.state;
+    let {data,control_edit,text_check,search_id,search_tag,is_loading}=this.state;
     // search id
     if(search_id.length>0){
       data=data.filter((e)=>e.id==search_id)
@@ -72,7 +72,7 @@ export default class Attribute extends Component {
               </Grid>
               <Grid.Column width={12}>
                 <Segment className='clorg hg'
-                  // loading
+                  loading={is_loading}
                 >
                   <Table celled structured basic  size="small" striped className='table-da'>
                     <Table.Header className='head-tbaks'>

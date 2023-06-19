@@ -3,7 +3,7 @@ import Editer from '../lib/editer/Editer';
 import { toast } from 'react-toastify';
 import Input_img from '../lib/input_img';
 import { moveElement } from '../lib/fs';
-import {action_create_edit_category,get_category_detail} from '../lib/axios'
+import {action_create_edit_category,get_category_detail,get_list_sp} from '../lib/axios'
 import { Container, Grid, Button, Dropdown, Segment, Input,Icon, Image, Table, Header, TextArea, Form,Card } from 'semantic-ui-react'
 export default class Editer_category extends Component {
   constructor(props) {
@@ -38,48 +38,48 @@ export default class Editer_category extends Component {
       },
       //
       list_sp:{
-        1:{
-          id:1,
-          img:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg',
-          title:'Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau 1',
-          price:1350000
-        },
-        2:{
-          id:2,
-          img:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-sat-don-gian-s6.jpg',
-          title:'Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau 2',
-          price:1250000
-        },
-        3:{
-          id:3,
-          img:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-cho-ba-de.jpg',
-          title:'Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau 3',
-          price:1550000
-        },
-        4:{
-          id:4,
-          img:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-sat-mau-trang-gia-re-binh-duong.jpg',
-          title:'Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau 4',
-          price:1650000
-        },
-        5:{
-          id:5,
-          img:'http://localhost/cofanew/wp-content/uploads/2023/05/giuong-tang-tre-em-2.jpg',
-          title:'Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau 5',
-          price:1250000
-        },
-        6:{
-          id:6,
-          img:'http://localhost/cofanew/wp-content/uploads/2023/05/giuong-tang-tre-em-3.jpg',
-          title:'Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau 6',
-          price:1850000
-        },
-        7:{
-          id:7,
-          img:'http://localhost/cofanew/wp-content/uploads/2023/05/giuong-tang-tre-em-4.jpg',
-          title:'Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau 7',
-          price:1950000
-        },
+        // 1:{
+        //   id:1,
+        //   img:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-ngu-giuong-sat-don-gian-mau-den-gia-re.jpg',
+        //   title:'Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau 1',
+        //   price:1350000
+        // },
+        // 2:{
+        //   id:2,
+        //   img:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-sat-don-gian-s6.jpg',
+        //   title:'Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau 2',
+        //   price:1250000
+        // },
+        // 3:{
+        //   id:3,
+        //   img:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-cho-ba-de.jpg',
+        //   title:'Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau 3',
+        //   price:1550000
+        // },
+        // 4:{
+        //   id:4,
+        //   img:'https://anbinhnew.com/wp-content/uploads/2023/04/giuong-sat-mau-trang-gia-re-binh-duong.jpg',
+        //   title:'Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau 4',
+        //   price:1650000
+        // },
+        // 5:{
+        //   id:5,
+        //   img:'http://localhost/cofanew/wp-content/uploads/2023/05/giuong-tang-tre-em-2.jpg',
+        //   title:'Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau 5',
+        //   price:1250000
+        // },
+        // 6:{
+        //   id:6,
+        //   img:'http://localhost/cofanew/wp-content/uploads/2023/05/giuong-tang-tre-em-3.jpg',
+        //   title:'Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau 6',
+        //   price:1850000
+        // },
+        // 7:{
+        //   id:7,
+        //   img:'http://localhost/cofanew/wp-content/uploads/2023/05/giuong-tang-tre-em-4.jpg',
+        //   title:'Giường sắt giá rẻ bán tại Hồ Chí Minh, Vũng Tàu, Cà Mau 7',
+        //   price:1950000
+        // },
       },
       // ho tro
       selected_sp:{
@@ -95,12 +95,14 @@ export default class Editer_category extends Component {
   async componentDidMount(){
     let {id,type}=this.props;
     let {data}=this.state;
+    let list_sp=await get_list_sp(id)
     if(type=="create"){
+      this.setState({list_sp})
     }else if(type=="copy"){
       let a=await get_category_detail(id);
       if(a.id!=undefined){
         a.id=-1;
-        this.setState({data:a})
+        this.setState({data:a,list_sp})
       }else{
         data.id=-1;
         data.title=a.title;
@@ -109,13 +111,14 @@ export default class Editer_category extends Component {
     }else if(type=="edit"){
       let a=await get_category_detail(id);
       if(a.id!=undefined){
-        this.setState({data:a})
+        this.setState({data:a,list_sp})
       }else{
         data.id=id;
         data.title=a.title;
-        this.setState({data:data,omg:'true'})
+        this.setState({data:data,omg:'true',list_sp})
       }
-    }
+    };
+    
   }
 
   render() {
@@ -374,7 +377,7 @@ export default class Editer_category extends Component {
                           if(list_sp[a]!=undefined){
                               return <Grid.Column width={4} key={i+''+j}>
                                 <Card className='re'>
-                                  <Image src={list_sp[a].img} wrapped ui={false} />
+                                  <Image src={list_sp[a].img.url300} wrapped ui={false} />
                                   <i className="fa-solid fa-x abs hv" style={{right:"16px",top:"16px",fontSize:"20px"}}
                                     onClick={()=>{
                                       if(window.confirm(`Xác nhận xóa : "${list_sp[a].title}"`)){
@@ -429,7 +432,17 @@ export default class Editer_category extends Component {
           <Button size='medium' color='grey' onClick={()=>this.props.fs_close()}>Hủy</Button>
           <Button primary className='createx' loading={this.state.loading_server}
             onClick={async()=>{
-              let {data,omg}=this.state;
+              let {data,omg,list_sp}=this.state;
+              // xu ly xoa bo id
+              for (const item of data.dm) {
+                for (let i = item.sp_list_id.length - 1; i >= 0; i--) {
+                  const spId = item.sp_list_id[i];
+                  if (!list_sp[spId]) {
+                    item.sp_list_id.splice(i, 1);
+                  }
+                }
+              }
+              //
               if(data.title.length>4){
                 if(!this.state.loading_server){
                   let rs={
@@ -516,7 +529,7 @@ export default class Editer_category extends Component {
                           }
                           this.setState({selected_sp:selected_sp})
                         }}>
-                          <Image src={list_sp[key].img} wrapped ui={false} />
+                          <Image src={list_sp[key].img.url300} wrapped ui={false} />
                           <Card.Content>
                           <Header as='h5'>{list_sp[key].title}</Header>
                             <Card.Meta>
