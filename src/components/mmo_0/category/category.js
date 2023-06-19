@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../post/post.css'
 import { toast } from 'react-toastify';
-import {get_categorys} from '../lib/axios'
+import {get_categorys,delete_category} from '../lib/axios'
 import { Container,Table,Grid,Button,Dropdown,Segment,Input,Image,Icon } from 'semantic-ui-react'
 import Editer_category from './editer_category';
 export default class Categorys extends Component {
@@ -22,6 +22,7 @@ export default class Categorys extends Component {
       //
       search_id:"",
       search_title:"",
+      is_loading:true
     }
   }
   async componentDidMount(){
@@ -29,14 +30,14 @@ export default class Categorys extends Component {
     if(text_check==null||text_check==undefined) text_check="";
     let a=await get_categorys();
     if(a.length>0){
-      this.setState({text_check:text_check,data:a})
+      this.setState({text_check:text_check,data:a,is_loading:false})
     }else{
-      this.setState({text_check:text_check})
+      this.setState({text_check:text_check,is_loading:false})
     }
 
   }
   render() {
-    let {data,control_edit,text_check,search_id,search_title}=this.state;
+    let {data,control_edit,text_check,search_id,search_title,is_loading}=this.state;
     // search id
     if(search_id.length>0){
       data=data.filter((e)=>e.id==search_id)
@@ -71,7 +72,7 @@ export default class Categorys extends Component {
               </Grid>
               <Grid.Column width={12}>
                 <Segment className='clorg hg'
-                  // loading
+                  loading={is_loading}
                 >
                   <Table celled structured basic  size="small" striped className='table-da'>
                     <Table.Header className='head-tbaks'>
@@ -114,14 +115,30 @@ export default class Categorys extends Component {
                           <Table.Cell textAlign='middle'>
                             <Image src={e.thumnail.url300} className='imgthm'/>
                           </Table.Cell>
-                          <Table.Cell><a href={e.url} target='_blank'>{e.title}</a></Table.Cell>
+                          <Table.Cell><a href={e.url} target='_blank'>{e.title}</a>{e.defaultCategory?' (Danh mục mặc định)':""}</Table.Cell>
                           <Table.Cell>
-                            <Button animated='vertical'>
+                            {!e.defaultCategory&&<Button animated='vertical'
+                              onClick={async()=>{
+                                if(window.confirm(`Xác nhận Xóa:"${e.title}"`)){
+                                  let {data}=this.state;
+                                  let a=await delete_category({
+                                    id:e.id
+                                  })
+                                  if(a.status){
+                                    data.splice(i,1)
+                                    toast.success('Cập nhật thành công.', { theme: "colored" });
+                                  }else{
+                                    toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                                  }
+                                  this.setState({data:data})
+                                }
+                              }}
+                            >
                               <Button.Content hidden >Xóa</Button.Content>
                               <Button.Content visible>
                                 <Icon name='trash alternate' />
                               </Button.Content>
-                            </Button>
+                            </Button>}
                             <Button animated='vertical'
                                 onClick={()=>
                                   this.setState({

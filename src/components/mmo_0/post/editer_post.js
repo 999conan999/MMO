@@ -475,7 +475,7 @@ export default class Editer_post extends Component {
           <Button size='medium' color='grey'
             onClick={()=>this.props.close_edit()}
           >Hủy</Button>
-          <Button primary className='createx'
+          <Button primary className='createx'  loading={this.state.loading_server}
             onClick={async()=>{
               let {data}=this.state;
               let thumnail=JSON.stringify(data.thumnail);
@@ -489,44 +489,50 @@ export default class Editer_post extends Component {
               let type=data.type;
               let short_des=data.short_des;
               if(title.length>8&&data.category_id!=-1){
-                let rs={
-                  id:data.id,
-                  category_id:data.category_id,
-                  json_data:JSON.stringify(data),
-                  thumnail:thumnail,
-                  title:title,
-                  price:price,
-                  quantity_sold:quantity_sold,
-                  key_word:key_word,
-                  related_keyword:related_keyword,
-                  status:status,
-                  is_best_seller:is_best_seller,
-                  type:type,
-                  short_des:short_des
-                }
-                let a=await action_create_or_edit_post(rs);
-                if(a.status){
-                  let rs_change={
-                    id:a.id,
-                    thumnail:data.thumnail,
+                if(!this.state.loading_server){
+                  let rs={
+                    id:data.id,
+                    category_id:data.category_id,
+                    json_data:JSON.stringify(data),
+                    thumnail:thumnail,
                     title:title,
-                    key_word:key_word,
                     price:price,
                     quantity_sold:quantity_sold,
-                    type:type,
-                    related_keyword:data.related_keyword,
+                    key_word:key_word,
+                    related_keyword:related_keyword,
                     status:status,
                     is_best_seller:is_best_seller,
-                    url:a.url
+                    type:type,
+                    short_des:short_des
                   }
-                  if(data.id==-1){
-                    toast.success('Tạo mới thành công.', { theme: "colored" });
+                  this.setState({loading_server:true})
+                  let a=await action_create_or_edit_post(rs);
+                  if(a.status){
+                    let rs_change={
+                      id:a.id,
+                      thumnail:data.thumnail,
+                      title:title,
+                      key_word:key_word,
+                      price:price,
+                      quantity_sold:quantity_sold,
+                      type:type,
+                      related_keyword:data.related_keyword,
+                      status:status,
+                      is_best_seller:is_best_seller,
+                      url:a.url
+                    }
+                    if(data.id==-1){
+                      toast.success('Tạo mới thành công.', { theme: "colored" });
+                    }else{
+                      toast.success('Cập nhật thành công', { theme: "colored" });
+                    }
+                    this.props.fs_change_posts(data.id,rs_change)
                   }else{
-                    toast.success('Cập nhật thành công', { theme: "colored" });
+                    toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                    this.setState({loading_server:false})
                   }
-                  this.props.fs_change_posts(data.id,rs_change)
                 }else{
-                  toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                  toast.info("Bình tĩnh, bấm gì mà nhiều vậy!", { theme: "colored" })
                 }
               }else{
                 toast.info("Tiêu đề quá ngắn hoặc chưa chọn danh mục", { theme: "colored" })

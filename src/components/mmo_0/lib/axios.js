@@ -360,3 +360,24 @@ export async function get_category_detail(id){
    return fs_gets(url)
 }
 //
+//
+let url_delete_category=url_home+'/wp-content/themes/shopseo/templates/ajax/terms/delete_cate.php'
+export async function delete_category(data){
+    let data_send=new FormData();
+    Object.keys(data).forEach(function(key) {
+        data_send.append(key,data[key]);
+    });
+    //
+    let response= axios.post(url_delete_category, 
+        data_send
+    )
+    .then(function (response) {
+        console.log("🚀 ~ file: axios.js:121 ~ response:", response)
+        return response.data;
+    })
+    .catch(function (error) {
+        console.log("🚀 ~ file: axios.js ~ line 44 ~ action_create_or_edit_post ~ error", error)
+        return {}
+    })
+    return response;
+}

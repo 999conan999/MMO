@@ -181,50 +181,56 @@ export default class Editer_page extends Component {
             />
           </div>
           <Button size='medium' color='grey' onClick={()=>this.props.fs_close()}>Hủy</Button>
-          <Button primary className='createx'
+          <Button primary className='createx' loading={this.state.loading_server}
             onClick={async()=>{
               let {data}=this.state;
               console.log("🚀 ~ file: editer_page.js:161 ~ Editer_page ~ render ~ data:", data)
               if(data.title.length>8){
-                let rs={
-                  id:data.id,
-                  category_id:-1,
-                  json_data:JSON.stringify(data),
-                  thumnail:JSON.stringify(data.thumnail),
-                  title:data.title,
-                  price:0,
-                  quantity_sold:0,
-                  key_word:data.key_word,
-                  related_keyword:JSON.stringify([]),
-                  status:data.status,
-                  is_best_seller:'false',
-                  type:'page',
-                  short_des:data.short_des
-                }
-                let a=await action_create_or_edit_post(rs);
-                if(a.status){
-                  let rs_change={
-                    id:a.id,
-                    thumnail:data.thumnail,
-                    title:data.title,
-                    key_word:data.key_word,
-                    price:0,
-                    quantity_sold:0,
-                    type:'page',
-                    related_keyword:[],
-                    status:data.status,
-                    is_best_seller:'false',
-                    url:a.url
-                  }
-                  if(data.id==-1){
-                    toast.success('Tạo mới thành công.', { theme: "colored" });
+                if(!this.state.loading_server){
+                    let rs={
+                      id:data.id,
+                      category_id:-1,
+                      json_data:JSON.stringify(data),
+                      thumnail:JSON.stringify(data.thumnail),
+                      title:data.title,
+                      price:0,
+                      quantity_sold:0,
+                      key_word:data.key_word,
+                      related_keyword:JSON.stringify([]),
+                      status:data.status,
+                      is_best_seller:'false',
+                      type:'page',
+                      short_des:data.short_des
+                    }
+                    this.setState({loading_server:true})
+                    let a=await action_create_or_edit_post(rs);
+                    if(a.status){
+                      let rs_change={
+                        id:a.id,
+                        thumnail:data.thumnail,
+                        title:data.title,
+                        key_word:data.key_word,
+                        price:0,
+                        quantity_sold:0,
+                        type:'page',
+                        related_keyword:[],
+                        status:data.status,
+                        is_best_seller:'false',
+                        url:a.url
+                      }
+                      if(data.id==-1){
+                        toast.success('Tạo mới thành công.', { theme: "colored" });
+                      }else{
+                        toast.success('Cập nhật thành công', { theme: "colored" });
+                      }
+                      this.props.fs_change_page(data.id,rs_change)
+                    }else{
+                      toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                      this.setState({loading_server:false})
+                    }
                   }else{
-                    toast.success('Cập nhật thành công', { theme: "colored" });
-                  }
-                  this.props.fs_change_page(data.id,rs_change)
-                }else{
-                  toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
-                }
+                    toast.info("Bình tĩnh, bấm gì mà nhiều vậy!", { theme: "colored" })
+                  } 
               }else{
                 toast.info("Tiêu đề quá ngắn hoặc chưa chọn danh mục", { theme: "colored" })
               }

@@ -427,36 +427,43 @@ export default class Editer_category extends Component {
 
         <div className='footer-edit'>
           <Button size='medium' color='grey' onClick={()=>this.props.fs_close()}>Hủy</Button>
-          <Button primary className='createx'
+          <Button primary className='createx' loading={this.state.loading_server}
             onClick={async()=>{
               let {data,omg}=this.state;
               if(data.title.length>4){
-                let rs={
-                  omg:omg,
-                  id:data.id,
-                  title:data.title,
-                  thumnail:JSON.stringify(data.thumnail),
-                  short_des:data.short_des,
-                  price_ss:data.price_ss,
-                  related_links:JSON.stringify(data.related_list),
-                  json_data:JSON.stringify(data)
-                }
-                let a=await action_create_edit_category(rs)
-                if(a.status){
-                  let rs_change= {
-                    id:a.id,
-                    thumnail:data.thumnail,
+                if(!this.state.loading_server){
+                  let rs={
+                    omg:omg,
+                    id:data.id,
                     title:data.title,
-                    url:a.url
+                    thumnail:JSON.stringify(data.thumnail),
+                    short_des:data.short_des,
+                    price_ss:data.price_ss,
+                    related_links:JSON.stringify(data.related_list),
+                    json_data:JSON.stringify(data)
                   }
-                  if(data.id==-1){
-                    toast.success('Tạo mới thành công.', { theme: "colored" });
+                  this.setState({loading_server:true})
+                  let a=await action_create_edit_category(rs)
+                  if(a.status){
+                    let rs_change= {
+                      id:a.id,
+                      thumnail:data.thumnail,
+                      title:data.title,
+                      url:a.url,
+                      defaultCategory:a.defaultCategory,
+                    }
+                    if(data.id==-1){
+                      toast.success('Tạo mới thành công.', { theme: "colored" });
+                    }else{
+                      toast.success('Cập nhật thành công', { theme: "colored" });
+                    }
+                    this.props.fs_change_category(data.id,rs_change)
                   }else{
-                    toast.success('Cập nhật thành công', { theme: "colored" });
+                    toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                    this.setState({loading_server:false})
                   }
-                  this.props.fs_change_category(data.id,rs_change)
                 }else{
-                  toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                  toast.info("Bình tĩnh, bấm gì mà nhiều vậy!", { theme: "colored" })
                 }
               }else{
                 toast.info("Tiêu đề quá ngắn hoặc chưa chọn danh mục", { theme: "colored" })
