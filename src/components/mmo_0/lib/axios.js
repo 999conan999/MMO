@@ -387,3 +387,47 @@ export async function get_list_sp(id){
    let url=url_get_list_sp+"?id="+id;
    return fs_gets(url)
 }
+//
+let url_update_setup=url_home+'/wp-content/themes/shopseo/templates/ajax/setups/update_setup.php'
+export async function update_setup(data){
+    console.log("🚀 ~ file: axios.js:111 ~ action_update_setup ~ data:", data)
+    let data_send=new FormData();
+    Object.keys(data).forEach(function(key) {
+        data_send.append(key,data[key]);
+    });
+    //
+    let response= axios.post(url_update_setup, 
+        data_send
+    )
+    .then(function (response) {
+        console.log("🚀 ~ file: axios.js:121 ~ response:", response)
+        return response.data;
+    })
+    .catch(function (error) {
+        console.log("🚀 ~ file: axios.js ~ line 44 ~ action_create_edit_category ~ error", error)
+        return {}
+    })
+    return response;
+}
+//
+let url_get_setup=url_home+'/wp-content/themes/shopseo/templates/ajax/setups/get_setup.php'
+export async function get_setup(data){
+    console.log("🚀 ~ file: axios.js:111 ~ action_get_setup ~ data:", data)
+    let data_send=new FormData();
+    Object.keys(data).forEach(function(key) {
+        data_send.append(key,data[key]);
+    });
+    //
+    let response= axios.post(url_get_setup, 
+        data_send
+    )
+    .then(function (response) {
+        console.log("🚀 ~ file: axios.js:121 ~ response:", response)
+        return response.data;
+    })
+    .catch(function (error) {
+        console.log("🚀 ~ file: axios.js ~ line 44 ~ action_create_edit_category ~ error", error)
+        return {}
+    })
+    return response;
+}

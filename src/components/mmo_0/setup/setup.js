@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import './setup.css'
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { Container, Grid, Button, Table, Segment, Input, Image, Radio, Header, TextArea, Form } from 'semantic-ui-react';
 import { moveElement } from '../lib/fs';
 import Input_img from '../lib/input_img';
+import {update_setup,get_setup} from '../lib/axios'
 export default class Setup extends Component {
   constructor (props) {
     super(props)
@@ -27,15 +28,28 @@ export default class Setup extends Component {
         zalo_cd:0,
         fb_cd:0,
         phone_cd:0,
+        time_cache:0,
 
-      }
+      },
+      is_loading:true
+    }
+  }
+  async componentDidMount(){
+    let a= await get_setup({name:'shopseo_setup'})
+    if(a.logo_icon!=undefined){
+      this.setState({data:a,is_loading:false})
+    }else{
+      this.setState({is_loading:false})
     }
   }
   render() {
-    let {data}=this.state;
+    let {data,is_loading}=this.state;
       return (
         <React.Fragment>
           <Container className='mgt-50'>
+          <Segment className='clorg hg'
+            loading={is_loading}
+          >
             <div className='wrap-s'>
               <Grid>
                 <Grid.Column width={8}>
@@ -540,9 +554,39 @@ export default class Setup extends Component {
                 </Grid.Column>
               </Grid>
             </div>
-            <div style={{position:"fixed",right:"10px",bottom:"26px"}}>
-              <Button primary className='createx'>Cập nhật</Button>
+            <div className='wrap-s'>
+              <Grid>
+                <Grid.Column width={16}>
+                  <Header as='h4'>*Thời gian cache (giây):</Header>
+                    <Input label='Số giây cache:' className='mgt-50' placeholder='0.8' fluid type='number'
+                      value={data.time_cache}
+                      onChange={(e,{value}) => {
+                        let {data}=this.state;
+                        data.time_cache=value;
+                        this.setState({ data: data })
+                      }}
+                    />
+                </Grid.Column>
+              </Grid>
             </div>
+            {!is_loading&&<div style={{position:"fixed",right:"10px",bottom:"26px"}}>
+              <Button primary className='createx'
+                onClick={async()=>{
+                  let {data}=this.state;
+                  let a=await update_setup({
+                    value:JSON.stringify(data),
+                    name:'shopseo_setup'
+                  })
+                  console.log("🚀 ~ file: setup.js:581 ~ Setup ~ render ~  a:",  a)
+                  if(a.status){
+                    toast.success('Cập nhật thành công', { theme: "colored" });
+                  }else{
+                    toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                  }
+                }}
+              >Cập nhật</Button>
+            </div>}
+            </Segment>
           </Container>
         </React.Fragment>
       );
