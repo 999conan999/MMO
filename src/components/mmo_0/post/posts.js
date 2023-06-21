@@ -276,7 +276,7 @@ export default class Posts extends Component {
                                       {e.type=="bv"&&<a className='tagx colrfs'>B.V</a>}
                                     </Table.Cell>
                                     <Table.Cell>
-                                      <div>({e.related_keyword.rs_id.length}) 
+                                      <div>({e.related_keyword.rs_obj.length}) 
                                         <Button  icon='edit' basic className='border-non'   onClick={()=>{
                                           let {select_related_keyword}=this.state;
                                           select_related_keyword={
@@ -289,7 +289,6 @@ export default class Posts extends Component {
                                       </div>
                                       {select_related_keyword.index==i&&<div className='re'>
                                         <div className='keyworsx'>
-                                        <p><b>*Chọn từ khóa cần link tới (Lưu ý: chỉ chọn được <span style={{color:"blue"}}>3 từ</span>)</b></p>
                                         <p><b>*Từ khóa chính hiện tại (<span style={{color:"blue"}}>{e.key_word}</span>)</b></p>
                                           <Dropdown
                                             search
@@ -307,6 +306,14 @@ export default class Posts extends Component {
                                             }}
                                           />
                                           <div className='huhvx'>
+                                              <span style={{position:"absolute",top:"17px",right:"29px",textDecoration:"underline",cursor:"pointer"}}
+                                                onClick={()=>{
+                                                  let {select_related_keyword}=this.state;
+                                                  select_related_keyword.rs_id=[];
+                                                  select_related_keyword.rs_obj=[];
+                                                  this.setState({select_related_keyword:select_related_keyword})
+                                                }}
+                                              >clear</span>
                                               <Button content='Hủy' secondary  onClick={()=>this.setState({select_related_keyword:{index:-1,rs_id:[],rs_obj:[]}})}/>
                                               <Button content='OK' primary 
                                                 onClick={async()=>{
