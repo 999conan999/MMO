@@ -69,14 +69,14 @@
   }
   .design-by{
     position: fixed;
-    bottom: 0px;
+    bottom: 20px;
     display: block;
     width: 200px;
     text-align: center;
   }
-  .design-by>a{
-    color: #585757;
-  }
+  .design-by>button {
+    background-color: #d5cbcb;
+}
   .menu-app{
     position: fixed;
     top: 0px;

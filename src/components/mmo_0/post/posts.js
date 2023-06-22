@@ -82,6 +82,8 @@ export default class Posts extends Component {
     let text_check= localStorage.getItem("post_text_index");
     if(text_check==null||text_check==undefined) text_check="";
     let cate_v1=await get_cate_v1();
+    if(!cate_v1) cate_v1=[];
+    
     let attribute_list_v2=await get_attribute_list_v2();
     cate_v1.unshift({text:"Chọn danh mục",value:-1})
     this.setState({text_check:text_check,category_list:cate_v1,attribute_list_v2:attribute_list_v2})

@@ -8,6 +8,8 @@ import Attributes from './attribute/attribute';
 import Categorys from './category/category';
 import Pages from './page/page';
 import Notify from './notify/notify';
+import Input_img from './lib/input_img';
+import Comments from './comments/comments';
 export default class Index_menu extends Component {
   constructor (props) {
     super(props)
@@ -78,11 +80,21 @@ export default class Index_menu extends Component {
                         >
                             <i className="fa-solid fa-volume-high"></i> <span className="hgfs"> Thông báo</span>
                         </li>
+                        {/*  */}
+                        <li 
+                            onClick={()=>this.setState({seleted:'Comments'})}  
+                            className={seleted==='Comments'?'active iconz':' iconz'}
+                        >
+                            <i className="fa-solid fa-comment-dots"></i> <span className="hgfs"> Bình luận</span>
+                        </li>
                        
                     </ul>
-                    {/* <div className='design-by'>
-                        <a href={design_by.url} target='_blank'>Design by : <b>{design_by.name}</b></a>
-                     </div> */}
+                    <div className='design-by'>
+                        <Input_img
+                            is_muti={false}
+                            fs_result={(rs) => {}}
+                            />
+                     </div>
                 </div>}
                 <div className={is_show_menu?'csdf fullz':'csdf'}>
                     <div className='wrap-conx'>
@@ -92,15 +104,11 @@ export default class Index_menu extends Component {
                         {seleted==='Pages'&&<Pages />}
                         {seleted==='Attributes'&&<Attributes />}
                         {seleted==='Notify'&&<Notify />}
+                        {seleted==='Comments'&&<Comments />}
                      </div>
                 </div>
             </div>
-            <Media
-                // fs_return={(data) => {
-                //     console.log("🚀 ~ file: main.js:69 ~ Index_menu ~ render ~ text:", data.text)
-                //     console.log("🚀 ~ file: main.js:75 ~ Index_menu ~ render ~ rs:", data.rs)
-                // }}
-            />
+            <Media />
         </React.Fragment>
       );
   }

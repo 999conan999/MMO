@@ -31,7 +31,7 @@ export default class Pages extends Component {
     if(text_check==null||text_check==undefined) text_check="";
     // 
     let data=await get_pages()
-    console.log("🚀 ~ file: page.js:55 ~ Pages ~ componentDidMount ~ data:", data)
+    if(!data) data=[];
     this.setState({text_check:text_check,data:data,is_loading:false})
   }
   render() {
