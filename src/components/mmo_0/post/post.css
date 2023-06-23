@@ -439,7 +439,19 @@ blockquote>p {
 .psi{
    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
    position: absolute;
-   height: 427px;
+   height: 465px;
    top: 5vh;
    right: 0px;
+   width: 88vw;
+}
+.add-img-ls{
+   position: absolute;
+    top: -6px;
+    right: -8px;
+}
+.add-img-ls>button {
+   background-color: transparent !important;
+}
+.sdhs{
+   text-align: right;
 }

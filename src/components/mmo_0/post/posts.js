@@ -4,7 +4,8 @@ import { toast } from 'react-toastify';
 // import Template_input from '../lib/template_input/Template_input';
 import { Container,Table,Grid,Button,Dropdown,Segment,Input,Image,Icon } from 'semantic-ui-react'
 import Editer_post from './editer_post';
-import {get_cate_v1,get_posts,action_edit_quatity_sold,action_edit_related_keyword,edit_status,edit_is_best_seller,delete_post,get_attribute_list_v2} from '../lib/axios'
+import Input_img from '../lib/input_img';
+import {get_cate_v1,get_posts,action_edit_quatity_sold,action_edit_related_keyword,edit_status,edit_is_best_seller,delete_post,get_attribute_list_v2,update_thumnail_post} from '../lib/axios'
 export default class Posts extends Component {
   constructor (props) {
     super(props)
@@ -224,8 +225,31 @@ export default class Posts extends Component {
                                         this.setState({text_check:text_check})
                                       }}
                                     >{e.id}</Table.Cell>
-                                    <Table.Cell >
-                                      <Image src={e.thumnail.url150} className='imgthm'/>
+                                    <Table.Cell className='re'>
+                                      <Image src={(e.thumnail==null||e.thumnail==undefined)?"":e.thumnail.url150} className='imgthm'/>
+                                      <div className='add-img-ls'>
+                                        <Input_img
+                                          size={"mini"}
+                                          is_muti={false}
+                                          fs_result={async(rs) => {
+                                            console.log("🚀 ~ file: posts.js:236 ~ fs_result={async ~ rs:", rs)
+                                            if(rs.length>0){
+                                              let a=await update_thumnail_post({
+                                                id:e.id,
+                                                value:JSON.stringify(rs[0])
+                                              });
+                                              if(a.status){
+                                                let {data}=this.state;
+                                                data[i].thumnail=rs[0];
+                                                this.setState({ data: data })
+                                                toast.success('Cập nhật thành công.', { theme: "colored" });
+                                              }else{
+                                                toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                                              }
+                                            }
+                                          }}
+                                        />
+                                      </div>
                                     </Table.Cell>
                                     <Table.Cell>
                                       <a href={e.url} target='_blank'>{e.title}</a>

@@ -3,51 +3,77 @@ import '../post/post.css'
 import { toast } from 'react-toastify';
 import { Table,Grid,Button,Segment,Input,Image,Dropdown,Form,Header,TextArea } from 'semantic-ui-react';
 import Input_img from '../lib/input_img';
-// import {get_pages,delete_post,edit_status} from '../lib/axios'
+import { moveElement } from '../lib/fs';
+import {get_comments} from '../lib/axios';
+import { debounce } from 'lodash';
 export default class Comments extends Component {
   constructor (props) {
     super(props)
     this.state = {
       // main
       data:[
-        {
-          id:357,
-          rs_comment:'Bàn học đôi dành cho 2 bé ngồi học, bàn có liền kệ sách. Được làm bằng nhựa cao cấp, giá thành rẻ đang được ưa chuộng trên thị trường. Bàn học có màu xanh dương, màu hồng và màu trắng dành cho bé gái. Được sử dụng để học tập và làm việc. Kích thước ngang 1m4. Phù hợp với mọi lứa tuổi, học sinh tiểu học, mẫu giáo. Bộ bàn ghế học sinh có kệ sách bằng nhựa rất đẹp. Hiện tại, chúng tôi hỗ trợ sản phẩm bàn học đôi cho bé tra và gái tại HCM, Bình Dương, Thủ Đức, Gò Vấp, Tân Phú, Tân bình, Bình Thành, Dĩ An, Các Quận HCM.',
-          rs_user_name:'Thành Danh',
-          rs_phone:'0963226771',
-          rs_rep:'Shop cảm ơn bạn rất nhiều',
-          rs_status:"private",
-          json_img:[
-            {
-              id:1,
-              url:'https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg',
-              url300:'https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg',
-            },
-            {
-              id:2,
-              url:'https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg',
-              url300:'https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg',
-            },
-          ]
-        }
+        // {
+        //   id:357,
+        //   rs_comment:'Bàn học đôi dành cho 2 bé ngồi học, bàn có liền kệ sách. Được làm bằng nhựa cao cấp, giá thành rẻ đang được ưa chuộng trên thị trường. Bàn học có màu xanh dương, màu hồng và màu trắng dành cho bé gái. Được sử dụng để học tập và làm việc. Kích thước ngang 1m4. Phù hợp với mọi lứa tuổi, học sinh tiểu học, mẫu giáo. Bộ bàn ghế học sinh có kệ sách bằng nhựa rất đẹp. Hiện tại, chúng tôi hỗ trợ sản phẩm bàn học đôi cho bé tra và gái tại HCM, Bình Dương, Thủ Đức, Gò Vấp, Tân Phú, Tân bình, Bình Thành, Dĩ An, Các Quận HCM.',
+        //   rs_user_name:'Thành Danh',
+        //   rs_phone:'0963226771',
+        //   rs_rep:'Shop cảm ơn bạn rất nhiều',
+        //   rs_status:"private",
+        //   json_img:[
+        //     // {
+        //     //   id:1,
+        //     //   url:'https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg',
+        //     //   url300:'https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg',
+        //     // },
+        //     // {
+        //     //   id:2,
+        //     //   url:'https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg',
+        //     //   url300:'https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg',
+        //     // },
+        //   ]
+        // }
       ],
+      data_search:[],
       //ho tro
-    
+      text_id_search:'',
+      is_show_edit:false,
+      selected_com:{
+        id:-1,
+        rs_comment:'',
+        rs_user_name:'',
+        rs_phone:'',
+        rs_rep:'',
+        rs_status:"",
+        json_img:[]
+      }
     }
+    this.debouncedFetchData = debounce(async(value)=>{
+      if(value!=""){
+        let data_search=await get_comments(value)
+        if(!data_search) data_search=[];
+        this.setState({data_search:data_search})
+      }
+    }, 1000);
   }
   async componentDidMount(){
-    // let text_check= localStorage.getItem("page_text_index");
-    // if(text_check==null||text_check==undefined) text_check="";
-    // // 
-    // let data=await get_pages()
-    // if(!data) data=[];
-    // this.setState({text_check:text_check,data:data,is_loading:false})
-    this.setState({is_loading:false})
+ 
+    let data=await get_comments(-1)
+    if(!data) data=[];
+    this.setState({data:data,is_loading:false})
+ 
+  }
+  //
+  componentWillUnmount() {
+    this.debouncedFetchData.cancel();
   }
   render() {
-    let {data,search_id,is_loading}=this.state;
+    let {data,text_id_search,is_loading,is_show_edit,selected_com,data_search}=this.state;
     // search id
-  
+    if(text_id_search!=""){
+      // if(data_search.length>0){
+        data=data_search;
+      // }
+    }
     return (
         <React.Fragment>
               <Grid>
@@ -61,9 +87,11 @@ export default class Comments extends Component {
                     <Table.Header className='head-tbaks'>
                       <Table.Row>
                         <Table.HeaderCell width={1} className='idzx'>id post <Input transparent placeholder='Search...' size='tiny' type='number'
-                          value={search_id}
+                          value={text_id_search}
                           onChange={(e,{value})=>{
-                            this.setState({search_id:value})
+                            value=value.replace(" ","")
+                            this.setState({text_id_search:value})
+                            this.debouncedFetchData(value);
                           }}
                         /></Table.HeaderCell>
                         <Table.HeaderCell width={9}>Nội dung:  </Table.HeaderCell>
@@ -76,11 +104,17 @@ export default class Comments extends Component {
                       {
                         data.map((e,i)=>{
                           return (
-                            <Table.Row key={e.id}>
+                            <Table.Row key={i}>
                                   <Table.Cell>{e.id}</Table.Cell>
                                   <Table.Cell className='re'>
                                     <div><b>{e.rs_user_name}</b>: <span>{e.rs_phone}</span>
-                                      <span><i className="fa-solid fa-pen-to-square edit-db" style={{marginLeft:"10px",fontSize:"18px"}}></i></span>
+                                      <span
+                                        onClick={()=>{
+                                          let v=JSON.stringify(e);
+                                          let selected_com= JSON.parse(v);
+                                          this.setState({selected_com:selected_com,is_show_edit:true});
+                                        }}
+                                      ><i className="fa-solid fa-pen-to-square edit-db" style={{marginLeft:"10px",fontSize:"18px"}}></i></span>
                                     </div>
                                     <div className='re'>
                                       <p style={{marginBottom:'0px'}}><b>Bình luận</b>: {e.rs_comment}</p>
@@ -157,33 +191,50 @@ export default class Comments extends Component {
                   </Table>
                 </Segment>
               </Grid.Column>
-          {false&&<div className='wrap-editer-post' style={{backgroundColor:"#b3b8bde8"}}>
+          {is_show_edit&&<div className='wrap-editer-post' style={{backgroundColor:"#b3b8bde8"}}
+            onClick={(e)=>{
+              if (e.target.classList.contains('wrap-editer-post')) {
+                this.setState({
+                  is_show_edit:false,
+                  selected_com:{
+                    id:-1,
+                    rs_comment:'',
+                    rs_user_name:'',
+                    rs_phone:'',
+                    rs_rep:'',
+                    rs_status:"",
+                    json_img:[]
+                  }
+                })
+              }
+            }}
+          >
             <div className='re'>
-              <div className='wrap-s psi'  >
+              <div className='wrap-s psi re'  >
                 <Grid> 
                   <Grid.Column width={4}>
                     <Form>
                       <Input
-                      // placeholder='Nhập nội dung ở đây...'
-                      // value={e.name}
-                      // onChange={(e,{value}) => {
-                      //   let {data}=this.state;
-                      //   data.dm[i].name=value;
-                      //   this.setState({data:data})
-                      // }}
+                      placeholder='Tên...'
+                      value={selected_com.rs_user_name}
+                      onChange={(e,{value}) => {
+                        let {selected_com}=this.state;
+                        selected_com.rs_user_name=value;
+                        this.setState({selected_com:selected_com})
+                      }}
                       />
                     </Form>
                   </Grid.Column>
                   <Grid.Column width={4}>
                     <Form>
                       <Input
-                      // placeholder='Nhập nội dung ở đây...'
-                      // value={e.name}
-                      // onChange={(e,{value}) => {
-                      //   let {data}=this.state;
-                      //   data.dm[i].name=value;
-                      //   this.setState({data:data})
-                      // }}
+                      placeholder='Số điện thoại'
+                      value={selected_com.rs_phone}
+                      onChange={(e,{value}) => {
+                        let {selected_com}=this.state;
+                        selected_com.rs_phone=value;
+                        this.setState({selected_com:selected_com})
+                      }}
                       />
                     </Form>
                   </Grid.Column>
@@ -191,9 +242,11 @@ export default class Comments extends Component {
                     <Input_img
                       is_muti={true}
                       fs_result={(rs) => {
-                        // let {data}=this.state;
-                        // data.thumnail=rs[0];
-                        // this.setState({ data: data })
+                        if(rs.length>0){
+                          let {selected_com}=this.state;
+                          selected_com.json_img=[...selected_com.json_img,...rs]
+                          this.setState({ selected_com: selected_com })
+                        }
                       }}
                     />
                   </Grid.Column>
@@ -202,12 +255,12 @@ export default class Comments extends Component {
                       <Header as='h4'>*Bình luận</Header>
                       <TextArea placeholder='...' style={{ minHeight: 80 }}
                         fluid
-                        // value={data.short_des}
-                        // onChange={(e,{value}) => {
-                        //   let {data}=this.state;
-                        //   data.short_des=value;
-                        //   this.setState({ data: data })
-                        // }}
+                        value={selected_com.rs_comment}
+                        onChange={(e,{value}) => {
+                          let {selected_com}=this.state;
+                          selected_com.rs_comment=value;
+                          this.setState({selected_com:selected_com})
+                        }}
                       />
                     </Form>
                   </Grid.Column>
@@ -216,44 +269,50 @@ export default class Comments extends Component {
                       <Header as='h4'>*Rep:</Header>
                       <TextArea placeholder='...' style={{ minHeight:30 }}
                         fluid
-                        // value={data.short_des}
-                        // onChange={(e,{value}) => {
-                        //   let {data}=this.state;
-                        //   data.short_des=value;
-                        //   this.setState({ data: data })
-                        // }}
+                        value={selected_com.rs_rep}
+                        onChange={(e,{value}) => {
+                          let {selected_com}=this.state;
+                          selected_com.rs_rep=value;
+                          this.setState({selected_com:selected_com})
+                        }}
                       />
                     </Form>
                   </Grid.Column>
-                  <Grid.Column width={16}>
-                  <div className='img-muti' key={1}>
-                    <Image
-                      size='tiny'
-                      src={'https://anbinhnew.com/wp-content/uploads/2021/01/Giuong-sat-don-Hoang-Gia-mau-HG02-300x300.jpg'}
-                    />
-                    {1>0&&<i className="fa-solid fa-angles-left icon-img-muitxx"
-                      // onClick={()=>{
-                      //     let {data}=this.state;
-                      //     data.img_sp.imgs_list=moveElement(data.img_sp.imgs_list,i,i-1)
-                      //     this.setState({ data: data })
-                      // }}
-                    ></i>}
-                    <i className="fa-solid fa-trash icon-x-imgxx"
-                      // onClick={()=>{
-                      //   if(window.confirm("Xác nhận xóa!")){
-                      //     let {data}=this.state;
-                      //     data.img_sp.imgs_list=data.img_sp.imgs_list.filter(z =>z.id !== e.id)
-                      //     this.setState({ data: data })
-                      //   }
-                      // }}
-                    ></i>
+                  <Grid.Column width={16} style={{height:"168px"}}>
+                    <div>
+                    {
+                      selected_com.json_img.map((e,i)=>{
+                        return <div className='img-muti' key={i}>
+                        <Image
+                          size='tiny'
+                          src={e.url300}
+                        />
+                        {i>0&&<i className="fa-solid fa-angles-left icon-img-muitxx"
+                          onClick={()=>{
+                              let {selected_com}=this.state;
+                              selected_com.json_img=moveElement(selected_com.json_img,i,i-1)
+                              this.setState({ data: data })
+                          }}
+                        ></i>}
+                        <i className="fa-solid fa-trash icon-x-imgxx"
+                          onClick={()=>{
+                            if(window.confirm("Xác nhận xóa!")){
+                              let {selected_com}=this.state;
+                              selected_com.json_img.splice(i,1)
+                              this.setState({ selected_com: selected_com })
+                            }
+                          }}
+                        ></i>
+                      </div>
+                      })
+                    }
                   </div>
                   </Grid.Column>
                   <Grid.Column width={16}>
-                    <div style={{textAlign:"right"}}>
+                    <div  className='sdhs'>
                     <div style={{ display: "inline-block", paddingRight: "50px",width:"200px" }}>
                       <Dropdown
-                        value={data.status}
+                        value={selected_com.rs_status}
                         options={[
                           {
                             text:'Công khai',
@@ -265,14 +324,34 @@ export default class Comments extends Component {
                           },
                         ]}
                         onChange={(e, { value }) => {
-                          let {data}=this.state;
-                          data.status=value;
-                          this.setState({data:data})
+                          let {selected_com}=this.state;
+                          selected_com.rs_status=value;
+                          this.setState({selected_com:selected_com})
                         }}
                       />
                     </div>
-                      <Button primary>Lưu</Button>{' '}
-                      <Button secondary>Hủy</Button>
+                    <Button secondary
+                        onClick={()=>{
+                          this.setState({
+                            is_show_edit:false,
+                            selected_com:{
+                              id:-1,
+                              rs_comment:'',
+                              rs_user_name:'',
+                              rs_phone:'',
+                              rs_rep:'',
+                              rs_status:"",
+                              json_img:[]
+                            }
+                          })
+                        }}
+                      >Hủy</Button>{' '}
+                      <Button primary 
+                        onClick={()=>{
+                          alert("Luwu")
+                        }}
+                      >Lưu</Button>
+
                     </div>
                   </Grid.Column>
                 </Grid>
