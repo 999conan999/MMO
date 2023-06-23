@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { Table,Grid,Button,Segment,Input,Image,Dropdown,Form,Header,TextArea } from 'semantic-ui-react';
 import Input_img from '../lib/input_img';
 import { moveElement } from '../lib/fs';
-import {get_comments} from '../lib/axios';
+import {get_comments, update_comment_by_id_post,update_status_com,action_delete_by_id} from '../lib/axios';
 import { debounce } from 'lodash';
 export default class Comments extends Component {
   constructor (props) {
@@ -33,10 +33,11 @@ export default class Comments extends Component {
         //   ]
         // }
       ],
-      data_search:[],
+      // data_search:[],
       //ho tro
       text_id_search:'',
       is_show_edit:false,
+      selected_index:-1,
       selected_com:{
         id:-1,
         rs_comment:'',
@@ -49,11 +50,15 @@ export default class Comments extends Component {
     }
     this.debouncedFetchData = debounce(async(value)=>{
       if(value!=""){
-        let data_search=await get_comments(value)
-        if(!data_search) data_search=[];
-        this.setState({data_search:data_search})
+        let data=await get_comments(value)
+        if(!data) data=[];
+        this.setState({data:data})
+      }else{
+        let data=await get_comments(-1)
+        if(!data) data=[];
+        this.setState({data:data})
       }
-    }, 1000);
+    }, 800);
   }
   async componentDidMount(){
  
@@ -67,13 +72,11 @@ export default class Comments extends Component {
     this.debouncedFetchData.cancel();
   }
   render() {
-    let {data,text_id_search,is_loading,is_show_edit,selected_com,data_search}=this.state;
+    let {data,text_id_search,is_loading,is_show_edit,selected_com,selected_index}=this.state;
     // search id
-    if(text_id_search!=""){
-      // if(data_search.length>0){
-        data=data_search;
-      // }
-    }
+    // if(text_id_search!=""){
+    //     data=data_search;
+    // }
     return (
         <React.Fragment>
               <Grid>
@@ -96,7 +99,7 @@ export default class Comments extends Component {
                         /></Table.HeaderCell>
                         <Table.HeaderCell width={9}>Nội dung:  </Table.HeaderCell>
                         <Table.HeaderCell width={2}>Trạng thái  </Table.HeaderCell>
-                        <Table.HeaderCell width={2}>Chỉnh sửa</Table.HeaderCell>
+                        <Table.HeaderCell width={2}>Xóa</Table.HeaderCell>
                       </Table.Row>
                     </Table.Header>
 
@@ -104,15 +107,16 @@ export default class Comments extends Component {
                       {
                         data.map((e,i)=>{
                           return (
-                            <Table.Row key={i}>
-                                  <Table.Cell>{e.id}</Table.Cell>
+                            <Table.Row key={e.id}>
+                                  <Table.Cell>{e.id_post}</Table.Cell>
                                   <Table.Cell className='re'>
                                     <div><b>{e.rs_user_name}</b>: <span>{e.rs_phone}</span>
                                       <span
                                         onClick={()=>{
                                           let v=JSON.stringify(e);
                                           let selected_com= JSON.parse(v);
-                                          this.setState({selected_com:selected_com,is_show_edit:true});
+                                          let selected_index=e.id;
+                                          this.setState({selected_com:selected_com,is_show_edit:true,selected_index:selected_index});
                                         }}
                                       ><i className="fa-solid fa-pen-to-square edit-db" style={{marginLeft:"10px",fontSize:"18px"}}></i></span>
                                     </div>
@@ -134,51 +138,57 @@ export default class Comments extends Component {
                                   </Table.Cell>
                                   <Table.Cell>
                                   {e.rs_status=="private"&&<Button content='Riêng tư' basic size="mini"
-                                                  // onClick={async()=>{
-                                                  //   if(window.confirm("Xác nhận đổi sang 'công khai'")){
-                                                  //     let {data}=this.state;
-                                                  //     let a=await edit_status({
-                                                  //       id:e.id,
-                                                  //       value:'publish'
-                                                  //     })
-                                                  //     if(a.status){
-                                                  //       data[i].status="publish"
-                                                  //       toast.success('Cập nhật thành công.', { theme: "colored" });
-                                                  //     }else{
-                                                  //       toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
-                                                  //     }
-                                                  //     this.setState({data:data})
-                                                  //   }
-                                                  // }}
+                                                  onClick={async()=>{
+                                                    if(window.confirm("Xác nhận đổi sang 'công khai'")){
+                                                      let {data}=this.state;
+                                                      let a=await update_status_com({
+                                                        id:e.id,
+                                                        value:'publish'
+                                                      })
+                                                      if(a.status){
+                                                            data[i].rs_status="publish"
+                                                        toast.success('Cập nhật thành công.', { theme: "colored" });
+                                                      }else{
+                                                        toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                                                      }
+                                                      this.setState({data:data})
+                                                    }
+                                                  }}
                                                 />}
                                   {e.rs_status=="publish"&&<Button positive  size="mini"
-                                    // onClick={async()=>{
-                                    //   if(window.confirm("Xác nhận đổi sang 'Riêng tư'")){
-                                    //     let {data}=this.state;
-                                    //     let a=await edit_status({
-                                    //       id:e.id,
-                                    //       value:'private'
-                                    //     })
-                                    //     if(a.status){
-                                    //       data[i].status="private"
-                                    //       toast.success('Cập nhật thành công.', { theme: "colored" });
-                                    //     }else{
-                                    //       toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
-                                    //     }
-                                    //     this.setState({data:data})
-                                    //   }
-                                    // }}
+                                    onClick={async()=>{
+                                      if(window.confirm("Xác nhận đổi sang 'Riêng tư'")){
+                                        let {data}=this.state;
+                                        let a=await update_status_com({
+                                          id:e.id,
+                                          value:'private'
+                                        })
+                                        if(a.status){
+                                              data[i].rs_status="private"
+                                          toast.success('Cập nhật thành công.', { theme: "colored" });
+                                        }else{
+                                          toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                                        }
+                                        this.setState({data:data})
+                                      }
+                                    }}
                                   >Công khai</Button>}
                                   </Table.Cell>
                                   <Table.Cell>
                                     <i className="fa-solid fa-trash edit-db"
-                                        // onClick={()=>{
-                                        //   if(window.confirm("Xác nhận xóa")){
-                                        //     let {data}=this.state;
-                                        //     data.table_price.splice(i,1)
-                                        //     this.setState({data:data})
-                                        //   }
-                                        // }}
+                                        onClick={async()=>{
+                                          if(window.confirm("Xác nhận xóa")){
+                                            let a=await action_delete_by_id(e.id);
+                                            if(a.status){
+                                              let {data}=this.state;
+                                              data.splice(i,1)
+                                              this.setState({data:data})
+                                              toast.success('Cập nhật thành công', { theme: "colored" });
+                                            }else{
+                                              toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                                            }
+                                          }
+                                        }}
                                       ></i>
                                   </Table.Cell>
                                 </Table.Row>
@@ -347,8 +357,47 @@ export default class Comments extends Component {
                         }}
                       >Hủy</Button>{' '}
                       <Button primary 
-                        onClick={()=>{
-                          alert("Luwu")
+                        onClick={async()=>{
+                          let {selected_com}=this.state;
+                          console.log("🚀 ~ file: comments.js:350 ~ Comments ~ render ~ selected_com:", selected_com)
+                          let data_send={
+                            id:selected_com.id,
+                            json_img:JSON.stringify(selected_com.json_img),
+                            rs_comment:selected_com.rs_comment,
+                            rs_phone:selected_com.rs_phone,
+                            rs_rep:selected_com.rs_rep,
+                            rs_status:selected_com.rs_status,
+                            rs_user_name:selected_com.rs_user_name,
+                          }
+                          let a=await update_comment_by_id_post(data_send)
+                          if(a.status){
+
+                            let {data,selected_index}=this.state;
+                            let index=-1;
+                            data.forEach((e,i) => {
+                                if(e.id==selected_index) index=i;
+                            });
+                            if(index>-1) data[index]=selected_com;
+                            this.setState({
+                              data:data,
+                              // data_search:data_search,
+                              is_show_edit:false,
+                              selected_com:{
+                                id:-1,
+                                rs_comment:'',
+                                rs_user_name:'',
+                                rs_phone:'',
+                                rs_rep:'',
+                                rs_status:"",
+                                json_img:[]
+                              },
+                              selected_index:-1
+                            })
+
+                            toast.success('Cập nhật thành công', { theme: "colored" });
+                          }else{
+                            toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                          }
                         }}
                       >Lưu</Button>
 
