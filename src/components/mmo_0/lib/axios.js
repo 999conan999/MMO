@@ -14,7 +14,7 @@ async function fs_gets(url){
     })
     return data;
 }
- // upload file 
+ // upload file
 const url_upload=url_home+'/wp-content/themes/shopseo/templates/ajax/media/upload_core.php';
 export async function upload_core(data,tag){
     console.log("🚀 ~ file: axios.js:7 ~ upload_core ~ tag:", tag)
@@ -520,6 +520,74 @@ export async function action_delete_by_id(id){
         return {
             status:false
         }
+    })
+    return response;
+}
+//
+const url_get_orders=url_home+'/wp-content/themes/shopseo/templates/ajax/orders/get_orders.php';
+export async function get_orders(){
+   let url=url_get_orders;
+   return fs_gets(url)
+}
+//
+const url_delete_order_by_id=url_home+'/wp-content/themes/shopseo/templates/ajax/orders/delete.php';
+export async function action_delete_order_by_id(id){
+    let data_send=new FormData();
+    data_send.append('id',id);
+    let response= axios.post(url_delete_order_by_id, 
+        data_send
+    )
+    .then(function (response) {
+        return response.data;
+    })
+    .catch(function (error) {
+        console.log("🚀 ~ file: axios.js ~ line 97 ~ action_create_or_edit_post ~ error", error)
+        return {
+            status:false
+        }
+    })
+    return response;
+}
+//
+let url_update_status_order=url_home+'/wp-content/themes/shopseo/templates/ajax/orders/update_status_order.php'
+export async function update_status_order(data){
+    console.log("🚀 ~ file: axios.js:111 ~ action_create_or_edit_post ~ data:", data)
+    let data_send=new FormData();
+    Object.keys(data).forEach(function(key) {
+        data_send.append(key,data[key]);
+    });
+    //
+    let response= axios.post(url_update_status_order, 
+        data_send
+    )
+    .then(function (response) {
+        console.log("🚀 ~ file: axios.js:121 ~ response:", response)
+        return response.data;
+    })
+    .catch(function (error) {
+        console.log("🚀 ~ file: axios.js ~ line 44 ~ action_create_or_edit_post ~ error", error)
+        return {}
+    })
+    return response;
+}
+//
+const url_get_order_by_phone=url_home+'/wp-content/themes/shopseo/templates/ajax/orders/get_order_by_phone.php';
+export async function search_sdt(data){
+    let data_send=new FormData();
+    Object.keys(data).forEach(function(key) {
+        data_send.append(key,data[key]);
+    });
+    //
+    let response= axios.post(url_get_order_by_phone, 
+        data_send
+    )
+    .then(function (response) {
+        console.log("🚀 ~ file: axios.js:121 ~ response:", response)
+        return response.data;
+    })
+    .catch(function (error) {
+        console.log("🚀 ~ file: axios.js ~ line 44 ~ action_create_or_edit_post ~ error", error)
+        return {}
     })
     return response;
 }

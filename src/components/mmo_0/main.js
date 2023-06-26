@@ -10,6 +10,7 @@ import Pages from './page/page';
 import Notify from './notify/notify';
 import Input_img from './lib/input_img';
 import Comments from './comments/comments';
+import Orders from './orders/order';
 export default class Index_menu extends Component {
   constructor (props) {
     super(props)
@@ -87,6 +88,14 @@ export default class Index_menu extends Component {
                         >
                             <i className="fa-solid fa-comment-dots"></i> <span className="hgfs"> Bình luận</span>
                         </li>
+                        {/*  */}
+                        <li 
+                            onClick={()=>this.setState({seleted:'Orders'})}  
+                            className={seleted==='Orders'?'active iconz re':' iconz re'}
+                        >
+                            <i className="fa-solid fa-cart-shopping"></i> <span className="hgfs"> Đơn hàng</span>
+                            <b class="notify" id="cart-1">(0)</b>
+                        </li>
                        
                     </ul>
                     <div className='design-by'>
@@ -105,6 +114,7 @@ export default class Index_menu extends Component {
                         {seleted==='Attributes'&&<Attributes />}
                         {seleted==='Notify'&&<Notify />}
                         {seleted==='Comments'&&<Comments />}
+                        {seleted==='Orders'&&<Orders />}
                      </div>
                 </div>
             </div>

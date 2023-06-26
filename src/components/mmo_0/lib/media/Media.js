@@ -32,7 +32,6 @@ class Media extends Component {
     let {text_tag_add}=this.state;
     // //
     if (listFile.length > 0) {
-        console.log("🚀 ~ file: Media.js:24 ~ Media ~ handleChangeFile= ~ listFile:", listFile)
         
         let a = await upload_core(listFile,text_tag_add);
         if(a.length>0){
@@ -57,7 +56,6 @@ class Media extends Component {
         this.props.load_imgs_all(a);
       // }
       let tag_smart=localStorage.getItem('tag_smart');
-      console.log("🚀 ~ file: Media.js:59 ~ Media ~ componentDidMount ~ tag_smart:", tag_smart)
       if(tag_smart) window.tag_smart=tag_smart;
       
 

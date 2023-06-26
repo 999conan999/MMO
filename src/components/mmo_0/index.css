@@ -142,3 +142,12 @@
 .border-non{
   box-shadow: none !important;
 }
+.notify {
+  color: yellow;
+  font-size: 13px;
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+.abs{
+  position: absolute;
+}
