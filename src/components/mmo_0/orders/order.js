@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { toast } from 'react-toastify';
-import { Table,Grid,Segment,Input,Image} from 'semantic-ui-react';
-import {get_orders,action_delete_order_by_id,update_status_order,search_sdt} from '../lib/axios';
+import { Table,Grid,Segment,Input,Image,Button} from 'semantic-ui-react';
+import {get_orders,action_delete_order_by_id,update_status_order,search_sdt,get_setup,update_setup} from '../lib/axios';
 import { debounce } from 'lodash';
 export default class Orders extends Component {
   constructor (props) {
@@ -20,9 +20,19 @@ export default class Orders extends Component {
         //   data_carts:[]
         // },
       ],
+      token_telegram:{
+        token:'',
+        id:''
+      },
       //ho tro
       sdt:'',
-      is_loading:true
+      is_loading:true,
+      //
+      is_edit_token:false,
+      data_edit_token:{
+        token:'',
+        id:''
+      }
     }
     this.debouncedFetchData = debounce(async(value)=>{
       console.log(value);
@@ -33,17 +43,19 @@ export default class Orders extends Component {
   }
   async componentDidMount(){
  
-    let data=await get_orders()
+    let data=await get_orders();
+    let token_telegram=await get_setup({name:"telegram_data"})
+    if(!token_telegram) token_telegram={token:"",id:""};
     if(!data) data=[];
-    this.setState({data:data,is_loading:false})
- 
+    this.setState({data:data,is_loading:false,token_telegram:token_telegram})
+    //
   }
   //
   componentWillUnmount() {
     this.debouncedFetchData.cancel();
   }
   render() {
-    let {data,sdt,is_loading}=this.state;
+    let {data,sdt,is_loading,token_telegram,is_edit_token,data_edit_token}=this.state;
     return (
         <React.Fragment>
               <Grid>
@@ -54,11 +66,77 @@ export default class Orders extends Component {
                     this.debouncedFetchData(value);
                   }}
                 /></Grid.Column>
-                <Grid.Column width={6} className='mgt-50'>
-                  sss
-                </Grid.Column>
-                <Grid.Column width={4} className='mgt-50'>
-                  sss
+                <Grid.Column width={10} className='mgt-50 re'>
+                  <div className='re wqq'>
+                    <div>Token API Telegram: <b>{token_telegram.token}</b>...</div>
+                    <div>ID: <b>{token_telegram.id}</b></div>
+                    {!is_edit_token&&<span
+                      onClick={()=>{
+                        let {token_telegram}=this.state;
+                        this.setState({
+                              data_edit_token:{
+                                token:token_telegram.token,
+                                id:token_telegram.id
+                                },
+                              is_edit_token:true
+                            });
+                      }}
+                    ><i className="fa-solid fa-pen-to-square edit-db abs" style={{marginLeft:"10px",fontSize:"18px",top:"0px",right:"0px"}}></i></span>}
+                  </div>
+                  {is_edit_token&&<div className='keyworsx xasd'>
+                        <Input  placeholder='Token API' className="input-1" type='text' fluid
+                          value={data_edit_token.token}
+                          onChange={(e,{value}) => {
+                            let {data_edit_token}=this.state;
+                            data_edit_token.token=value
+                            this.setState({data_edit_token:data_edit_token})
+                          }}
+                        />
+                        <Input  placeholder='ID' className="input-1" type='text' fluid
+                          value={data_edit_token.id}
+                          onChange={(e,{value}) => {
+                            let {data_edit_token}=this.state;
+                            data_edit_token.id=value
+                            this.setState({data_edit_token:data_edit_token})
+                          }}
+                        />
+                        <div className='huhvx'>
+                            <Button content='Hủy' secondary  
+                                onClick={()=>{
+                                    this.setState({
+                                          data_edit_token:{
+                                            token:'',
+                                            id:''
+                                            },
+                                          is_edit_token:false
+                                        });
+                                }}
+                            />
+                            <Button content='OK' primary
+                              onClick={async()=>{
+                                let {data_edit_token}=this.state;
+                                let rs={
+                                  name:'telegram_data',
+                                  value:JSON.stringify(data_edit_token)
+                                }
+                                let a=await update_setup(rs);
+                                if(a.status){
+                                  this.setState({
+                                    token_telegram:{
+                                      token:data_edit_token.token,
+                                      id:data_edit_token.id,
+                                    },
+                                    is_edit_token:false
+                                  })
+                                  toast.success('Cập nhật thành công.', { theme: "colored" });
+                                }else{
+                                  toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                                }
+                              }}
+
+                            />
+                        </div>  
+                  </div>}
                 </Grid.Column>
               </Grid>
               <Grid.Column width={12}>
@@ -99,7 +177,7 @@ export default class Orders extends Component {
                                     <div className='ssx'>
                                       <p>
                                         + Tên:&nbsp;&nbsp; <b>{e.name_buyer}</b><br/>
-                                        + Số điện thoại:&nbsp;&nbsp; <b>{e.phone}</b><br/>
+                                        + Số điện thoại:&nbsp;&nbsp; <b>{e.phone.replace(/(\d{4})(\d{3})(\d{3})/, "$1.$2.$3")}</b><br/>
                                         + Địa chỉ:&nbsp;&nbsp; <b>{e.address_1}</b><br/>
                                         + Ghi Chú:&nbsp;&nbsp; <b>{e.note}</b><br/>
                                       </p>
@@ -107,8 +185,6 @@ export default class Orders extends Component {
                                         Tổng thu:&nbsp;&nbsp;<b style={{fontSize:'20px',color:'blue'}}>{(Number(sum_price)).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</b>
                                       </p>
                                     </div>
-                                
-                                    
                                   </Table.Cell>
                                   <Table.Cell>
                                     {e.order_status=="checked"&&<i className="fa-solid fa-minus edit-db" style={{fontSize:"40px",color:"gray"}}
@@ -121,7 +197,8 @@ export default class Orders extends Component {
                                             if(a.status){
                                               let {data}=this.state;
                                               data[i].order_status="check"
-                                              this.setState({data:data})
+                                              this.setState({data:data});
+                                              this.props.change_count_order("cong");
                                               toast.success('Cập nhật thành công', { theme: "colored" });
                                             }else{
                                               toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
@@ -139,7 +216,8 @@ export default class Orders extends Component {
                                               if(a.status){
                                                 let {data}=this.state;
                                                 data[i].order_status="checked"
-                                                this.setState({data:data})
+                                                this.setState({data:data});
+                                                this.props.change_count_order("true");
                                                 toast.success('Cập nhật thành công', { theme: "colored" });
                                               }else{
                                                 toast.info('Lỗi rồi bạn ơi', { theme: "colored" });

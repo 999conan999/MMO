@@ -11,16 +11,23 @@ import Notify from './notify/notify';
 import Input_img from './lib/input_img';
 import Comments from './comments/comments';
 import Orders from './orders/order';
+import { count_order } from './lib/axios';
 export default class Index_menu extends Component {
   constructor (props) {
     super(props)
     this.state = {
         seleted:'bv',
-        is_show_menu:true
+        is_show_menu:true,
+        orders_quality:0
     }
   }
+  async componentDidMount(){
+    let data_count=await count_order();
+    let orders_quality=(data_count.count==undefined||data_count.count==null)?0:Number(data_count.count);
+    this.setState({orders_quality:orders_quality})
+  }
   render() {
-    let {seleted,is_show_menu}=this.state;
+    let {seleted,is_show_menu,orders_quality}=this.state;
       return (
         <React.Fragment>
             <div style={{position:"relative"}}>
@@ -94,7 +101,7 @@ export default class Index_menu extends Component {
                             className={seleted==='Orders'?'active iconz re':' iconz re'}
                         >
                             <i className="fa-solid fa-cart-shopping"></i> <span className="hgfs"> Đơn hàng</span>
-                            <b class="notify" id="cart-1">(0)</b>
+                            {orders_quality>0&&<b class="notify" id="cart-1">({orders_quality})</b>}
                         </li>
                        
                     </ul>
@@ -114,7 +121,17 @@ export default class Index_menu extends Component {
                         {seleted==='Attributes'&&<Attributes />}
                         {seleted==='Notify'&&<Notify />}
                         {seleted==='Comments'&&<Comments />}
-                        {seleted==='Orders'&&<Orders />}
+                        {seleted==='Orders'&&<Orders
+                            change_count_order={(type)=>{
+                                let {orders_quality}=this.state;
+                                if(type=="cong"){
+                                    orders_quality++
+                                }else{
+                                    if(orders_quality>0) orders_quality--
+                                }
+                                this.setState({orders_quality:orders_quality})
+                            }}
+                        />}
                      </div>
                 </div>
             </div>
