@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../post/post.css'
 import { toast } from 'react-toastify';
-import {get_categorys,delete_category} from '../lib/axios'
+import {get_categorys,delete_category,action_clear_cache_term} from '../lib/axios'
 import { Container,Table,Grid,Button,Dropdown,Segment,Input,Image,Icon } from 'semantic-ui-react'
 import Editer_category from './editer_category';
 export default class Categorys extends Component {
@@ -172,7 +172,16 @@ export default class Categorys extends Component {
                               </Button.Content>
                             </Button>
                           </Table.Cell>
-                          <Table.Cell><span className='clear-cache'>clear</span></Table.Cell>
+                          <Table.Cell><span className='clear-cache'
+                              onClick={async()=>{
+                                let a= await action_clear_cache_term(e.id);
+                                if(a.status){
+                                  toast.success('Cập nhật thành công.', { theme: "colored" });
+                                }else{
+                                  toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                                }
+                              }}
+                          >clear</span></Table.Cell>
                         </Table.Row>
                         })
                       }

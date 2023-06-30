@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 // import Template_input from '../lib/template_input/Template_input';
 import { Container,Table,Grid,Button,Dropdown,Segment,Input,Image,Icon } from 'semantic-ui-react'
 import Editer_page from './editer_page';
-import {get_pages,delete_post,edit_status} from '../lib/axios'
+import {get_pages,delete_post,edit_status,action_clear_cache} from '../lib/axios'
 export default class Pages extends Component {
   constructor (props) {
     super(props)
@@ -225,7 +225,16 @@ export default class Pages extends Component {
                               </Button.Content>
                             </Button>
                           </Table.Cell>
-                          <Table.Cell><span className='clear-cache'>clear</span></Table.Cell>
+                          <Table.Cell><span className='clear-cache'
+                            onClick={async()=>{
+                              let a= await action_clear_cache(e.id);
+                              if(a.status){
+                                toast.success('Cập nhật thành công.', { theme: "colored" });
+                              }else{
+                                toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                              }
+                            }}
+                          >clear</span></Table.Cell>
                         </Table.Row>
                         })
                       }

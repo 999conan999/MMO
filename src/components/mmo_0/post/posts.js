@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { Container,Table,Grid,Button,Dropdown,Segment,Input,Image,Icon,Checkbox } from 'semantic-ui-react'
 import Editer_post from './editer_post';
 import Input_img from '../lib/input_img';
-import {get_cate_v1,get_posts,action_edit_quatity_sold,action_edit_related_keyword,edit_status,edit_is_best_seller,delete_post,get_attribute_list_v2,update_thumnail_post,change_shoping_v2} from '../lib/axios'
+import {get_cate_v1,get_posts,action_edit_quatity_sold,action_edit_related_keyword,edit_status,edit_is_best_seller,delete_post,get_attribute_list_v2,update_thumnail_post,change_shoping_v2,action_clear_cache} from '../lib/axios'
 export default class Posts extends Component {
   constructor (props) {
     super(props)
@@ -524,7 +524,16 @@ export default class Posts extends Component {
                                         }}
                                       />}
                                     </Table.Cell>}
-                                    {!is_show_shoping&&<Table.Cell><span className='clear-cache'>clear</span></Table.Cell>}
+                                    {!is_show_shoping&&<Table.Cell><span className='clear-cache'
+                                      onClick={async()=>{
+                                        let a= await action_clear_cache(e.id);
+                                        if(a.status){
+                                          toast.success('Cập nhật thành công.', { theme: "colored" });
+                                        }else{
+                                          toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                                        }
+                                      }}
+                                    >clear</span></Table.Cell>}
                                     {is_show_shoping&&<Table.Cell>
                                       {e.instock=="true"&&<i className="fa-solid fa-cart-shopping csv2"
                                         onClick={async()=>{

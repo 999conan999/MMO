@@ -640,3 +640,40 @@ export async function change_shoping_v2(data){
     })
     return response;
 }
+//
+const url_clear_cache=url_home+'/wp-content/themes/shopseo/templates/ajax/posts/clear_cache.php';
+export async function action_clear_cache(id){
+    let data_send=new FormData();
+    data_send.append('id',id);
+    let response= axios.post(url_clear_cache, 
+        data_send
+    )
+    .then(function (response) {
+        return response.data;
+    })
+    .catch(function (error) {
+        console.log("🚀 ~ file: axios.js ~ line 97 ~ action_create_or_edit_post ~ error", error)
+        return {
+            status:false
+        }
+    })
+    return response;
+}
+const url_clear_cache_term=url_home+'/wp-content/themes/shopseo/templates/ajax/terms/clear_cache.php';
+export async function action_clear_cache_term(id){
+    let data_send=new FormData();
+    data_send.append('id',id);
+    let response= axios.post(url_clear_cache_term, 
+        data_send
+    )
+    .then(function (response) {
+        return response.data;
+    })
+    .catch(function (error) {
+        console.log("🚀 ~ file: axios.js ~ line 97 ~ action_create_or_edit_post ~ error", error)
+        return {
+            status:false
+        }
+    })
+    return response;
+}
