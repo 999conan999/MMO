@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import './post.css'
 import { toast } from 'react-toastify';
 // import Template_input from '../lib/template_input/Template_input';
-import { Container,Table,Grid,Button,Dropdown,Segment,Input,Image,Icon } from 'semantic-ui-react'
+import { Container,Table,Grid,Button,Dropdown,Segment,Input,Image,Icon,Checkbox } from 'semantic-ui-react'
 import Editer_post from './editer_post';
 import Input_img from '../lib/input_img';
-import {get_cate_v1,get_posts,action_edit_quatity_sold,action_edit_related_keyword,edit_status,edit_is_best_seller,delete_post,get_attribute_list_v2,update_thumnail_post} from '../lib/axios'
+import {get_cate_v1,get_posts,action_edit_quatity_sold,action_edit_related_keyword,edit_status,edit_is_best_seller,delete_post,get_attribute_list_v2,update_thumnail_post,change_shoping_v2} from '../lib/axios'
 export default class Posts extends Component {
   constructor (props) {
     super(props)
@@ -26,7 +26,10 @@ export default class Posts extends Component {
         //   },
         //   status:'private',
         //   is_best_seller:true,
-        //   url:"#1"
+        //   url:"#1",
+        // shoping_type:"",
+        // inStock:false,
+        // shoping_on_off:"on"
         // },
         // {
         //   id:2,
@@ -56,6 +59,11 @@ export default class Posts extends Component {
         index:-1,
         value:""
       },
+      //
+      selected_shoping_type:{
+        index:-1,
+        value:""
+      },
       select_related_keyword:{
         index:-1,
         rs_id:[],
@@ -76,7 +84,8 @@ export default class Posts extends Component {
       search_title:"",
       search_type:"All",
       search_status:"All",
-      attribute_list_v2:[]
+      attribute_list_v2:[],
+      is_show_shoping:false,
     }
   }
  async componentDidMount(){
@@ -90,7 +99,7 @@ export default class Posts extends Component {
     this.setState({text_check:text_check,category_list:cate_v1,attribute_list_v2:attribute_list_v2})
   }
   render() {
-    let {control_edit,data,select_quantity_sold,select_related_keyword,text_check,search_id,search_title,search_type,search_status,category_list,attribute_list_v2}=this.state;
+    let {selected_shoping_type,is_show_shoping,control_edit,data,select_quantity_sold,select_related_keyword,text_check,search_id,search_title,search_type,search_status,category_list,attribute_list_v2}=this.state;
     let option_related_keyword=data.map((e)=> {
       return {
         value:e.id,
@@ -134,7 +143,7 @@ export default class Posts extends Component {
                     }
                   />
                 </Grid.Column>
-                <Grid.Column width={7}>
+                <Grid.Column width={3}>
                   <Dropdown  selection search
                     value={this.state.selected_category}
                     options={this.state.category_list}
@@ -148,7 +157,12 @@ export default class Posts extends Component {
                     }}
                   />
                 </Grid.Column>
-                <Grid.Column width={3}></Grid.Column>
+                <Grid.Column width={3} className='re'><Checkbox toggle  label='Google shoping' className='ggshoping'
+                    checked={data.is_show_price_table}
+                    onChange={() => {
+                      this.setState({is_show_shoping:!is_show_shoping})
+                    }}
+                /></Grid.Column>
               </Grid>
               <Grid.Column width={12}>
                 <Segment className='clorg hg'
@@ -170,8 +184,8 @@ export default class Posts extends Component {
                                 this.setState({search_title:value})
                               }}
                         /></Table.HeaderCell>
-                        <Table.HeaderCell width={1}>Đã bán</Table.HeaderCell>
-                        <Table.HeaderCell width={1}>Type  <Button size='mini' basic 
+                        {!is_show_shoping&&<Table.HeaderCell width={1}>Đã bán</Table.HeaderCell>}
+                        <Table.HeaderCell width={1}><div className='re'>Type  <button  className='btn-xx'
                           onClick={()=>{
                             let {search_type}=this.state;
                             if(search_type=="All"){
@@ -187,9 +201,10 @@ export default class Posts extends Component {
                             }
                             this.setState({search_type:search_type})
                           }}
-                        >{search_type}</Button></Table.HeaderCell>
-                        <Table.HeaderCell width={1}>Related keywork</Table.HeaderCell>
-                        <Table.HeaderCell width={2}>Trạng thái <Button size='mini' basic 
+                        >{search_type}</button></div></Table.HeaderCell>
+                       {!is_show_shoping&&<Table.HeaderCell width={1}>Related keywork</Table.HeaderCell>}
+                        <Table.HeaderCell width={2}>
+                          <div className='re'>Trạng thái <button className='btn-xx'
                           onClick={()=>{
                             let {search_status}=this.state;
                             if(search_status=="All"){
@@ -201,10 +216,14 @@ export default class Posts extends Component {
                             }
                             this.setState({search_status:search_status})
                           }}
-                        >{search_status}</Button> </Table.HeaderCell>
+                        >{search_status}</button>
+                        </div></Table.HeaderCell>
                         <Table.HeaderCell width={4}>Điều chỉnh</Table.HeaderCell>
-                        <Table.HeaderCell width={1}>Best Seller</Table.HeaderCell>
-                        <Table.HeaderCell width={1}>Cache</Table.HeaderCell>
+                        {!is_show_shoping&&<Table.HeaderCell width={1}>Best Seller</Table.HeaderCell>}
+                        {!is_show_shoping&&<Table.HeaderCell width={1}>Cache</Table.HeaderCell>}
+                        {is_show_shoping&&<Table.HeaderCell width={1}><div className='re'>inStock<button className='btn-xx'>All</button></div></Table.HeaderCell>}
+                        {is_show_shoping&&<Table.HeaderCell width={3}><div className='re'>Loại sản phẩm<button className='btn-xx'>All</button></div></Table.HeaderCell>}
+                        {is_show_shoping&&<Table.HeaderCell width={1}><div className='re'>on/off<button className='btn-xx'>All</button></div></Table.HeaderCell>}
                       </Table.Row>
                     </Table.Header>
 
@@ -255,7 +274,7 @@ export default class Posts extends Component {
                                       <a href={e.url} target='_blank'>{e.title}</a>
                                       - {e.key_word!=""&&<b>{e.key_word}</b>}{e.key_word==""&&<b style={{color:"red"}}>___no_key_word__</b>}  {e.type!="bv"&&<b className='color-gre'>- {(Number(e.price)).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</b>}
                                     </Table.Cell>
-                                    <Table.Cell >
+                                    {!is_show_shoping&&<Table.Cell >
                                       {e.type!="bv"&&<div className='re'>
                                         <span className='colz'>{e.quantity_sold}</span>
                                         <i className="fa-solid fa-pen-to-square edit-db" onClick={()=>this.setState({select_quantity_sold:{index:i,value:e.quantity_sold}})}></i>
@@ -294,14 +313,14 @@ export default class Posts extends Component {
                                           </div>
                                         </div>}
                                       </div>}
-                                    </Table.Cell>
+                                    </Table.Cell>}
                                     <Table.Cell>
                                       {e.type=="sp_main"&&<a className='tagx'>S.P_main</a>}
                                       {e.type=="sp_clone"&&<a className='tagx clonxe'>S.P_clone</a>}
                                       {e.type=="sp_seo"&&<a className='tagx clonxes'>S.P_seo</a>}
                                       {e.type=="bv"&&<a className='tagx colrfs'>B.V</a>}
                                     </Table.Cell>
-                                    <Table.Cell>
+                                    {!is_show_shoping&&<Table.Cell>
                                       <div>({e.related_keyword.rs_obj.length}) 
                                         <Button  icon='edit' basic className='border-non'   onClick={()=>{
                                           let {select_related_keyword}=this.state;
@@ -372,7 +391,7 @@ export default class Posts extends Component {
                                           </div>
                                         </div>
                                       </div>}
-                                    </Table.Cell>
+                                    </Table.Cell>}
                                     <Table.Cell>
                                       {e.status=="private"&&<Button content='Riêng tư' basic size="mini"
                                         onClick={async()=>{
@@ -467,7 +486,7 @@ export default class Posts extends Component {
                                         </Button.Content>
                                       </Button>
                                     </Table.Cell>
-                                    <Table.Cell>
+                                    {!is_show_shoping&&<Table.Cell>
                                       {e.is_best_seller=='true'&&e.type!="bv"&&<Icon name='star' size='big' className='star-clo-1'
                                         onClick={async()=>{
                                           if(window.confirm("Xác nhận: 'ẩn khỏi trang chủ'")){
@@ -504,8 +523,132 @@ export default class Posts extends Component {
                                           }
                                         }}
                                       />}
-                                    </Table.Cell>
-                                    <Table.Cell><span className='clear-cache'>clear</span></Table.Cell>
+                                    </Table.Cell>}
+                                    {!is_show_shoping&&<Table.Cell><span className='clear-cache'>clear</span></Table.Cell>}
+                                    {is_show_shoping&&<Table.Cell>
+                                      {e.instock=="true"&&<i className="fa-solid fa-cart-shopping csv2"
+                                        onClick={async()=>{
+                                          if(window.confirm('Chuyển sang :"Hết hàng"')){
+                                            let a=await change_shoping_v2({
+                                              type:"instock",
+                                              value:"false",
+                                              id:e.id
+                                            })
+                                            if(a.status){
+                                              let {data}=this.state;
+                                              data[i].instock="false";
+                                              toast.success('Cập nhật thành công.', { theme: "colored" });
+                                            }else{
+                                              toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                                            }
+                                            this.setState({data:data})
+                                          }
+                                        }}
+                                      ></i>}
+                                      {e.instock=="false"&&<i className="fa-solid fa-minus edit-db" style={{fontSize:"40px",color:"gray"}}
+                                          onClick={async()=>{
+                                            if(window.confirm('Chuyển sang :"Còn hàng"')){
+                                              let a=await change_shoping_v2({
+                                                type:"instock",
+                                                value:"true",
+                                                id:e.id
+                                              })
+                                              if(a.status){
+                                                let {data}=this.state;
+                                                data[i].instock="true";
+                                                toast.success('Cập nhật thành công.', { theme: "colored" });
+                                              }else{
+                                                toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                                              }
+                                              this.setState({data:data})
+                                            }
+                                          }}
+                                      ></i>}
+                                    </Table.Cell>}
+                                    {is_show_shoping&&<Table.Cell>
+                                      <div className='re'>
+                                        <span>{e.shoping_type}</span> &nbsp;
+                                        (<i className="fa-solid fa-pen-to-square edit-db"
+                                           onClick={()=>this.setState({selected_shoping_type:{index:i,value:e.shoping_type}})}
+                                         ></i>)
+                                         {selected_shoping_type.index==i&&<div  style={{right:"0px"}} className='keyworsxx xasd'>
+                                          <Input  placeholder='ads 1' className="input-1" type='text' fluid
+                                            value={selected_shoping_type.value}
+                                            onChange={(e,{value}) => {
+                                              let {selected_shoping_type}=this.state;
+                                              selected_shoping_type.value=value
+                                              this.setState({selected_shoping_type:selected_shoping_type})
+                                            }}
+                                          />
+                                          <div className='huhvx'>
+                                              <Button content='Hủy' secondary  
+                                                onClick={()=>this.setState({selected_shoping_type:{index:-1,value:''}})}
+                                                />
+                                              <Button content='OK' primary
+                                                onClick={async()=>{
+                                                  let {selected_shoping_type,data}=this.state;
+                                                  let a=await change_shoping_v2({
+                                                    type:"shoping_type",
+                                                    value:selected_shoping_type.value,
+                                                    id:e.id
+                                                  })
+                                                  if(a.status){
+                                                    data[selected_shoping_type.index].shoping_type=selected_shoping_type.value;
+                                                    this.setState({
+                                                      selected_shoping_type:{index:-1,value:''},
+                                                      data:data
+                                                    })
+                                                    toast.success('Cập nhật thành công.', { theme: "colored" });
+                                                  }else{
+                                                    toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                                                  }
+                                                }}
+
+                                              />
+                                          </div>
+                                        </div>}
+                                      </div>
+                                    </Table.Cell>}
+                                    {is_show_shoping&&<Table.Cell>
+                                     {e.shoping_on_off=="on"&&<span className='shoping-on'
+                                        onClick={async()=>{
+                                        if(window.confirm('Xóa khỏi google Merchant')){
+                                          let a=await change_shoping_v2({
+                                            type:"shoping_on_off",
+                                            value:"off",
+                                            id:e.id
+                                          })
+                                          if(a.status){
+                                            let {data}=this.state;
+                                            data[i].shoping_on_off="off";
+                                            toast.success('Cập nhật thành công.', { theme: "colored" });
+                                          }else{
+                                            toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                                          }
+                                          this.setState({data:data})
+                                        }
+                                      }}
+                                     >on</span>}
+                                      {e.shoping_on_off=="off"&&<span className='shoping-off'
+                                        onClick={async()=>{
+                                          if(window.confirm('Thêm vào google Merchant')){
+                                            let a=await change_shoping_v2({
+                                              type:"shoping_on_off",
+                                              value:"on",
+                                              id:e.id
+                                            })
+                                            if(a.status){
+                                              let {data}=this.state;
+                                              data[i].shoping_on_off="on";
+                                              toast.success('Cập nhật thành công.', { theme: "colored" });
+                                            }else{
+                                              toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                                            }
+                                            this.setState({data:data})
+                                          }
+                                        }}
+                                      >off</span>}
+                                    </Table.Cell>}
                                   </Table.Row>
                         })
                       }
@@ -534,13 +677,19 @@ export default class Posts extends Component {
                   console.log("🚀 ~ file: posts.js:398 ~ Posts ~ render ~ id:", id)
                   let {data}=this.state;
                   if(id==-1){// tao moi
-                    data.unshift(rs)
+                    rs.shoping_type="";
+                    rs.instock=false;
+                    rs.shoping_on_off="off";
+                    data.unshift(rs);
                   }else{
                     let index=-1;
                     for (let i = 0; i < data.length; i++) {
                       if(data[i].id==id) index=i;
                     }
                     if(index>-1){
+                      rs.shoping_type=data[index].shoping_type;
+                      rs.instock=data[index].instock;
+                      rs.shoping_on_off=data[index].shoping_on_off;
                       data[index]=rs;
                     }
                    }

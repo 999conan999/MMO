@@ -618,3 +618,25 @@ export async function count_order(){
    let url=url_count_order;
    return fs_gets(url)
 }
+//
+let url_change_shoping_v2=url_home+'/wp-content/themes/shopseo/templates/ajax/posts/change_shoping_v2.php'
+export async function change_shoping_v2(data){
+    console.log("🚀 ~ file: axios.js:111 ~ action_create_or_edit_post ~ data:", data)
+    let data_send=new FormData();
+    Object.keys(data).forEach(function(key) {
+        data_send.append(key,data[key]);
+    });
+    //
+    let response= axios.post(url_change_shoping_v2, 
+        data_send
+    )
+    .then(function (response) {
+        console.log("🚀 ~ file: axios.js:121 ~ response:", response)
+        return response.data;
+    })
+    .catch(function (error) {
+        console.log("🚀 ~ file: axios.js ~ line 44 ~ action_create_or_edit_post ~ error", error)
+        return {}
+    })
+    return response;
+}

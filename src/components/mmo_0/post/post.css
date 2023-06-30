@@ -475,3 +475,49 @@ blockquote>p {
    max-width: 372px;
    overflow: hidden;
  }
+ .ggshoping{
+   position: absolute !important;
+   top: 23px;
+ }
+ .csv2{
+   cursor: pointer;
+   color: blue;
+ }
+ .csv2:hover{
+   color: #076cbe;
+ }
+ .btn-xx{
+   position: absolute;
+   top: -22px;
+   left: 1px;
+   background-color: #a8bacb;
+   padding: 3px 8px;
+   border-radius: 5px;
+   cursor: pointer;
+   border: 1px solid gray;
+ }
+ .btn-xx:hover{
+   background-color: #73d389;
+ }
+ .shoping-on{
+   background-color: #21ba45;
+   padding: 4px 8px;
+   color: white;
+   border-radius: 5px;
+   cursor: pointer;
+ }
+ .shoping-off{
+   background-color: #b7b7b7;
+   padding: 4px 8px;
+   color: white;
+   border-radius: 5px;
+   cursor: pointer;
+ }
+ .keyworsxx{
+   position: absolute;
+   padding: 10px 30px;
+   right: 0px;
+   background-color: #deb887;
+   border: 1px solid #639;
+   z-index: 100000;
+ }
