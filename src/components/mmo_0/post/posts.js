@@ -86,6 +86,9 @@ export default class Posts extends Component {
       search_status:"All",
       attribute_list_v2:[],
       is_show_shoping:false,
+      search_instock:'All',
+      search_shoping_type:'All',
+      search_shoping_on_off:'All',
     }
   }
  async componentDidMount(){
@@ -99,7 +102,7 @@ export default class Posts extends Component {
     this.setState({text_check:text_check,category_list:cate_v1,attribute_list_v2:attribute_list_v2})
   }
   render() {
-    let {selected_shoping_type,is_show_shoping,control_edit,data,select_quantity_sold,select_related_keyword,text_check,search_id,search_title,search_type,search_status,category_list,attribute_list_v2}=this.state;
+    let {search_shoping_on_off,search_shoping_type,search_instock,selected_shoping_type,is_show_shoping,control_edit,data,select_quantity_sold,select_related_keyword,text_check,search_id,search_title,search_type,search_status,category_list,attribute_list_v2}=this.state;
     let option_related_keyword=data.map((e)=> {
       return {
         value:e.id,
@@ -127,6 +130,41 @@ export default class Posts extends Component {
         return normalizedTitle.search(normalizedSearchTitle)>-1 ;
       })
     }
+    // search id
+    if(search_instock!="All"){
+      let a=search_instock=="in_stock"?"true":"false"
+      data=data.filter((e)=>e.instock==a)
+    }
+    // search id
+    if(search_shoping_on_off!="All"){
+      data=data.filter((e)=>e.shoping_on_off==search_shoping_on_off)
+    }
+    // search id
+    if(search_shoping_type!="All"){
+    if(search_shoping_type=="A_Z"){
+      data.sort((a, b) => {
+        if (a.shoping_type < b.shoping_type) {
+          return -1;
+        }
+        if (a.shoping_type > b.shoping_type) {
+          return 1;
+        }
+        return 0;
+      });
+    }else{
+      data.sort((a, b) => {
+        if (a.shoping_type > b.shoping_type) {
+          return -1;
+        }
+        if (a.shoping_type < b.shoping_type) {
+          return 1;
+        }
+        return 0;
+      });
+    }
+
+    }
+    //
       return (
         <React.Fragment>
               <Grid style={{padding:"10px"}}>
@@ -221,9 +259,45 @@ export default class Posts extends Component {
                         <Table.HeaderCell width={4}>Điều chỉnh</Table.HeaderCell>
                         {!is_show_shoping&&<Table.HeaderCell width={1}>Best Seller</Table.HeaderCell>}
                         {!is_show_shoping&&<Table.HeaderCell width={1}>Cache</Table.HeaderCell>}
-                        {is_show_shoping&&<Table.HeaderCell width={1}><div className='re'>inStock<button className='btn-xx'>All</button></div></Table.HeaderCell>}
-                        {is_show_shoping&&<Table.HeaderCell width={3}><div className='re'>Loại sản phẩm<button className='btn-xx'>All</button></div></Table.HeaderCell>}
-                        {is_show_shoping&&<Table.HeaderCell width={1}><div className='re'>on/off<button className='btn-xx'>All</button></div></Table.HeaderCell>}
+                        {is_show_shoping&&<Table.HeaderCell width={1}><div className='re'>inStock<button className='btn-xx'
+                          onClick={()=>{
+                            let {search_instock}=this.state;
+                            if(search_instock=="All"){
+                              search_instock="in_stock"
+                            }else if(search_instock=="in_stock"){
+                              search_instock="out_of_stock"
+                            }else if(search_instock=="out_of_stock"){
+                              search_instock="All"
+                            }
+                            this.setState({search_instock:search_instock})
+                          }}
+                        >{search_instock}</button></div></Table.HeaderCell>}
+                        {is_show_shoping&&<Table.HeaderCell width={3}><div className='re'
+                            onClick={()=>{
+                              let {search_shoping_type}=this.state;
+                              if(search_shoping_type=="All"){
+                                search_shoping_type="A_Z"
+                              }else if(search_shoping_type=="A_Z"){
+                                search_shoping_type="Z_A"
+                              }else if(search_shoping_type=="Z_A"){
+                                search_shoping_type="All"
+                              }
+                              this.setState({search_shoping_type:search_shoping_type})
+                            }}
+                        >Loại sản phẩm<button className='btn-xx'>{search_shoping_type}</button></div></Table.HeaderCell>}
+                        {is_show_shoping&&<Table.HeaderCell width={1}><div className='re'>on/off<button className='btn-xx'
+                          onClick={()=>{
+                            let {search_shoping_on_off}=this.state;
+                            if(search_shoping_on_off=="All"){
+                              search_shoping_on_off="on"
+                            }else if(search_shoping_on_off=="on"){
+                              search_shoping_on_off="off"
+                            }else if(search_shoping_on_off=="off"){
+                              search_shoping_on_off="All"
+                            }
+                            this.setState({search_shoping_on_off:search_shoping_on_off})
+                          }}
+                        >{search_shoping_on_off}</button></div></Table.HeaderCell>}
                       </Table.Row>
                     </Table.Header>
 
@@ -687,7 +761,7 @@ export default class Posts extends Component {
                   let {data}=this.state;
                   if(id==-1){// tao moi
                     rs.shoping_type="";
-                    rs.instock=false;
+                    rs.instock="false";
                     rs.shoping_on_off="off";
                     data.unshift(rs);
                   }else{
