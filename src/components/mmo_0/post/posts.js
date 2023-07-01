@@ -201,6 +201,7 @@ export default class Posts extends Component {
                       this.setState({is_show_shoping:!is_show_shoping})
                     }}
                 /></Grid.Column>
+                {is_show_shoping&&<Grid.Column width={3}><a target='_blank' href={window.url+'/wp-content/themes/shopseo/templates/ajax/xml/products.xml'} className='ggshoping'>products.xml</a></Grid.Column>}
               </Grid>
               <Grid.Column width={12}>
                 <Segment className='clorg hg'
