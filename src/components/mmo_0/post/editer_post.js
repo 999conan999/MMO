@@ -243,7 +243,12 @@ export default class Editer_post extends Component {
                       search
                       inline
                       options={list_sp_anh_xa}
-                      defaultValue={data.comments_id}
+                      value={data.comments_id}
+                      onChange={(e,{value})=>{
+                        let {data}=this.state;
+                        data.comments_id=value;
+                        this.setState({data:data})
+                      }}
                     />
                 </Grid.Column>}
               </Grid>
@@ -558,7 +563,7 @@ export default class Editer_post extends Component {
     );
   }
   reload_table_price=async()=>{
-    // setTimeout(()=>{
+    setTimeout(()=>{
       let {data,attribute_list}=this.state;
       let value=data.attribute_id;
       let data_attribute=attribute_list.filter(e => e.value === value);
@@ -575,7 +580,7 @@ export default class Editer_post extends Component {
         table_attribute.img=data_attribute.thumnail;
       } 
       this.setState({ data: data,table_attribute:table_attribute })
-    // },1000)
+    },1000)
   }
 }
 
