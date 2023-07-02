@@ -41,6 +41,7 @@ export default class Setup extends Component {
     }else{
       this.setState({is_loading:false})
     }
+    
   }
   render() {
     let {data,is_loading}=this.state;
@@ -114,6 +115,7 @@ export default class Setup extends Component {
                     <Input label='Liên hệ số điện thoại zalo:' placeholder='0938991602' fluid type='text'
                       value={data.lien_he_zalo}
                       onChange={(e,{value}) => {
+                        window.lock=true;
                         let {data}=this.state;
                         data.lien_he_zalo=value;
                         this.setState({ data: data })
@@ -124,6 +126,7 @@ export default class Setup extends Component {
                     <Input label='Liên hệ số điện thoại Hotline:' placeholder='0938991602' fluid type='text'
                       value={data.lien_he_sdt}
                       onChange={(e,{value}) => {
+                        window.lock=true;
                         let {data}=this.state;
                         data.lien_he_sdt=value;
                         this.setState({ data: data })
@@ -134,6 +137,7 @@ export default class Setup extends Component {
                     <Input label='Liên hệ facebook link:' placeholder='https://m.me/anbinhnewcom' fluid type='text'
                       value={data.lien_he_fb}
                       onChange={(e,{value}) => {
+                        window.lock=true;
                         let {data}=this.state;
                         data.lien_he_fb=value;
                         this.setState({ data: data })
@@ -144,6 +148,7 @@ export default class Setup extends Component {
                     <Input label='Liên hệ Địa chỉ:' placeholder='Số nhà 19, đường số 17,quốc lộ 13 cũ, Hiệp Bình Phước, Quận Thủ Đức,tpHCM' fluid type='text'
                       value={data.lien_he_dc}
                       onChange={(e,{value}) => {
+                        window.lock=true;
                         let {data}=this.state;
                         data.lien_he_dc=value;
                         this.setState({ data: data })
@@ -183,6 +188,7 @@ export default class Setup extends Component {
                                 <input type="text" className="danh-input iput-1" placeholder="..." 
                                   value={e.name}
                                   onChange={(e)=>{
+                                    window.lock=true;
                                     let {data}=this.state;
                                     data.menu[i].name=e.target.value;
                                     this.setState({data:data})
@@ -193,6 +199,7 @@ export default class Setup extends Component {
                                 <input className="danh-input iput-2" placeholder="..." type="text"  
                                     value={e.value}
                                     onChange={(e)=>{
+                                      window.lock=true;
                                       let {data}=this.state;
                                       data.menu[i].value=e.target.value;
                                       this.setState({data:data})
@@ -261,6 +268,7 @@ export default class Setup extends Component {
                                 <input type="text" className="danh-input iput-1" placeholder="..." 
                                   value={e.name}
                                   onChange={(e)=>{
+                                    window.lock=true;
                                     let {data}=this.state;
                                     data.thong_tin[i].name=e.target.value;
                                     this.setState({data:data})
@@ -271,6 +279,7 @@ export default class Setup extends Component {
                                 <input className="danh-input iput-2" placeholder="..." type="text"  
                                     value={e.value}
                                     onChange={(e)=>{
+                                      window.lock=true;
                                       let {data}=this.state;
                                       data.thong_tin[i].value=e.target.value;
                                       this.setState({data:data})
@@ -339,6 +348,7 @@ export default class Setup extends Component {
                                 <input type="text" className="danh-input iput-1" placeholder="..." 
                                   value={e.name}
                                   onChange={(e)=>{
+                                    window.lock=true;
                                     let {data}=this.state;
                                     data.chinh_sach[i].name=e.target.value;
                                     this.setState({data:data})
@@ -349,6 +359,7 @@ export default class Setup extends Component {
                                 <input className="danh-input iput-2" placeholder="..." type="text"  
                                     value={e.value}
                                     onChange={(e)=>{
+                                      window.lock=true;
                                       let {data}=this.state;
                                       data.chinh_sach[i].value=e.target.value;
                                       this.setState({data:data})
@@ -417,6 +428,7 @@ export default class Setup extends Component {
                                 <input type="text" className="danh-input iput-1" placeholder="..." 
                                   value={e.name}
                                   onChange={(e)=>{
+                                    window.lock=true;
                                     let {data}=this.state;
                                     data.tuyen_dung[i].name=e.target.value;
                                     this.setState({data:data})
@@ -427,6 +439,7 @@ export default class Setup extends Component {
                                 <input className="danh-input iput-2" placeholder="..." type="text"  
                                     value={e.value}
                                     onChange={(e)=>{
+                                      window.lock=true;
                                       let {data}=this.state;
                                       data.tuyen_dung[i].value=e.target.value;
                                       this.setState({data:data})
@@ -471,6 +484,7 @@ export default class Setup extends Component {
                     <Input label='Cuối trang, thiết kế bởi:' placeholder='0938991602' fluid type='text'
                       value={data.design_by}
                       onChange={(e,{value}) => {
+                        window.lock=true;
                         let {data}=this.state;
                         data.design_by=value;
                         this.setState({ data: data })
@@ -487,6 +501,7 @@ export default class Setup extends Component {
                     <TextArea placeholder='Header' style={{ minHeight: 120 }}
                       value={data.gg_header}
                       onChange={(e,{value}) => {
+                        window.lock=true;
                         let {data}=this.state;
                         data.gg_header=value;
                         this.setState({ data: data })
@@ -497,6 +512,7 @@ export default class Setup extends Component {
                     <TextArea placeholder='Body' style={{ minHeight: 120,marginTop:"10px" }}
                       value={data.gg_body}
                       onChange={(e,{value}) => {
+                        window.lock=true;
                         let {data}=this.state;
                         data.gg_body=value;
                         this.setState({ data: data })
@@ -516,6 +532,7 @@ export default class Setup extends Component {
                     <Input label='Chuyển đổi đặt hàng thành công, sẽ chi trả cho gg bao nhiêu %:' className='mgt-50' placeholder='0.8' fluid type='number'
                       value={data.dat_hang_cd}
                       onChange={(e,{value}) => {
+                        window.lock=true;
                         let {data}=this.state;
                         data.dat_hang_cd=value;
                         this.setState({ data: data })
@@ -526,6 +543,7 @@ export default class Setup extends Component {
                     <Input label='Chuyển đổi nhắn tin zalo, sẽ chi trả cho gg bao nhiêu %:' placeholder='0.6' fluid type='number'
                       value={data.zalo_cd}
                       onChange={(e,{value}) => {
+                        window.lock=true;
                         let {data}=this.state;
                         data.zalo_cd=value;
                         this.setState({ data: data })
@@ -536,6 +554,7 @@ export default class Setup extends Component {
                     <Input label='Chuyển đổi nhắn tin facebook, sẽ chi trả cho gg bao nhiêu %:' placeholder='0.4' fluid type='number'
                       value={data.fb_cd}
                       onChange={(e,{value}) => {
+                        window.lock=true;
                         let {data}=this.state;
                         data.fb_cd=value;
                         this.setState({ data: data })
@@ -546,6 +565,7 @@ export default class Setup extends Component {
                     <Input label='Chuyển đổi nhắn tin cuộc gọi, sẽ chi trả cho gg bao nhiêu %:' placeholder='0.5' fluid type='number'
                       value={data.phone_cd}
                       onChange={(e,{value}) => {
+                        window.lock=true;
                         let {data}=this.state;
                         data.phone_cd=value;
                         this.setState({ data: data })
@@ -561,6 +581,7 @@ export default class Setup extends Component {
                     <Input label='Số giây cache:' className='mgt-50' placeholder='0.8' fluid type='number'
                       value={data.time_cache}
                       onChange={(e,{value}) => {
+                        window.lock=true;
                         let {data}=this.state;
                         data.time_cache=value;
                         this.setState({ data: data })

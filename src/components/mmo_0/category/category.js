@@ -52,10 +52,10 @@ export default class Categorys extends Component {
     }
       return (
         <React.Fragment>
-              <Grid>
+              <Grid style={{padding:"10px"}}>
                 <Grid.Column width={4}>
                   <div className='tao-moi-post mgb-8'>
-                    <Button content='Tạo trang mới' icon='add' labelPosition='right' color="blue" size='large'
+                    <Button content='Tạo trang mới' icon='add' labelPosition='right' color="blue" 
                       onClick={()=>
                         this.setState({
                           control_edit:{

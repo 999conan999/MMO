@@ -151,3 +151,6 @@
 .abs{
   position: absolute;
 }
+.button.right {
+  float: none !important;
+}
