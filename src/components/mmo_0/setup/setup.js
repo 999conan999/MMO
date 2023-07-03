@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './setup.css'
 import { toast } from 'react-toastify';
-import { Container, Grid, Button, Table, Segment, Input, Image, Radio, Header, TextArea, Form } from 'semantic-ui-react';
+import { Container, Grid, Button, Table, Segment, Input, Image, Checkbox, Header, TextArea, Form } from 'semantic-ui-react';
 import { moveElement } from '../lib/fs';
 import Input_img from '../lib/input_img';
 import {update_setup,get_setup} from '../lib/axios'
@@ -587,6 +587,21 @@ export default class Setup extends Component {
                         this.setState({ data: data })
                       }}
                     />
+                </Grid.Column>
+              </Grid>
+            </div>
+            <div className='wrap-s'>
+              <Grid>
+                <Grid.Column width={16}>
+                  <Header as='h4'>*404 {"=> 301 to HOME"}:</Header>
+                  <Checkbox toggle  label='Khách vào 404 sẽ tự ridirect đến trang chủ (301)'  
+                      checked={data.ridirect_404_301_home}
+                      onChange={() => {
+                        let {data}=this.state;
+                        data.ridirect_404_301_home=!data.ridirect_404_301_home;
+                        this.setState({data:data})
+                      }}
+                  />
                 </Grid.Column>
               </Grid>
             </div>
