@@ -373,7 +373,7 @@ export default class Editer_category extends Component {
                 </Grid.Column>
                 {
                   e.sp_list_id.map((a,j)=>{
-                    text_selected_sp_id+=','+a+',';
+                    if(i>0) text_selected_sp_id+=','+a+',';
                           if(list_sp[a]!=undefined){
                               return <Grid.Column width={4} key={i+''+j}>
                                 <Card className='re'>
@@ -515,7 +515,7 @@ export default class Editer_category extends Component {
                 <Grid className='re'>
                   {
                     Object.keys(list_sp).map((key, i)=> {
-                      if(text_selected_sp_id.search(","+key+",")===-1){
+                      if(text_selected_sp_id.search(","+key+",")===-1||selected_sp.index===0){
                         let {selected_sp}=this.state;
                         let active1=selected_sp.text.search(","+key+",")==-1?false:true;
                         return <Grid.Column width={4} key={key} >
