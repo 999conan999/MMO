@@ -26,14 +26,14 @@ export default class Editer_category extends Component {
         related_list:[],
         price_ss:0,
         dm:[
-          {
-            name:"Giường sắt hộp vuông",
-            sp_list_id:[1,2,3]
-          },
-          {
-            name:"Giường sắt ống tròn",
-            sp_list_id:[6,7]
-          },
+          // {
+          //   name:"Giường sắt hộp vuông",
+          //   sp_list_id:[1,2,3]
+          // },
+          // {
+          //   name:"Giường sắt ống tròn",
+          //   sp_list_id:[6,7]
+          // },
         ],
       },
       //
