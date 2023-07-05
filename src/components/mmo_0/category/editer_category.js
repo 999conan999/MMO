@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import Input_img from '../lib/input_img';
 import { moveElement } from '../lib/fs';
 import {action_create_edit_category,get_category_detail,get_list_sp} from '../lib/axios'
-import { Container, Grid, Button, Dropdown, Segment, Input,Icon, Image, Table, Header, TextArea, Form,Card } from 'semantic-ui-react'
+import { Container, Grid, Button, Dropdown, Segment, Input,Icon, Image, Table, Header, TextArea, Form,Card,Checkbox } from 'semantic-ui-react'
 export default class Editer_category extends Component {
   constructor(props) {
     super(props)
@@ -332,7 +332,8 @@ export default class Editer_category extends Component {
                 let {data}=this.state;
                 data.dm.unshift({
                   name:"",
-                  sp_list_id:[]
+                  sp_list_id:[],
+                  is_template_large:false
                 })
                 this.setState({data:data})
               }}
@@ -370,6 +371,18 @@ export default class Editer_category extends Component {
                           }
                         }}
                     ></i>
+                    <div className='abs' style={{top:"0px",left:"-188px"}}>
+                      <Form>
+                          <Checkbox toggle label={e.is_template_large?'Giao diện lớn':'Giao diện nhỏ'} style={{margin:"26px"}}
+                            checked={e.is_template_large==true?true:false}
+                            onChange={() => {
+                              let {data}=this.state;
+                              data.dm[i].is_template_large=!data.dm[i].is_template_large;
+                              this.setState({data:data})
+                            }}
+                          />
+                      </Form>
+                    </div>
                 </Grid.Column>
                 {
                   e.sp_list_id.map((a,j)=>{
