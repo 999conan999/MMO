@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import Input_img from '../lib/input_img/index';
 import { moveElement } from '../lib/fs';
 import {create_edit_attributes,get_attributes_infor} from '../lib/axios'
-import { Container, Grid, Button,Input,Checkbox, Image, Table, Header,Form } from 'semantic-ui-react'
+import { Container, Grid, Button,Input,Checkbox, Image, Table, Header,Form,Dropdown } from 'semantic-ui-react'
 export default class Editer_attribute extends Component {
   constructor(props) {
     super(props)
@@ -57,12 +57,13 @@ export default class Editer_attribute extends Component {
         is_show_commit:true,
         table_commit:[]
       },
+      category_list:[],
       //phu tro
       index_show_input_table_price:-1
     }
   }
   async componentDidMount(){
-      let {id,type}=this.props;
+      let {id,type,category_list}=this.props;
       let {data}=this.state;
       // 1
   
@@ -72,14 +73,14 @@ export default class Editer_attribute extends Component {
         let data=await get_attributes_infor(id);
         if(data.id!=undefined){
           data.id=-1;
-          this.setState({data:data})
+          this.setState({data:data,category_list:category_list})
         }else{
           toast.info("Lỗi rồi", { theme: "colored" })
         }
       }else if(type=="edit"){
         let data=await get_attributes_infor(id);
         if(data.id!=undefined){
-          this.setState({data:data})
+          this.setState({data:data,category_list:category_list})
         }else{
           toast.info("Lỗi rồi", { theme: "colored" })
         }
@@ -93,7 +94,7 @@ export default class Editer_attribute extends Component {
 
   }
   render() {
-    let {data,index_show_input_table_price}=this.state;
+    let {data,index_show_input_table_price,category_list}=this.state;
     return (
       <div className='wrap-editer-post attr-wrap'>
         <Container>
@@ -117,12 +118,13 @@ export default class Editer_attribute extends Component {
               <Grid.Column width={4}>
                  <Form>
                   <Header as='h4'>*Tag:</Header>
-                  <Input fluid
+                   <Dropdown  selection search
                     value={data.tag}
-                    onChange={(e,{value}) => {
+                    options={category_list}
+                    onChange={async(e,{value}) => {
                       let {data}=this.state;
                       data.tag=value;
-                      this.setState({ data: data })
+                      this.setState({data:data})
                     }}
                   />
                 </Form>

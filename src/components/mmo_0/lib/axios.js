@@ -308,13 +308,13 @@ export async function create_edit_attributes(data){
     return response;
 }
 const url_get_attribute_list_v2=url_home+'/wp-content/themes/shopseo/templates/ajax/attributes/get_attribute_list_v2.php';
-export async function get_attribute_list_v2(){
-   let url=url_get_attribute_list_v2;
+export async function get_attribute_list_v2(id_category){
+   let url=url_get_attribute_list_v2+'?id='+id_category;
    return fs_gets(url)
 }
 const url_get_attributes=url_home+'/wp-content/themes/shopseo/templates/ajax/attributes/get_attributes.php';
-export async function get_attributes(){
-   let url=url_get_attributes;
+export async function get_attributes(id_category){
+   let url=url_get_attributes+'?id='+id_category;
    return fs_gets(url)
 }
 const url_attributes_infor=url_home+'/wp-content/themes/shopseo/templates/ajax/attributes/get_attributes_infor.php';

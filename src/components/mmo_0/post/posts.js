@@ -97,12 +97,15 @@ export default class Posts extends Component {
     let cate_v1=await get_cate_v1();
     if(!cate_v1) cate_v1=[];
     
-    let attribute_list_v2=await get_attribute_list_v2();
+    // let attribute_list_v2=await get_attribute_list_v2();
     cate_v1.unshift({text:"Chọn danh mục",value:-1})
-    this.setState({text_check:text_check,category_list:cate_v1,attribute_list_v2:attribute_list_v2})
+    this.setState({
+      text_check:text_check,category_list:cate_v1,
+      // attribute_list_v2:attribute_list_v2
+    })
   }
   render() {
-    let {search_shoping_on_off,search_shoping_type,search_instock,selected_shoping_type,is_show_shoping,control_edit,data,select_quantity_sold,select_related_keyword,text_check,search_id,search_title,search_type,search_status,category_list,attribute_list_v2}=this.state;
+    let {search_shoping_on_off,search_shoping_type,search_instock,selected_shoping_type,is_show_shoping,control_edit,data,select_quantity_sold,select_related_keyword,text_check,search_id,search_title,search_type,search_status,category_list}=this.state;
     let option_related_keyword=data.map((e)=> {
       return {
         value:e.id,
@@ -743,7 +746,7 @@ export default class Posts extends Component {
                 </Segment>
               </Grid.Column>
               {control_edit.is_open&&<Editer_post 
-                attribute_list_v2={attribute_list_v2}
+                // attribute_list_v2={attribute_list_v2}
                 category_list={category_list}
                 list_sp={data}
                 id={control_edit.id}

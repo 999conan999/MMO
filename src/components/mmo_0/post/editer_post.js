@@ -4,7 +4,7 @@ import Editer from '../lib/editer/Editer';
 import Input_img from '../lib/input_img';
 import { moveElement } from '../lib/fs';
 // import { toast } from 'react-toastify';
-import {action_create_or_edit_post,get_infor_post} from '../lib/axios'
+import {action_create_or_edit_post,get_infor_post,get_attribute_list_v2} from '../lib/axios'
 import { Container, Grid, Button, Dropdown, Segment, Input, Image, Radio, Header, TextArea, Form } from 'semantic-ui-react'
 import { toast } from 'react-toastify';
 // const test_html = '<p>Giường được làm bằng sắt ống tròn phi 49, có thể tháo ráp dễ dàng.</p> <p>Giường được sơn bằng&nbsp;<span style="color: rgb(186, 55, 42);"><strong>sơn tĩnh điện</strong></span>&nbsp;chống rỉ sét.</p> <p>Hỗ trợ kích thước:&nbsp;<span style="color: rgb(186, 55, 42);"><strong>80cmx2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1mx2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1m2x2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1m4x2m</strong></span>, <span style="color: rgb(186, 55, 42);"><strong>1m6x2m</strong></span>,&nbsp;<span style="color: rgb(186, 55, 42);"><strong>1m8x2m</strong></span>.</p> <p><strong>Giá rẻ nhất</strong>&nbsp;trong các dòng giường sắt, sử dụng cũng khá bền.&nbsp;<span style="color: rgb(186, 55, 42);"><strong>Nếu như các bạn đang cần một chiếc giường và không cần quá cầu kì, thì đây là sự lựa chọn giúp bạn tiết kiệm khá nhiều chi phí đấy nhé!</strong></span></p>'
@@ -95,8 +95,7 @@ export default class Editer_post extends Component {
     }
   }
   async componentDidMount(){
-    let {id,type,list_sp,category_list,attribute_list_v2}=this.props;
-    console.log("🚀 ~ file: editer_post.js:99 ~ Editer_post ~ componentDidMount ~ attribute_list_v2:", attribute_list_v2)
+    let {id,type,list_sp,category_list}=this.props;
     let {data}=this.state;
     // 1
    let list_sp_covert=list_sp.map((e)=>{
@@ -110,32 +109,58 @@ export default class Editer_post extends Component {
       text:'Chọn chính trang này là trang comments',
       value:-1,
     })
+    let attribute_list=[];
     if(type=="create"){
-      this.setState({is_loading:false});
       if(category_list[1]!=undefined) data.category_id=category_list[1].value;
     }else if(type=="copy"){
-      let data=await get_infor_post(id);
-      if(data.id!=undefined){
-        this.reload_table_price();
+      let da=await get_infor_post(id);
+      if(da.id!=undefined){
+        data=da;
+        // this.reload_table_price();
         data.id=-1;
-        this.setState({data:data,is_loading:false})
+        // this.setState({data:data,is_loading:false})
       }else{
         toast.info("Lỗi rồi", { theme: "colored" })
       }
     }else if(type=="edit"){
-      let data=await get_infor_post(id);
-      if(data.id!=undefined){
-        this.reload_table_price()
-        this.setState({data:data,is_loading:false})
+      let da=await get_infor_post(id);
+      if(da.id!=undefined){
+        data=da;
+        // this.reload_table_price()
+        // this.setState({data:data,is_loading:false})
       }else{
         toast.info("Lỗi rồi", { theme: "colored" })
       }
     }
-
+    // cover to table
+    let table_attribute={
+      table_price:[],
+      table_infor:[],
+      img:''
+    }
+    if(data.category_id!=-1){
+      attribute_list=await get_attribute_list_v2(data.category_id);
+      if(!attribute_list) attribute_list=[];
+      //
+      let value=data.attribute_id;
+      let data_attribute=attribute_list.filter(e => e.value === value);
+      if(data_attribute.length>0){
+        data_attribute=JSON.parse(data_attribute[0].data);
+        table_attribute.table_price=data_attribute.table_price;
+        table_attribute.table_infor=data_attribute.table_infor;
+        table_attribute.attribute_name=data_attribute.attribute_name;
+        table_attribute.img=data_attribute.thumnail;
+      } 
+      //
+    }
+    // end cover to table
     this.setState({
       list_sp_anh_xa:list_sp_covert,
       category_list:category_list,
-      attribute_list:attribute_list_v2
+      attribute_list:attribute_list,
+      is_loading:false,
+      data:data,
+      table_attribute:table_attribute
     })
 
   }
@@ -178,10 +203,37 @@ export default class Editer_post extends Component {
                   <Dropdown selection search
                     value={data.category_id}
                     options={this.state.category_list}
-                    onChange={(e, { value }) => {
+                    onChange={async(e, { value }) => {
                       let {data}=this.state;
                       data.category_id=value;
-                      this.setState({ data: data })
+                          // cover to table
+                          let table_attribute={
+                            table_price:[],
+                            table_infor:[],
+                            img:''
+                          }
+                          let attribute_list=[];
+                          if(data.category_id!=-1){
+                            attribute_list=await get_attribute_list_v2(data.category_id);
+                            if(!attribute_list) attribute_list=[];
+                            //
+                            let value=data.attribute_id;
+                            let data_attribute=attribute_list.filter(e => e.value === value);
+                            if(data_attribute.length>0){
+                              data_attribute=JSON.parse(data_attribute[0].data);
+                              table_attribute.table_price=data_attribute.table_price;
+                              table_attribute.table_infor=data_attribute.table_infor;
+                              table_attribute.attribute_name=data_attribute.attribute_name;
+                              table_attribute.img=data_attribute.thumnail;
+                            } 
+                            //
+                          }
+                          // end cover to table
+                      this.setState({
+                        data:data,
+                        table_attribute:table_attribute,
+                        attribute_list:attribute_list
+                      })
                     }}
                   />
                 </Grid.Column>
@@ -562,25 +614,25 @@ export default class Editer_post extends Component {
       </div>
     );
   }
-  reload_table_price=async()=>{
-    setTimeout(()=>{
-      let {data,attribute_list}=this.state;
-      let value=data.attribute_id;
-      let data_attribute=attribute_list.filter(e => e.value === value);
-      let table_attribute={
-        table_price:[],
-        table_infor:[],
-        img:''
-      }
-      if(data_attribute.length>0){
-        data_attribute=JSON.parse(data_attribute[0].data);
-        table_attribute.table_price=data_attribute.table_price;
-        table_attribute.table_infor=data_attribute.table_infor;
-        table_attribute.attribute_name=data_attribute.attribute_name;
-        table_attribute.img=data_attribute.thumnail;
-      } 
-      this.setState({ data: data,table_attribute:table_attribute })
-    },1000)
-  }
+  // reload_table_price=async()=>{
+  //   setTimeout(()=>{
+  //     let {data,attribute_list}=this.state;
+  //     let value=data.attribute_id;
+  //     let data_attribute=attribute_list.filter(e => e.value === value);
+  //     let table_attribute={
+  //       table_price:[],
+  //       table_infor:[],
+  //       img:''
+  //     }
+  //     if(data_attribute.length>0){
+  //       data_attribute=JSON.parse(data_attribute[0].data);
+  //       table_attribute.table_price=data_attribute.table_price;
+  //       table_attribute.table_infor=data_attribute.table_infor;
+  //       table_attribute.attribute_name=data_attribute.attribute_name;
+  //       table_attribute.img=data_attribute.thumnail;
+  //     } 
+  //     this.setState({table_attribute:table_attribute })
+  //   },1000)
+  // }
 }
 

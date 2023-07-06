@@ -3,7 +3,7 @@ import '../post/post.css'
 import { toast } from 'react-toastify';
 import { Container,Table,Grid,Button,Dropdown,Segment,Input,Image,Icon } from 'semantic-ui-react';
 import Editer_attribute from './editer_attribute';
-import {get_attributes,delete_attribute} from '../lib/axios'
+import {get_attributes,delete_attribute,get_cate_v1} from '../lib/axios'
 export default class Attribute extends Component {
   constructor (props) {
     super(props)
@@ -11,7 +11,9 @@ export default class Attribute extends Component {
       // main
         data:[
         ],
-        //ho tro
+        category_list:[],
+        //ho tro,
+        selected_cate:-1,
         control_edit:{
           is_open:false,
           id:-1,
@@ -28,16 +30,15 @@ export default class Attribute extends Component {
   async componentDidMount(){
     let text_check= localStorage.getItem("attr_text_index");
     if(text_check==null||text_check==undefined) text_check="";
-    let data=await get_attributes();
-    if(data.length>0){
-      this.setState({text_check:text_check,data:data,is_loading:false})
-    }else{
-      this.setState({text_check:text_check,is_loading:false})
-    }
+    // let data=await get_attributes();
+    let category_list=await get_cate_v1();
+    if(!category_list) category_list=[];
+    // if(!data) data=[];
+    this.setState({text_check:text_check,category_list:category_list,is_loading:false})
     
   }
   render() {
-    let {data,control_edit,text_check,search_id,search_tag,is_loading}=this.state;
+    let {data,control_edit,text_check,search_id,search_tag,is_loading,category_list,selected_cate}=this.state;
     // search id
     if(search_id.length>0){
       data=data.filter((e)=>e.id==search_id)
@@ -65,6 +66,19 @@ export default class Attribute extends Component {
                           }
                         })
                       }
+                    />
+                  </div>
+                </Grid.Column>
+                <Grid.Column width={4}>
+                  <div className='tao-moi-post pdt-50 mgb-8'>
+                    <Dropdown  selection search
+                      value={selected_cate}
+                      options={category_list}
+                      onChange={async(e,{value}) => {
+                        let a=await  get_attributes(value);
+                        if(!a) a=[]
+                        this.setState({selected_cate:value,data:a})
+                      }}
                     />
                   </div>
                 </Grid.Column>
@@ -198,6 +212,7 @@ export default class Attribute extends Component {
               {control_edit.is_open&&<Editer_attribute
                 id={control_edit.id}
                 type={control_edit.type}
+                category_list={category_list}
                 fs_close={()=>{
                   this.setState({
                     control_edit:{
