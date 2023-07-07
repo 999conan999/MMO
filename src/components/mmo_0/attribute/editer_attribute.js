@@ -68,7 +68,7 @@ export default class Editer_attribute extends Component {
       // 1
   
       if(type=="create"){
-        
+        this.setState({data:data,category_list:category_list})
       }else if(type=="copy"){
         let data=await get_attributes_infor(id);
         if(data.id!=undefined){
