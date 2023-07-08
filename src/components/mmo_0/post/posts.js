@@ -765,7 +765,7 @@ export default class Posts extends Component {
                   let {data}=this.state;
                   if(id==-1){// tao moi
                     rs.shoping_type="";
-                    rs.instock="false";
+                    rs.instock="true";
                     rs.shoping_on_off="off";
                     data.unshift(rs);
                   }else{
