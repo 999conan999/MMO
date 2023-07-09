@@ -496,6 +496,7 @@ export default class Editer_attribute extends Component {
               let a=await create_edit_attributes(rs);
               if(a.status){
                 if(data.id==-1){
+                  rs_change.id=a.id;
                   toast.success('Tạo mới thành công.', { theme: "colored" });
                 }else{
                   toast.success('Cập nhật thành công', { theme: "colored" });
