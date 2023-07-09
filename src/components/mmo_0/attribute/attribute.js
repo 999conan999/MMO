@@ -222,10 +222,19 @@ export default class Attribute extends Component {
                     }
                   })
                 }}
-                fs_change_attribute={(id,rs)=>{
+                fs_change_attribute={async(id,rs)=>{
                   let {data}=this.state;
                   if(id==-1){
-                    data.unshift(rs)
+                    let a=await  get_attributes(this.state.selected_cate);
+                    if(!a) a=[]
+                    this.setState({
+                      data:a,
+                      control_edit:{
+                        is_open:false,
+                        id:-1,
+                        type:""
+                      }
+                    })
                   }else{
                     let index=-1;
                     for (let i = 0; i < data.length; i++) {
@@ -234,15 +243,16 @@ export default class Attribute extends Component {
                     if(index>-1){
                       data[index]=rs;
                     }
+                    this.setState({
+                      data:data,
+                      control_edit:{
+                        is_open:false,
+                        id:-1,
+                        type:""
+                      }
+                    })
                   }
-                  this.setState({
-                    data:data,
-                    control_edit:{
-                      is_open:false,
-                      id:-1,
-                      type:""
-                    }
-                  })
+
                 }}
               />}
         </React.Fragment>
