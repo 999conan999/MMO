@@ -423,7 +423,6 @@ class Media extends Component {
                   this.setState({
                     result:[],
                     text_img_selected:'',
-                    text_tag_search:'',
                     text_tag_add:'',
                     text_img_title:'',
                   })

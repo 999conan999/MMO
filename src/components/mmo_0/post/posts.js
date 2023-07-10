@@ -764,7 +764,7 @@ export default class Posts extends Component {
                   console.log("🚀 ~ file: posts.js:398 ~ Posts ~ render ~ id:", id)
                   let {data}=this.state;
                   if(id==-1){// tao moi
-                    rs.shoping_type="";
+                    rs.shoping_type="All";
                     rs.instock="true";
                     rs.shoping_on_off="off";
                     data.unshift(rs);
