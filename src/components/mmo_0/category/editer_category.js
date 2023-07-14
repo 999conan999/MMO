@@ -474,7 +474,7 @@ export default class Editer_category extends Component {
                     let rs_change= {
                       id:a.id,
                       thumnail:data.thumnail,
-                      title:data.title,
+                      title:a.title,
                       url:a.url,
                       defaultCategory:a.defaultCategory,
                     }
