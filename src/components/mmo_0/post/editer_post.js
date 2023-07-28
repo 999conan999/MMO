@@ -173,7 +173,8 @@ export default class Editer_post extends Component {
           table_price:table_attribute.table_price,
           table_infor:table_attribute.table_infor,
           attribute_name:table_attribute.attribute_name,
-          key_word:data.key_word
+          key_word:data.key_word,
+          imgs_list:data.img_sp.imgs_list,
         }
       }
     }

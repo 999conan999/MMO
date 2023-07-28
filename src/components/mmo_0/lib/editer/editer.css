@@ -80,5 +80,25 @@
 }
 .wra-gpt{
     overflow-y: scroll;
-    height: 500px;
+    height: 80vh;
+}
+.keyxa{
+    background: rgb(221, 221, 221) !important;
+    position: fixed !important;
+    left: 0px;
+    top: 23vh;
+    width: 215px;
+    overflow: hidden;
+    height: 72vh;
+    overflow-y: scroll;
+}
+.editvka{
+    position: fixed !important;
+    right: -14px;
+    bottom: 5vh;
+}
+.hhuahua{
+    position: absolute;
+    left: 3px;
+    top: 4px;
 }
