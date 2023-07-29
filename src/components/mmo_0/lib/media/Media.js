@@ -17,6 +17,7 @@ class Media extends Component {
       text_img_selected:'',
       result:[],
       index_selected_tag:-1,
+      is_show_video:true,
     }
     this.debouncedFetchData = debounce(async(value)=>{
       if(value!=""){
@@ -69,7 +70,7 @@ class Media extends Component {
 
     //
     let { open,imgs_all,imgs_tag,show_more_tag,show_more_all,is_muti_selected,page_tag,page_all,show_description_img} = this.props;
-    let {text_tag_search,text_tag_add,text_img_selected,result,text_img_title,index_selected_tag,text_tag_edit}=this.state;
+    let {text_tag_search,text_tag_add,text_img_selected,result,text_img_title,index_selected_tag,text_tag_edit,is_show_video}=this.state;
     let rs=imgs_all;
     let selected='all';
     if(text_tag_search.replace(/\s/g, "")!=""){
@@ -114,8 +115,12 @@ class Media extends Component {
               }
 
             </div>
-            <div style={{width:"30%",display:"inline-block"}}>
+            <div style={{width:"30%",display:"inline-block",position:"relative"}}>
               <Header as='h2'>Thư viện hình ảnh{result.length>0&&<span style={{color:"#03A9F4"}}>({result.length})</span>}</Header>
+              <a className='cs hv abs'
+                style={{top:"3px",left:"200px"}}
+                onClick={()=>this.setState({is_show_video:!is_show_video})}
+              >({is_show_video?'Ẩn Video':'Hiện video'})</a>
             </div>
             <div style={{width:"69%",display:"inline-block",position:"relative"}}>
               <Input
@@ -170,7 +175,7 @@ class Media extends Component {
                         //
                         let is_active=text_img_selected.search(","+e.id+",")==-1?false:true;
                         let is_mp4=e.url300.search(".mp4")==-1?false:true;
-                        if(is_mp4&&text_tag_search=="") return null;
+                        if(is_mp4&&!is_show_video) return null;
                         return (
                           <div className={"ui olive card cu img-card "+(is_active?"active-img":"")} key={e.id}>
                             <div className="image re">

@@ -154,3 +154,6 @@
 .button.right {
   float: none !important;
 }
+.card {
+  min-width: auto !important;
+}
