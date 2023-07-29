@@ -359,7 +359,7 @@ export default class Editer_post extends Component {
                     is_muti={true}
                     fs_result={(rs) => {
                       let {data}=this.state;
-                      data.img_sp.imgs_list=[...rs,...data.img_sp.imgs_list];
+                      data.img_sp.imgs_list=[...data.img_sp.imgs_list,...rs];
                       data.img_sp.imgs_list=data.img_sp.imgs_list.filter((item, index, self) => {
                         return index === self.findIndex((t) => (
                             t.id === item.id

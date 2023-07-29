@@ -25,35 +25,10 @@ class Editer extends Component {
             h2_selected_text:"",
             key_selected_iddex:-1,
             //
-            key_AI:`Đây là 15 từ khóa đề xuất cho sản phẩm "Ghế xếp liền bàn":
-
-            '"ghế xếp liền bàn"'
-            '"ghế xếp liền bàn học sinh"'  
-            '"ghế gấp liền bàn"'
-            '"ghế gấp có bàn"'
-            '"ghế xếp có kèm bàn"'
-            '"ghế xếp bàn nhỏ"'
-            '"ghế xếp bàn mini"'
-            '"ghế học liền bàn"'
-            '"ghế gọn liền bàn"'
-            '"ghế xếp gọn kèm bàn"'
-            '"ghế xếp xanh liền bàn"'  
-            '"ghế xếp kèm bàn học"'
-            '"ghế xếp có tựa lưng liền bàn"'
-            '"ghế mini xếp liền bàn"'
-            '"ghế xanh xếp gọn có bàn"'`,
-            h2_AI:`Dựa trên thông tin và từ khóa đã cung cấp, đây là 8 chủ đề đề xuất để bổ sung cho bài viết về sản phẩm "Ghế xếp liền bàn":
-
-            '"Ưu điểm của ghế xếp liền bàn"'
-            '"Cách chọn mua ghế xếp liền bàn phù hợp"' 
-            '"Top các loại ghế xếp liền bàn bán chạy nhất"'
-            '"Hướng dẫn cách sử dụng và bảo quản ghế xếp liền bàn"'
-            '"Mẫu ghế xếp liền bàn đẹp cho phòng học"'
-            '"Kích thước ghế xếp liền bàn chuẩn cho học sinh"'
-            '"Cách chọn size ghế xếp liền bàn phù hợp chiều cao"'  
-            '"Những lưu ý khi mua ghế xếp liền bàn cho trẻ em"'`,
+            key_AI:"",
+            h2_AI:"",
             //
-            key_des:'Ghế ngồi có thể xếp gọn dễ dàng và kèm theo đó là bàn học mini nhỏ gọn gắn vào ghế.',
+            key_des:"",
             key_list_related:[],
             h2_list_related:[],
 

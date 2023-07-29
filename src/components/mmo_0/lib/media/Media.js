@@ -170,6 +170,7 @@ class Media extends Component {
                         //
                         let is_active=text_img_selected.search(","+e.id+",")==-1?false:true;
                         let is_mp4=e.url300.search(".mp4")==-1?false:true;
+                        if(is_mp4&&text_tag_search=="") return null;
                         return (
                           <div className={"ui olive card cu img-card "+(is_active?"active-img":"")} key={e.id}>
                             <div className="image re">
