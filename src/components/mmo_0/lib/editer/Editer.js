@@ -161,7 +161,8 @@ class Editer extends Component {
                                                     let {data_bot}=this.state;
                                                     if(data_bot.h2_AI!=""){
                                                         data_bot.is_h2_edit=false;
-                                                        data_bot.h2_list_related=this.extractKeywordsFromText(data_bot.h2_AI)
+                                                        data_bot.h2_list_related=this.extractKeywordsFromText(data_bot.h2_AI);
+                                                        data_bot.h2_list_related.unshift("Thông tin chi tiết về sản phẩm");
                                                         this.setState({data_bot:data_bot})
                                                     }else{
                                                         toast.info('Chưa có câu trả lời của AI', { theme: "colored" });

@@ -222,6 +222,28 @@ export async function edit_status(data){
     return response;
 }
 //
+let url_update_img_shoping=url_home+'/wp-content/themes/shopseo/templates/ajax/posts/update_img_shoping.php'
+export async function update_img_shoping(data){
+    console.log("🚀 ~ file: axios.js:111 ~ action_create_or_edit_post ~ data:", data)
+    let data_send=new FormData();
+    Object.keys(data).forEach(function(key) {
+        data_send.append(key,data[key]);
+    });
+    //
+    let response= axios.post(url_update_img_shoping, 
+        data_send
+    )
+    .then(function (response) {
+        console.log("🚀 ~ file: axios.js:121 ~ response:", response)
+        return response.data;
+    })
+    .catch(function (error) {
+        console.log("🚀 ~ file: axios.js ~ line 44 ~ action_create_or_edit_post ~ error", error)
+        return {}
+    })
+    return response;
+}
+//
 let url_update_thumnail_post=url_home+'/wp-content/themes/shopseo/templates/ajax/posts/update_thumnail_post.php'
 export async function update_thumnail_post(data){
     console.log("🚀 ~ file: axios.js:111 ~ action_create_or_edit_post ~ data:", data)

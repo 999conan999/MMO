@@ -157,3 +157,6 @@
 .card {
   min-width: auto !important;
 }
+.hidden.content {
+  display: block !important;
+}

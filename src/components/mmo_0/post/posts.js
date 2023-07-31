@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { Container,Table,Grid,Button,Dropdown,Segment,Input,Image,Icon,Checkbox } from 'semantic-ui-react'
 import Editer_post from './editer_post';
 import Input_img from '../lib/input_img';
-import {get_cate_v1,get_posts,action_edit_quatity_sold,action_edit_related_keyword,edit_status,edit_is_best_seller,delete_post,get_attribute_list_v2,update_thumnail_post,change_shoping_v2,action_clear_cache} from '../lib/axios'
+import {get_cate_v1,get_posts,action_edit_quatity_sold,action_edit_related_keyword,edit_status,edit_is_best_seller,delete_post,get_attribute_list_v2,update_thumnail_post,change_shoping_v2,action_clear_cache,update_img_shoping} from '../lib/axios'
 export default class Posts extends Component {
   constructor (props) {
     super(props)
@@ -220,7 +220,8 @@ export default class Posts extends Component {
                             this.setState({search_id:value})
                           }}
                         /></Table.HeaderCell>
-                        <Table.HeaderCell width={1}>Thumnail</Table.HeaderCell>
+                        {!is_show_shoping&&<Table.HeaderCell width={1}>Thumnail</Table.HeaderCell>}
+                        {is_show_shoping&&<Table.HeaderCell width={1}>Img_shoping</Table.HeaderCell>}
                         <Table.HeaderCell width={4}>Tiêu đề: <Input transparent placeholder='Search...' size='tiny'
                               value={search_title}
                               onChange={(e,{value})=>{
@@ -323,9 +324,9 @@ export default class Posts extends Component {
                                         this.setState({text_check:text_check})
                                       }}
                                     >{e.id}</Table.Cell>
-                                    <Table.Cell className='re'>
+                                    {!is_show_shoping&&<Table.Cell className='re'>
                                       <Image src={(e.thumnail==null||e.thumnail==undefined)?"":e.thumnail.url150} className='imgthm'/>
-                                      <div className='add-img-ls'>
+                                      {/* <div className='add-img-ls'>
                                         <Input_img
                                           size={"mini"}
                                           is_muti={false}
@@ -347,8 +348,54 @@ export default class Posts extends Component {
                                             }
                                           }}
                                         />
+                                      </div> */}
+                                    </Table.Cell>}
+                                    {is_show_shoping&&<Table.Cell className='re'>
+                                      <Image src={(e.img_shoping=="")?e.thumnail.url150:e.img_shoping} className='imgthm'/>
+                                      <div className='add-img-ls' style={{left:"0px"}}>
+                                        <Input_img
+                                          size={"mini"}
+                                          is_muti={false}
+                                          fs_result={async(rs) => {
+                                            // console.log("🚀 ~ file: posts.js:236 ~ fs_result={async ~ rs:", rs)
+                                            if(rs.length>0){
+                                              let a=await update_img_shoping({
+                                                id:e.id,
+                                                value:rs[0].url
+                                              });
+                                              if(a.status){
+                                                let {data}=this.state;
+                                                data[i].img_shoping=rs[0].url;
+                                                this.setState({ data: data })
+                                                toast.success('Cập nhật thành công.', { theme: "colored" });
+                                              }else{
+                                                toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                                              }
+                                            }
+                                          }}
+                                        />
                                       </div>
-                                    </Table.Cell>
+                                      {e.img_shoping!=""&&<div className='add-img-ls' style={{top:"0px",right:"-4px"}} 
+                                        onClick={async()=>{
+                                          if(window.confirm("Xóa hình ảnh trên shoping này và thay thế bằng hình gốc?")){
+                                            let a=await update_img_shoping({
+                                              id:e.id,
+                                              value:""
+                                            });
+                                            if(a.status){
+                                              let {data}=this.state;
+                                              data[i].img_shoping="";
+                                              this.setState({ data: data })
+                                              toast.success('Cập nhật thành công.', { theme: "colored" });
+                                            }else{
+                                              toast.info('Lỗi rồi bạn ơi', { theme: "colored" });
+                                            }
+                                          }
+                                        }}
+                                      >
+                                        <Icon name='window close' className='cs hv'/>
+                                      </div>}
+                                    </Table.Cell>}
                                     <Table.Cell>
                                       <a href={e.url} target='_blank'>{e.title}</a>
                                       - {e.key_word!=""&&<b>{e.key_word}</b>}{e.key_word==""&&<b style={{color:"red"}}>___no_key_word__</b>}  {e.type!="bv"&&<b className='color-gre'>- {(Number(e.price)).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</b>}
