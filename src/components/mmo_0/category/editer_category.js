@@ -330,7 +330,7 @@ export default class Editer_category extends Component {
             <Button content='Thêm phân loại' icon='add' labelPosition='right' color="blue" size='large'
               onClick={()=>{
                 let {data}=this.state;
-                data.dm.unshift({
+                data.dm.push({
                   name:"",
                   sp_list_id:[],
                   is_template_large:false

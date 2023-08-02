@@ -218,7 +218,7 @@ Từ những thông tin ở trên và dữ liệu tìm kiếm từ google, hãy 
                                                             });
                                                             //
                                                             data_rs_text+=`Nội dung bài viết của sản phẩm đề cập đến ${text_list_key_related}, mục đích là để tối ưu hóa SEO trên kết quả tìm kiếm của google. ${y}
-Từ những thông tin ở trên và dữ liệu tìm kiếm từ google, hãy viết bài viết chuẩn SEO về chủ đề "${e}". Lưu ý đưa ra dẫn chứng số liệu và ví dụ minh họa cụ thể dựa trên kết quả từ google, mỗi nội dung nói về một chủ đề nhỏ cần tối thiểu 400 từ và Cố gắng sử dụng các từ viết tắt, thành ngữ, cụm từ chuyển tiếp, thán từ, từ bổ nghĩa và từ thông tục, đồng thời tránh các cụm từ lặp lại và cấu trúc câu không tự nhiên, in đậm các từ cần nhấn mạnh. kết quả trả về là các thẻ html tương ứng (chuẩn SEO), không gồm <html>, <head>, <body>, <div>, <h1>. (nội dung tối thiểu 800 từ)`;
+Từ những thông tin ở trên và dữ liệu tìm kiếm từ google, hãy viết bài viết chuẩn SEO về chủ đề "${e}". Lưu ý là phải đưa ra dẫn chứng số liệu và ví dụ minh họa cụ thể dựa trên kết quả từ google. Mỗi nội dung nói về một chủ đề nhỏ cần tối thiểu 400 từ và Cố gắng sử dụng các từ viết tắt, thành ngữ, cụm từ chuyển tiếp, thán từ, từ bổ nghĩa và từ thông tục, đồng thời thay thế các từ lặp lại thành các chỉ từ như "nó","sản phẩm này","đây là" và in đậm các từ cần nhấn mạnh. kết quả trả về là các thẻ html tương ứng (chuẩn SEO). Phân bổ các thẻ <h2>,<h3>, <p>, <ul> và <li> hợp lý. Đặc biệt là KHÔNG ĐƯỢC DÙNG các thẻ <html>, <head>, <body>, <div>, <h1>. (nội dung tối thiểu 800 từ)`;
      
                                                         toast.success('Copy thành công! bạn past vào chat GPT.', { theme: "colored" });
                                                         navigator.clipboard.writeText(data_rs_text);
@@ -348,6 +348,7 @@ Từ những thông tin ở trên và dữ liệu tìm kiếm từ google, hãy 
  
                                                     toast.success('Copy thành công! bạn past vào chat GPT.', { theme: "colored" });
                                                     navigator.clipboard.writeText(data_rs_text);
+                                                    this.setState({is_mini_edit:true})
                                                     }}
                                                 />
                                             </div>
@@ -361,6 +362,7 @@ Từ những thông tin ở trên và dữ liệu tìm kiếm từ google, Hãy 
  
                                                     toast.success('Copy thành công! bạn past vào chat GPT.', { theme: "colored" });
                                                     navigator.clipboard.writeText(data_rs_text);
+                                                    this.setState({is_mini_edit:true})
                                                     }}
                                                 />
                                             </div>
