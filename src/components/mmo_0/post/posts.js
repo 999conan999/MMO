@@ -815,6 +815,7 @@ export default class Posts extends Component {
                     rs.shoping_type="All";
                     rs.instock="true";
                     rs.shoping_on_off="off";
+                    rs.img_shoping="";
                     data.unshift(rs);
                   }else{
                     let index=-1;
@@ -825,6 +826,7 @@ export default class Posts extends Component {
                       rs.shoping_type=data[index].shoping_type;
                       rs.instock=data[index].instock;
                       rs.shoping_on_off=data[index].shoping_on_off;
+                      rs.img_shoping=data[index].img_shoping;
                       data[index]=rs;
                     }
                    }
