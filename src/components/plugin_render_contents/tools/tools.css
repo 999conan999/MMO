@@ -1,0 +1,349 @@
+.cs{
+    cursor: pointer;
+    color: black !important;
+
+}
+
+.acc{
+    background-color: aliceblue !important;
+    font-weight: 600 !important;
+    color: black !important;
+    border-top: 1px solid #a59494;
+    border-right: 1px solid #a59494;
+    border-left: 1px solid #a59494;
+}
+.cs:hover{
+    background-color: rgb(216, 215, 214);
+    font-weight: 600 !important;
+}
+.uiuix{
+    padding-top: 30px;
+}
+.ntag{
+    font-size: 11px;
+    background-color: #e3d4d4;
+    padding: 2px 4px;
+    border: 1px solid #aba1a1;
+    border-radius: 5px;
+    margin-left: 2px;
+    cursor: pointer;
+}
+.okvtx{
+    margin-top: 5px;
+}
+.wrap-z{
+    padding: 5px;
+    background-color: burlywood;
+    margin-bottom: 10px;
+}
+.vvv{
+    margin-bottom: 200px;
+}
+.wrap-menu{
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    padding: 8px;
+    background-color: darkgray;
+}
+.dht{
+    color: green;
+}
+.greenz{
+    color: green;
+    font-size: 16px;
+}
+.bklx{
+    background-color: #aba1a1 !important;
+}
+.hgfc{
+    position: relative;
+}
+.icon-cp:hover {
+    color: blue;
+    cursor: pointer;
+}
+.veis{
+    position: absolute;
+    right: -10px;
+    font-size: 22px;
+    cursor: pointer;
+}
+.veis:hover{
+    color: red;
+}
+.thusasx{
+    position: fixed;
+    top: 0px;
+    background-color: #5c5e5cb0;
+    padding: 12px;
+    left: 0px;
+    width: 100%;
+    height: 86%;
+    overflow-y: scroll;
+}
+.titila{
+    background-color: #fddddd;
+    border: 1px solid #767575;
+    padding: 8px;
+    margin-top: 100px !important;
+}
+.Tieudez{
+    position: relative;
+}
+.turusx{
+    margin: auto;
+    text-align: center;
+    margin-top: 20px;
+}
+.tagzxs{
+    overflow-wrap: break-word;
+}
+.re{
+    position: relative;
+}
+.icon-xxxz{
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    font-size: 18px;
+    color: rgb(136, 38, 38);
+    cursor: pointer;
+}
+.icon-xxxz:hover{
+    color: red;
+}
+.showc{
+    position: absolute;
+    top: -3px;
+    right: 1px;
+    padding: 0px 4px;
+    color: #e91e63;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+}
+.ml-3{
+    margin-left: 10px;
+}
+.hh2{
+    font-weight: bold !important;
+    font-size: 26px !important;
+}
+.hh3{
+    font-weight: bold !important;
+    font-size: 18px !important;
+}
+.scr{
+    overflow-y: scroll;
+    height: 500px;
+}
+.bubu{
+    position: absolute;
+    width: 95%;
+    left: 4px;
+    top: -152px;
+    height: 196px;
+    overflow: scroll;
+}
+.buhh{
+    margin-top: 8px;
+    width: 153px;
+    height: 45px;
+}
+.lulu{
+    position: absolute;
+    top: 48px;
+    left: 10px;
+    width: 90%;
+}
+.keywords{
+    overflow-y: scroll;
+    height: 424px;
+    padding-right: 11px;
+    padding-bottom: 51vh;
+    margin-top: 5px;
+}
+.key-active{
+    background-color: #ccf1cc !important;
+}
+.locals{
+    position: fixed;
+    top: 3px;
+    right: 19px;
+}
+.locals>a{
+    cursor: pointer;
+    margin-right: 10px;
+}
+.detailxs{
+    position: absolute;
+    top: -156px;
+    left: 5px;
+    z-index: 999;
+    color: #2196f3;
+    font-size: 23px;
+    cursor: pointer;
+}
+ /*  */
+.ifor-tinh{
+    position: absolute;
+    left: -511px;
+    top: -41px;
+    width: 515px;
+    height: 352px;
+    background-color: burlywood;
+    border: 4px solid #998f8f;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 10px;
+    font-size: 18px;
+    color: black;
+    display: none;
+
+}
+.detailxs:hover .ifor-tinh{
+    display: block;
+}
+.elelsx{
+    font-size: 13px;
+    display: inline-block;
+    padding: 5px;
+    border: 1px dotted red;
+    background-color: white;
+    border-radius: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+.disblex{
+    background-color: #5b6066 !important;
+    opacity: 0.5;
+}
+.show-adress table>thead>tr>th {
+    vertical-align: bottom;
+    font-size: 16px;
+    color: #e15757;
+    font-weight: 600;
+    padding: 8px
+}
+.show-adress table>thead>tr{
+    background-color: lightgrey;
+}
+.nameshop{
+    color: #4343e3;
+}
+.dc{
+    font-size: 14px !important;
+}
+/*  */
+.rs-render{
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    background-color: #8f919385;
+    padding: 10px 50px 100px 50px;
+}
+.bgf{
+    background-color: white;
+    height: 95vh;
+    /* overflow-y: scroll; */
+}
+.cpmtte{
+    height: 92vh;
+    overflow-y: scroll;
+}
+.xssetrs{
+    height: 88vh;
+}
+.hyusxz{
+    text-align: right;
+}
+.hux{
+    text-align: center;
+    font-size: 22px;
+}
+.jiss{
+    text-align: center;
+    font-size: 88px;
+}
+.jiss>i{
+    cursor: pointer;
+    margin-left: 8px;
+}
+.jiss>i:hover{
+    color: green;
+}
+.btn-dc{
+    display: block;
+    text-align: center;
+    width: fit-content;
+    margin: auto;
+    padding: 9px 18px;
+    border: 1px solid;
+}
+.htys{
+    position: relative;
+    display: inline-block;
+    margin-left: 20px;
+    color: brown;
+    cursor: pointer;
+}
+.huhxas{
+    position: absolute;
+    left: 8px;
+    top: -277px;
+    width: 359px;
+    height: 304px;
+    background-color: burlywood;
+    border: 4px solid #998f8f;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 10px;
+    font-size: 18px;
+    color: black;
+    text-align: left;
+    display: none;
+}
+.htys:hover>.huhxas{
+    display: block;
+}
+.wrap-html{
+    padding: 2px;
+    border: 1px solid #a39797;
+    border-radius: 5px;
+    background-color: white;
+    margin-top: 1rem;
+    overflow: hidden;
+}
+.html-tag{
+    float: right;
+    margin-right: 18px;
+    font-size: 13px;
+    font-weight: bolder;
+    color: #a2a6a9;
+}
+.wrap-html img {
+    width: 100%;
+}
+.ccos{
+    position: relative !important;
+    width: auto !important;
+    left: 0px !important;
+}
+.footer-edit {
+    background-color: #c7c1c0;
+    border-top: 1px solid #fff;
+    bottom: 0;
+    box-shadow: 2px -5px 13px rgba(0,0,0,.3), 0 15px 12px rgba(0,0,0,.22);
+    padding: 10px;
+    padding-bottom: 22px;
+    padding-left: 50px;
+    position: fixed;
+    text-align: right;
+    width: 100%;
+    right: 9px;
+}

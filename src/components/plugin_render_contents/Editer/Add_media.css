@@ -1,0 +1,147 @@
+.textd{
+  font-size: 13px;
+  text-align: center;
+  border: 1px solid rgb(206, 205, 205);
+  padding: 3px;
+}
+.textd:hover{
+  background-color: rgb(206, 235, 178);
+  color: rgb(61, 24, 192);
+}
+.card-imgz{
+  padding: 20px;
+  cursor: pointer;
+}
+.card-imgz:hover,.card-imgz:hover .wrap-imgz{
+  background-color: bisque;
+}
+.wrap-imgz{
+  padding: 5px;
+  border: 1px solid rgb(228, 228, 228);
+  background-color: rgb(255, 255, 255);
+}
+.wrap-imgz.active{
+  padding: 5px;
+  border: 1px solid red;
+  background-color: silver !important;
+}
+.bozy{
+  max-height: 480px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+.xmez:hover{
+color: blue !important;
+}
+.uploaz{
+  position: absolute;
+  right: 180px;
+}
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  float: right;
+
+}
+#basic-url{
+  color: blue;
+}
+.btnz {
+  border: 2px solid rgb(165, 165, 165);
+  color: gray;
+  background-color: white;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity:0;
+}
+.upload-btn-wrapper:hover>.btnz{
+  background-color: rgb(163, 158, 168) !important;
+  color: whitesmoke;
+}
+.xem-themz{
+  text-align: center;
+  color: red !important;
+}
+.xem-themz a{
+  padding: 5px 20px;
+  border: 1px solid rgb(253, 0, 0);
+  display: inline-block;
+  margin-top: 5px;
+}
+.xem-themz a:hover{
+  color: blue !important;
+  text-decoration: underline !important;
+}
+.img-name-input{
+  position: absolute;
+  left: 0px;
+  font-size: 14px;
+  width: 100%;
+}
+.rela {
+  position: relative;
+}
+.inputxx{
+  width: 90%;
+}
+.ok-imgs{
+  padding: 4px 4px;
+  background-color: green;
+  color: white;
+}
+.ok-imgs:hover{
+  background-color: rgb(12, 102, 12);
+}
+.toxx{
+  position: absolute;
+  top: -15px;
+  right: 28px;
+  font-size: 22px;
+}
+.toxx:hover{
+  color: rgb(165, 19, 9);
+}
+.huhula{
+  word-wrap: break-word;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  height: 27px;
+  line-height: 22px;
+  margin-top: 5px;
+  padding: 0 5px;
+  text-align: initial;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.rurur{
+  display: inline-block;
+  padding: 3px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid silver;
+  margin-right: 5px;
+  color: silver;
+}
+.rurur:hover{
+  color: rgb(11, 160, 61);
+  border: 1px solid rgb(11, 160, 61);
+  border-bottom: rgba(189, 202, 209, 0);
+  border-radius: 5px 5px 0px 0px;
+}
+.active-ru{
+  color: brown !important;
+  border: 1px solid brown !important;
+  border-bottom: none !important;
+  border-radius: 5px 5px 0px 0px;
+}
