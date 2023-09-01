@@ -76,21 +76,25 @@ export async function get_posts(id_term){
     return data;
 }
 // // delete img
-// const url_change_tag_img=url_home+'/wp-content/themes/shopseo/templates/ajax/media/change_tag.php';
-// export async function change_name_tag(id,tag){
-//     let data_send=new FormData();
-//     data_send.append('id',id);
-//     data_send.append('tag',tag);
-//     let response= axios.post(url_change_tag_img, 
-//         data_send
-//     )
-//     .then(function (response) {
-//         return response.data;
-//     })
-//     .catch(function (error) {
-//         console.log("🚀 ~ file: axios.js ~ line 97 ~ action_create_or_edit_post ~ error", error)
-//         return {}
-//     })
-//     return response;
-// }
 //
+let url_create_or_edit_post=url_home+'/wp-content/plugins/tools_contents/ajax/tools/create_posts.php'
+export async function create_posts(data){
+    console.log("🚀 ~ file: axios.js:111 ~ action_create_or_edit_post ~ data:", data)
+    let data_send=new FormData();
+    Object.keys(data).forEach(function(key) {
+        data_send.append(key,data[key]);
+    });
+    //
+    let response= axios.post(url_create_or_edit_post, 
+        data_send
+    )
+    .then(function (response) {
+        console.log("🚀 ~ file: axios.js:121 ~ response:", response)
+        return response.data;
+    })
+    .catch(function (error) {
+        console.log("🚀 ~ file: axios.js ~ line 44 ~ action_create_or_edit_post ~ error", error)
+        return {}
+    })
+    return response;
+}

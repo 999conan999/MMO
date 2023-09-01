@@ -2,7 +2,8 @@ import { random } from 'lodash';
 import sampleSize  from 'lodash.samplesize';
 // import sample   from 'lodash.sample';
 export  function xu_ly_content (content_data,list_tinh){
-    let rs=[];
+    let rs_server=[];
+    let rs_show=[];
     list_tinh.forEach((e,i) => {
         let bv={
             thumnail:'',
@@ -13,12 +14,12 @@ export  function xu_ly_content (content_data,list_tinh){
         }
         let ten_tinh=e.ten_tinh;
         window.check_img=',';
-        // xu ly thumnail // hien thi lan luot trong list hinh anh, neu khong duoc thi random;
-        if(content_data.imgs[i]==undefined){
-            bv.thumnail= get_random_thumnail(content_data.imgs);
-        }else{
-            bv.thumnail=content_data.imgs[i].img;
-        }
+        // // xu ly thumnail // hien thi lan luot trong list hinh anh, neu khong duoc thi random; todo
+        // if(content_data.imgs[i]==undefined){
+        //     bv.thumnail= get_random_thumnail(content_data.imgs);
+        // }else{
+        //     bv.thumnail=content_data.imgs[i].img;
+        // }
         // xu ly tieu de
         let title=get_random_array_text(content_data.title);
         title=xu_ly_text_vs_keywords(title,content_data.key_words);
@@ -37,10 +38,36 @@ export  function xu_ly_content (content_data,list_tinh){
         bv.long_des=fs_replace_all(long_des,'"',"'").trim();
         // xu ly bang dia chi o day;
         let shop_adress=xu_ly_dia_chi_cua_hang(content_data,e);
-        bv.shop_adress=fs_replace_all(shop_adress,'"',"'").trim();
-        rs.push(bv);
+        bv.long_des+=fs_replace_all(shop_adress,'"',"'").trim();
+        // Xu ly json_data o day, data out chinh thuc
+        let sp=sampleSize(content_data.list_sp,1);
+        let key_word=xu_ly_text_vs_keywords('key_word '+ten_tinh,content_data.key_words);
+        if(sp.length>0){
+            let json_data_random=sp[0].json_data;
+            bv.thumnail=json_data_random.thumnail.url;
+            let text_json_data_random=JSON.stringify(json_data_random);
+            //
+            let json_data=JSON.parse(text_json_data_random);
+            json_data.id=-1;
+            json_data.is_best_seller=false;
+            json_data.index_price=0;
+            json_data.key_word=key_word;
+            json_data.long_des=bv.long_des;
+            json_data.short_des=bv.short_des;
+            json_data.title=bv.title;
+            json_data.type='sp_seo';
+            json_data.status='private';
+            //
+            rs_show.push(bv);
+            rs_server.push(json_data);
+        }else{
+            alert("Không có sản phẩm Copy!")
+        }
     });
-    return rs;
+    return {
+        rs_show:rs_show,
+        rs_server:rs_server
+    };
 }
 function xu_ly_dia_chi_cua_hang(content_data,tinh){
     // console.log("🚀 ~ file: fs.js:44 ~ xu_ly_dia_chi_cua_hang ~ key_words:", key_words)
@@ -250,7 +277,7 @@ function add_hinh_anh(text,arr_pic){
             let a=sampleSize(array,1);
             if(a.length>0){
                 if(window.check_img.search(','+a[0].id+',')==-1){
-                    text=text.replace('hinh_anh',a[0].img);
+                    text=text.replace('hinh_anh',a[0].url);
                     // xoa phan tu da thay o trong mang da lay
                     let index=-1;
                     array.forEach((e,i) => {
@@ -271,12 +298,12 @@ function add_hinh_anh(text,arr_pic){
                 }
             }else{
                 let a=sampleSize(k,1);
-                text=text.replace('hinh_anh',a[0].img);
+                text=text.replace('hinh_anh',a[0].url);
             }
 
         }else{
             let a=sampleSize(k,1);
-            text=text.replace('hinh_anh',a[0].img);
+            text=text.replace('hinh_anh',a[0].url);
         }
         // 
         // text=text.replace(find,a)
@@ -303,7 +330,7 @@ function get_random_array_text(arr){
 function get_random_thumnail(arr){
     let a=sampleSize(arr,1);
     if(a.length>0){
-        return a[0].img;
+        return a[0].url;
     }else{
         return ""
     }

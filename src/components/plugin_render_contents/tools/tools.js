@@ -8,7 +8,8 @@ import {
   get_cates,
   get_imgs_tag,
   get_tags,
-  get_posts
+  get_posts,
+  create_posts
 } from '../lib/axios';
 import {
   xu_ly_content
@@ -220,7 +221,9 @@ export default class Tools extends Component {
       },
       data_in:{is_open:false, type_editer:'html', des:'Thêm html'},
       selected_img:{ type:'' },
-      text_img_selected:''
+      text_img_selected:'',
+      kq_list:[],
+      is_lock_run:false
     }
   }
 
@@ -246,7 +249,8 @@ export default class Tools extends Component {
   }
 
   render() {
-    let { selected, data,selected_img, tags,list_tinh,category,is_lock,index_rs,data_rs,data_in,triger_editer,selected_page} = this.state
+    let { selected, data,is_lock_run, tags,list_tinh,category,is_lock,index_rs,data_rs,data_in,triger_editer,selected_page} = this.state
+    // console.log("🚀 ~ file: tools.js:251 ~ Tools ~ render ~ data:", data)
     let input_long_des = this.show_input_long_des(data.long_des)
     return (
       <React.Fragment>
@@ -823,11 +827,11 @@ export default class Tools extends Component {
             onClick={async () => {
               let {data,list_tinh}=this.state;
               if(list_tinh.length>0){
-                if(data.long_des.length>0&&data.title.length>0&&data.short_des.length>0&&data.imgs.length>0){
+                if(data.long_des.length>0&&data.title.length>0&&data.short_des.length>0&&data.imgs.length>0&&data.list_sp.length>0){
     console.log("🚀 ~ file: tools.js:242 ~ Tools ~ render ~ data:", data)
-
                     let data_rs= xu_ly_content(data,list_tinh);
-                    this.setState({data_rs:data_rs,is_lock:true,index_rs:0})
+                    console.log("🚀 ~ file: tools.js:830 ~ onClick={ ~ data_rs:", data_rs)
+                    this.setState({data_rs:data_rs.rs_show,kq_list:data_rs.rs_server,is_lock:true,index_rs:0,is_lock_run:false})
                 }else{
                   toast.error('Bạn nên xem lại thông tin còn thiếu !.',{theme: "colored"})
                 }
@@ -907,53 +911,52 @@ export default class Tools extends Component {
                       <img src={data_rs[index_rs].thumnail} width="200px" />
                     </div>
                     <div className='mt-3' style={{textAlign:"center"}}>
+                          <b>{data.selected_cate.title}</b>
                     </div>
                   </div>
                   <div className='hyusxz'>
-                    <button type="button" className="btn btn-primary"
-                      // onClick={async () => {
-                      //   let {data_rs,selected_cate}=this.state;
-                      //   if(selected_cate>-1){
-                      //     // start
-                      //     let data_send=[];
-                      //     data_rs.forEach(e => {
-                      //       let rs={
-                      //         parent_Category:selected_cate,
-                      //         id:-1,
-                      //         title:e.title,
-                      //         thumnail:e.thumnail,
-                      //         status:'publish',
-                      //         short_des:e.short_des,
-                      //         long_des:e.long_des,
-                      //         shop_adress:e.shop_adress,
-                      //         is_show_ads:true
-                      //       };
-                      //       data_send.push({
-                      //         title:rs.title,
-                      //         id:rs.id,
-                      //         status:rs.status,
-                      //         parent_Category:rs.parent_Category,
-                      //         metaA:JSON.stringify(rs)
-                      //       })
-                      //     });
-                      //     let rs_data_send=JSON.stringify(data_send);
-                      //     // rs_data_send=rs_data_send.replace(/[\n]+/g, "");
-                      //    let a=await action_create_posts_by_tool(rs_data_send);
-                      //    if(a.status){
-                      //     toast.success('Chúc mừng, đã tạo thành công!.',{theme: "colored"})
-                      //     this.setState({
-                      //       is_lock:false,
-                      //     })
-                      //    }else{
-                      //     toast.error('Lỗi không thành công!.',{theme: "colored"})
-                      //    }
-                      //     // end
-                      //   }else{
-                      //     toast.error('Bạn phải lựa chọn DANH MỤC chưa bài viết trước khi tạo!.',{theme: "colored"})
-                      //   }
-                      // }}
+                    {!is_lock_run&&<button type="button" className="btn btn-primary"
+                      onClick={async () => {
+                        let {kq_list}=this.state;
+                        // if(selected_cate>-1){
+                          // start
+                          if(kq_list.length>0){
+                            let rs=[];
+                            kq_list.forEach(e => {
+                              rs.push({
+                                id:-1,
+                                category_id:e.category_id,
+                                json_data:JSON.stringify(e),
+                                thumnail:JSON.stringify(e.thumnail),
+                                title:e.title,
+                                price:e.price,
+                                quantity_sold:e.quantity_sold,
+                                key_word:e.key_word,
+                                related_keyword:JSON.stringify(e.related_keyword),
+                                status:'private',
+                                is_best_seller:false,
+                                type:e.type,
+                                short_des:e.short_des
+                              })
+                            });
+                            console.log("🚀 ~ file: tools.js:922 ~ onClick={ ~ rs:", rs)
+                            let a= await create_posts({
+                              data:JSON.stringify(rs)
+                            })
+
+                            if(a.status){
+                              this.setState({is_lock_run:true})
+                              toast.success('Tạo thành công!.',{theme: "colored"})
+                            }else{
+                              toast.error('Lỗi!.',{theme: "colored"})
+                            }
+
+                          }else{
+                            toast.error('Bạn phải lựa chọn DANH MỤC chưa bài viết trước khi tạo!.',{theme: "colored"})
+                          }
+                      }}
                     
-                    >Bắt đầu tạo bài viết</button>
+                    >Bắt đầu tạo bài viết</button>}
                     <button type="button" className="btn btn-danger ml-3"
                       onClick={async () => {
                         if(window.confirm("Xác nhận hủy, bạn phải render lại mới đó!")){
