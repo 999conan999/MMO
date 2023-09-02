@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "homepagex": "wp-content/themes/shopseo/build/",
-  "homepagex": "wp-content/plugins/tools_contents/build/",
+  "homepage": "wp-content/plugins/tools_contents/build/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

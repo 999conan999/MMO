@@ -10,7 +10,8 @@ import {
   get_imgs_tag,
   get_tags,
   get_posts,
-  create_posts
+  create_posts,
+  get_data_like_setup
 } from '../lib/axios';
 import {
   xu_ly_content
@@ -128,64 +129,64 @@ export default class Tools extends Component {
         list_sp:[]
       },
       list_tinh:[
-        {
-          id:'sda',
-          ten_tinh:"Gia Lai",
-          huyen_xa:[
-            "Thị xã Ayun Pa",
-            "Thị xã An Khê",
-            "Phú Thiện"
-          ],
-          cua_hang:[
-            {
-              ten:"Nội Thất An Bình, chuyên key_word",
-              sp:"giường sắt",
-              lien_he:"0963226771",
-              dia_chi:[
-                "34 Nhất Chi Mai, Tân Bình, Gia Lai",
-                "60 Ngô Đức Kế, Thị Xã sông bờ, Gia Lai"
-              ]
-            },
-            {
-              ten:"Nội Thất Hoàng Anh, key_word",
-              sp:"giường sắt",
-              lien_he:"0963226771",
-              dia_chi:[
-                "54 Ngô Quyền, thị xã Ayun Pa, Gia Lai",
-                "54 Tôn Đức Thắng, SÔng bờ, gia Lai"
-              ]
-            },
-          ]
-        },
-        {
-          id:'xxa',
-          ten_tinh:"Bình Định",
-          huyen_xa:[
-            "Thị xã Phù Mỹ",
-            "Thị xã Mỹ Chánh",
-            "Phù Cát"
-          ],
-          cua_hang:[
-            {
-              ten:"Nội Thất An Bình Định, chuyên key_word",
-              sp:"giường sắt",
-              lien_he:"0963226771",
-              dia_chi:[
-                "54 Ngô Quyền, thị xã Ayun Pa, Bình Định",
-                "60 Ngô Đức Kế, Thị Xã sông bờ,Bình Định"
-              ]
-            },
-            {
-              ten:"Nội Thất An Bình Bình, chuyên key_word",
-              sp:"giường sắt",
-              lien_he:"0963226771",
-              dia_chi:[
-                "54 Ngô Quyền, thị xã Ayun Pa,Bình Định",
-                "60 Ngô Đức Kế, Thị Xã sông bờ, Bình Định"
-              ]
-            },
-          ]
-        },
+        // {
+        //   id:'sda',
+        //   ten_tinh:"Gia Lai",
+        //   huyen_xa:[
+        //     "Thị xã Ayun Pa",
+        //     "Thị xã An Khê",
+        //     "Phú Thiện"
+        //   ],
+        //   cua_hang:[
+        //     {
+        //       ten:"Nội Thất An Bình, chuyên key_word",
+        //       sp:"giường sắt",
+        //       lien_he:"0963226771",
+        //       dia_chi:[
+        //         "34 Nhất Chi Mai, Tân Bình, Gia Lai",
+        //         "60 Ngô Đức Kế, Thị Xã sông bờ, Gia Lai"
+        //       ]
+        //     },
+        //     {
+        //       ten:"Nội Thất Hoàng Anh, key_word",
+        //       sp:"giường sắt",
+        //       lien_he:"0963226771",
+        //       dia_chi:[
+        //         "54 Ngô Quyền, thị xã Ayun Pa, Gia Lai",
+        //         "54 Tôn Đức Thắng, SÔng bờ, gia Lai"
+        //       ]
+        //     },
+        //   ]
+        // },
+        // {
+        //   id:'xxa',
+        //   ten_tinh:"Bình Định",
+        //   huyen_xa:[
+        //     "Thị xã Phù Mỹ",
+        //     "Thị xã Mỹ Chánh",
+        //     "Phù Cát"
+        //   ],
+        //   cua_hang:[
+        //     {
+        //       ten:"Nội Thất An Bình Định, chuyên key_word",
+        //       sp:"giường sắt",
+        //       lien_he:"0963226771",
+        //       dia_chi:[
+        //         "54 Ngô Quyền, thị xã Ayun Pa, Bình Định",
+        //         "60 Ngô Đức Kế, Thị Xã sông bờ,Bình Định"
+        //       ]
+        //     },
+        //     {
+        //       ten:"Nội Thất An Bình Bình, chuyên key_word",
+        //       sp:"giường sắt",
+        //       lien_he:"0963226771",
+        //       dia_chi:[
+        //         "54 Ngô Quyền, thị xã Ayun Pa,Bình Định",
+        //         "60 Ngô Đức Kế, Thị Xã sông bờ, Bình Định"
+        //       ]
+        //     },
+        //   ]
+        // },
       ],
       category:[
         // {
@@ -243,6 +244,15 @@ export default class Tools extends Component {
     try{
       if(b.length>0){
         this.setState({tags:b})
+      }
+    }catch(e){
+      console.log("🚀 ~ file: tools.js:224 ~ Tools ~ componentDidMount ~ e:", e)
+    }
+    let c=await get_data_like_setup('data_tinh_viet_nam');
+    console.log("🚀 ~ file: tools.js:252 ~ Tools ~ componentDidMount ~ c:", c)
+    try{
+      if(c.status){
+        this.setState({list_tinh:c.data})
       }
     }catch(e){
       console.log("🚀 ~ file: tools.js:224 ~ Tools ~ componentDidMount ~ e:", e)
