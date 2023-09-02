@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Icon } from 'semantic-ui-react'
-// import Tool from './tool/tool';
+import Danh_sach_tinh from './danh_sach_tinh/danh_sach_tinh';
 import Tools from './tools/tools';
 export default class Generate_contents extends Component {
   constructor (props) {
@@ -39,7 +39,7 @@ export default class Generate_contents extends Component {
                             }}  
                             className={seleted==='tinh'?'active iconz':' iconz'}
                         >
-                            <i className="fa-solid fa-gear"></i> <span className="hgfs"> Cài đặt</span>
+                            <i className="fa-solid fa-gear"></i> <span className="hgfs"> Danh sách tỉnh</span>
                         </li>
                         {/*  */}
                         <li 
@@ -53,21 +53,15 @@ export default class Generate_contents extends Component {
                          
                        
                     </ul>
-                    {/* <div className='design-by'>
-                        <Input_img
-                            is_muti={false}
-                            fs_result={(rs) => {}}
-                            />
-                     </div> */}
+ 
                 </div>}
                 <div className={is_show_menu?'csdf fullz':'csdf'}>
                     <div className='wrap-conx'>
                         {seleted==='tools'&&<Tools />}
-                        {/* {seleted==='bv'&&<Posts />} */}
+                        {seleted==='tinh'&&<Danh_sach_tinh />}
                      </div>
                 </div>
             </div>
-            {/* <Media /> */}
         </React.Fragment>
       );
   }

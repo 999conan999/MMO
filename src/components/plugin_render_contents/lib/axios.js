@@ -98,3 +98,41 @@ export async function create_posts(data){
     })
     return response;
 }
+//
+let url_update_setup=url_home+'/wp-content/plugins/tools_contents/ajax/setup/update_setup.php';
+export async function action_update_data_like_setup(data){
+    let data_send=new FormData();
+    Object.keys(data).forEach(function(key) {
+            data_send.append(key,data[key]);
+    });
+    // //
+    let response= axios.post(url_update_setup, 
+        data_send
+    )
+    .then(function (response) {
+        console.log("🚀 ~ file: axios.js:15 ~ response", response.data)
+        return response.data;
+    })
+    .catch(function (error) {
+        console.log("🚀 ~ file: axios.js ~ line 44 ~ action_create_or_edit_post ~ error", error)
+        return {}
+    })
+    return response;
+}
+const url_get_setup=url_home+'/wp-content/plugins/tools_contents/ajax/setup/get_setup.php';
+export async function get_data_like_setup(name){
+        let url=url_get_setup+'?name='+name;
+        let data= await axios.get(url)
+        .then(function (response) {
+            console.log("🚀 ~ file: axios.js:9 ~ response.data", response.data)
+            return response.data
+        })
+        .catch(function (error) {
+            toast.error('ERROR!',{theme: "colored"})
+            console.log(error)
+            return {
+                status:false
+            };
+        })
+        return data;
+}

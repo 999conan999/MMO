@@ -1,0 +1,106 @@
+.tagxs{
+    display: inline-block;
+    margin-right: 17px;
+    margin-bottom: 8px;
+    border: 1px dotted #a19393;
+    position: relative;
+    border-radius: 5px;
+    cursor: pointer;
+}
+ 
+.tillexs>input{
+    padding: 0px;
+    font-size: 12px;
+}
+.tillexs:hover{
+    background-color: #c2cdeb;
+}
+.checkxs{
+    display: inline-block;
+}
+.tillexs{
+    display: inline-block;
+    position: relative;
+    padding: 2px 5px; 
+}
+.wrapxs{
+    margin-bottom: 10px;
+    border-bottom: 1px #b19d9d solid;
+    background-color: aliceblue;
+    padding: 10px;
+    height: 16vh;
+    overflow: scroll;
+}
+.xxy{
+    display: block;
+    border: 1px solid #c1b2b2;
+    padding: 0px 6px;
+    border-left: 1px solid #c1b2b2;
+    border-radius:5px 0px 0px 5px;
+    cursor: pointer;
+}
+.xxy:hover{
+    background-color: #c6efc7;
+}
+.xxxs,.hjhj{
+    display: inline-block;
+    padding: 2px 8px;
+    border-left: 1px solid #c1b2b2;
+    color: #bbbbbb;
+    cursor: pointer;
+}
+.brsx{
+    border-radius:0px 5px 5px 0px;
+}
+.xxxs:hover{
+    background-color: rgb(204, 25, 25);
+    color: white;
+}
+.btn-primaryx{
+    color: #fff;
+    background-color: #7b95bb !important;
+    border-color: #eff0f1 !important;
+}
+.btn-primaryx:hover {
+    background-color: #0d6efd !important;
+    border-color: #0d6efd !important;
+}
+.activexx{
+    background-color: #1c5cbd !important;
+    color: white;
+}
+.csxx{
+    margin-bottom: 100px;
+}
+.activesel{
+    background-color: green;
+    color: white;
+}
+.zias{
+    position: fixed;
+    left: 260px;
+    bottom: 13px;
+    z-index: 999999;
+}
+.echsasxz{
+    background-color: #c6efc7;
+}
+.renderzd{
+    position: absolute;
+    right: 5px;
+    top: 9px;
+    font-size: 21px;
+    cursor: pointer;
+    z-index: 999;
+}
+.renderzd:hover{
+    color: green;
+}
+.culacula{
+    height: 72vh;
+    overflow: scroll;
+    padding-bottom: 37vh;
+}
+button.btn.btn-primary.btn-primaryx {
+    margin-bottom: 5px;
+}

@@ -122,47 +122,60 @@ function xu_ly_long_des(content_data,tinh){
         text=e.text;
         text=convert_add_key_to_text_tag(text,tinh,key_words)
         if(e.tag=='h2'){
-            content+='<h2>'+text+`</h2>`;
-            let data_1=sampleSize(e.data,100);
-            data_1.forEach((a1) => {//L2
-                text=a1.text;
-                text=convert_add_key_to_text_tag(text,tinh,key_words);
-                if(a1.tag=='h3'){
-                    content+='<h3>'+text+'</h3>';
-                    let data_2=sampleSize(a1.data,100);
-                    data_2.forEach((a2) => {//L3
-                        text=a2.text;
-                        text=convert_add_key_to_text_tag(text,tinh,key_words);
-                        if(a2.tag=='p'){
-                            text=text.replace(/[\n]+/g, "</p><p>");
-                            content+='<p>'+text+'</p>';
-                        }else if(a2.tag=='img'){
-                            text=text.replace(/[\n]+/g, "");
-                            let img_url=get_ramdom_img_from_img_list(a2.img_list,text);
-                            content+='<figure><img class="lazyload" title="'+text+'" src="'+img_url.url300+'" data-srcset="'+img_url.url+'" alt="'+text+'"> <figcaption>'+text+'</figcaption> </figure>';
-                        }else if(a2.tag=='quote'){
-                            text=text.replace(/[\n]+/g, "");
-                            content+='<blockquote><p>'+text+'</p></blockquote>';
-                        }else if(a2.tag=='table'){
-                            text=text.replace(/[\n]+/g, "");
-                            content+=text;
+            console.log("🚀 ~ file: fs.js:125 ~ long_des_arr.forEach ~ e:", e)
+            //
+            let is_random_h2=false;
+            if(e.is_random===true) is_random_h2=randomBoolean();
+            //
+            if(!is_random_h2){
+                content+='<h2>'+text+`</h2>`;
+                let data_1=sampleSize(e.data,100);
+                data_1.forEach((a1) => {//L2
+                    text=a1.text;
+                    text=convert_add_key_to_text_tag(text,tinh,key_words);
+                    if(a1.tag=='h3'){
+                        //
+                            let is_random_h3=false;
+                            if(a1.is_random===true) is_random_h3=randomBoolean();
+                        //
+                        if(!is_random_h3){
+                            content+='<h3>'+text+'</h3>';
+                            let data_2=sampleSize(a1.data,100);
+                            data_2.forEach((a2) => {//L3
+                                text=a2.text;
+                                text=convert_add_key_to_text_tag(text,tinh,key_words);
+                                if(a2.tag=='p'){
+                                    text=text.replace(/[\n]+/g, "</p><p>");
+                                    content+='<p>'+text+'</p>';
+                                }else if(a2.tag=='img'){
+                                    text=text.replace(/[\n]+/g, "");
+                                    let img_url=get_ramdom_img_from_img_list(a2.img_list,text);
+                                    content+='<figure><img class="lazyload" title="'+text+'" src="'+img_url.url300+'" data-srcset="'+img_url.url+'" alt="'+text+'"> <figcaption>'+text+'</figcaption> </figure>';
+                                }else if(a2.tag=='quote'){
+                                    text=text.replace(/[\n]+/g, "");
+                                    content+='<blockquote><p>'+text+'</p></blockquote>';
+                                }else if(a2.tag=='table'){
+                                    text=text.replace(/[\n]+/g, "");
+                                    content+=text;
+                                }
+                            })
                         }
-                    })
-                }else if(a1.tag=='p'){
-                    text=text.replace(/[\n]+/g, "</p><p>");
-                    content+='<p>'+text+'</p>';
-                }else if(a1.tag=='img'){
-                    text=text.replace(/[\n]+/g, "");
-                    let img_url=get_ramdom_img_from_img_list(a1.img_list,text);
-                    content+='<figure><img class="lazyload" title="'+text+'" src="'+img_url.url300+'" data-srcset="'+img_url.url+'" alt="'+text+'"> <figcaption>'+text+'</figcaption> </figure>';
-                }else if(a1.tag=='quote'){
-                    text=text.replace(/[\n]+/g, "");
-                    content+='<blockquote><p>'+text+'</p></blockquote>';
-                }else if(a1.tag=='table'){
-                    text=text.replace(/[\n]+/g, "");
-                    content+=text;
-                }
-            })
+                    }else if(a1.tag=='p'){
+                        text=text.replace(/[\n]+/g, "</p><p>");
+                        content+='<p>'+text+'</p>';
+                    }else if(a1.tag=='img'){
+                        text=text.replace(/[\n]+/g, "");
+                        let img_url=get_ramdom_img_from_img_list(a1.img_list,text);
+                        content+='<figure><img class="lazyload" title="'+text+'" src="'+img_url.url300+'" data-srcset="'+img_url.url+'" alt="'+text+'"> <figcaption>'+text+'</figcaption> </figure>';
+                    }else if(a1.tag=='quote'){
+                        text=text.replace(/[\n]+/g, "");
+                        content+='<blockquote><p>'+text+'</p></blockquote>';
+                    }else if(a1.tag=='table'){
+                        text=text.replace(/[\n]+/g, "");
+                        content+=text;
+                    }
+                })
+            }
         }else if(e.tag=='p'){
             text=text.replace(/[\n]+/g, "</p><p>");
             content+='<p>'+text+'</p>';
@@ -388,5 +401,6 @@ function xu_ly_text_vs_keywords(text,key_words_arr){
     });
     return text
 }
- 
-   
+function randomBoolean() {
+return Math.random() < 0.5;
+}

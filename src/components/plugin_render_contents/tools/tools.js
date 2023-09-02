@@ -3,6 +3,7 @@ import './tools.css'
 import { Button, Input,Dropdown } from 'semantic-ui-react'
 import sampleSize  from 'lodash.samplesize';
 import { toast } from 'react-toastify';
+import { Form, Checkbox } from 'semantic-ui-react'
 import EditorWrap from '../Editer/editorwrap';
 import {
   get_cates,
@@ -643,7 +644,8 @@ export default class Tools extends Component {
                   id: this.makeid(6),
                   tag: "h2",
                   text: "",
-                  data: []
+                  data: [],
+                  is_random:false,
                 })
                 toast.success('Thêm thành công!', { theme: "colored" })
                 this.setState({ data: data })
@@ -659,7 +661,8 @@ export default class Tools extends Component {
                     id: this.makeid(6),
                     tag: 'h3',
                     text: '',
-                    data: []
+                    data: [],
+                    is_random:false,
                   })
                   toast.success('Thêm thành công!', { theme: "colored" })
                 } else {
@@ -985,7 +988,16 @@ export default class Tools extends Component {
     long_des.forEach((e, i) => {
       if (e.tag == "h2") {
         rs.push(<div className="input-group mb-3 mt-3 re" key={e.id}>
-          <span className="input-group-text">H2:</span>
+          <span className="input-group-text re">H2:
+              <Checkbox toggle className='khxa'
+                checked={e.is_random}
+                onChange={()=>{
+                  let { data } = this.state;
+                  data.long_des[i].is_random=!e.is_random;
+                  this.setState({ data: data })
+                }}
+              />
+          </span>
           <input type="text" className="form-control hh2" placeholder="Tiêu đề thẻ H2"
             value={e.text}
             onChange={(e) => {
@@ -1008,7 +1020,16 @@ export default class Tools extends Component {
         e.data.forEach((h, j) => {
           if (h.tag == "h3") {
             rs.push(<div className="input-group mb-3 mt-3 re" style={{ paddingLeft: "36px" }} key={h.id}>
-              <span className="input-group-text">H3:</span>
+              <span className="input-group-text re">H3:
+                <Checkbox toggle className='khxa'
+                  checked={h.is_random}
+                  onChange={()=>{
+                    let { data } = this.state;
+                    data.long_des[i].data[j].is_random=!h.is_random;
+                    this.setState({ data: data })
+                  }}
+                />
+              </span>
               <input type="text" className="form-control hh3" placeholder="Tiêu đề thẻ H3"
                 value={h.text}
                 onChange={(e) => {
@@ -1301,7 +1322,16 @@ export default class Tools extends Component {
         })
       } else if (e.tag == "h3") {
         rs.push(<div className="input-group mb-3 mt-3 re" key={e.id}>
-          <span className="input-group-text">H3:</span>
+          <span className="input-group-text re">H3:
+          <Checkbox toggle className='khxa'
+              checked={e.is_random}
+              onChange={()=>{
+                let { data } = this.state;
+                data.long_des[i].is_random=!e.is_random;
+                this.setState({ data: data })
+              }}
+            />
+          </span>
           <input type="text" className="form-control hh3" placeholder="Tiêu đề thẻ H3"
             value={e.text}
             onChange={(e) => {
