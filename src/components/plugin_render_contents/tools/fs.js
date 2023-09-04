@@ -201,7 +201,7 @@ function xu_ly_long_des(content_data,tinh){
     if(content_data.url_target.length>5){
         let list_title_a=getFromBetween.get(content,"r_s","r_e");
         list_title_a.forEach(e => {
-            content=content.replace('r_s',"<a class='btn-dc' href='"+content_data.url_target+"' title='"+e+"'>");
+            content=content.replace('r_s',"<a href='"+content_data.url_target+"' title='"+e+"'>");
         });
         content=fs_replace_all(content,'r_e','</a>');
     }
