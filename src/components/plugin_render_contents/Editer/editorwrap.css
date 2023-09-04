@@ -1,7 +1,7 @@
 .wrap-editer{
     background-color: #dbdbda;
     top: 9vh;
-    right: 0px;
+    left: 0px;
     box-shadow: 0 19px 38px rgb(0 0 0 / 30%), 1px -20px 12px rgb(0 0 0 / 22%);
     position: fixed;
     z-index: 999;
