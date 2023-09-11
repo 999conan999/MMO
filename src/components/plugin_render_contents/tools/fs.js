@@ -353,7 +353,14 @@ function fs_replace_random_arr_cua_hang_and_dia_chi(text,arr,key_words_arr){// r
     while(text.search('ten_cua_hang')>-1){
         if(array.length>0){
             let a=sampleSize(array,1)[0];
-            text=text.replace('ten_cua_hang',xu_ly_text_vs_keywords(a.ten,key_words_arr));
+            
+            if(randomBoolean70()){//true
+                text=text.replace('ten_cua_hang',xu_ly_text_vs_keywords(a.ten,key_words_arr));
+            }else{
+                let ten=a.ten.replace(new RegExp('key_word', 'g'), "");
+                text=text.replace('ten_cua_hang',ten);
+            }
+
             text=text.replace('dia_chi_cua_hang',sampleSize(a.dia_chi,1)[0]);
             // xoa phan tu da thay o trong mang da lay
             let index=-1;
@@ -404,3 +411,14 @@ function xu_ly_text_vs_keywords(text,key_words_arr){
 function randomBoolean() {
 return Math.random() < 0.5;
 }
+function randomBoolean70() {
+    // Tạo một số ngẫu nhiên từ 0 đến 1
+    const randomValue = Math.random();
+  
+    // So sánh với ngưỡng 0.7 (70%)
+    if (randomValue < 0.7) {
+      return false; // Trả về true nếu số ngẫu nhiên nhỏ hơn 0.7
+    } else {
+      return true; // Trả về false nếu số ngẫu nhiên lớn hơn hoặc bằng 0.7
+    }
+  }
