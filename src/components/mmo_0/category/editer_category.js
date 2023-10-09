@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Editer from '../lib/editer/Editer';
 import { toast } from 'react-toastify';
 import Input_img from '../lib/input_img';
-import { moveElement } from '../lib/fs';
+import { moveElement,makeid } from '../lib/fs';
 import {action_create_edit_category,get_category_detail,get_list_sp} from '../lib/axios'
 import { Container, Grid, Button, Dropdown, Segment, Input,Icon, Image, Table, Header, TextArea, Form,Card,Checkbox } from 'semantic-ui-react'
 export default class Editer_category extends Component {
@@ -35,6 +35,8 @@ export default class Editer_category extends Component {
           //   sp_list_id:[6,7]
           // },
         ],
+        is_tiktok:false,
+        data_tiktok:[]
       },
       //
       list_sp:{
@@ -100,6 +102,10 @@ export default class Editer_category extends Component {
       this.setState({list_sp})
     }else if(type=="copy"){
       let a=await get_category_detail(id);
+      if(a.is_tiktok==undefined){
+        a.is_tiktok=false;
+        a.data_tiktok=[];
+      }
       if(a.id!=undefined){
         a.id=-1;
         this.setState({data:a,list_sp})
@@ -110,6 +116,10 @@ export default class Editer_category extends Component {
       }
     }else if(type=="edit"){
       let a=await get_category_detail(id);
+      if(a.is_tiktok==undefined){
+        a.is_tiktok=false;
+        a.data_tiktok=[];
+      }
       if(a.id!=undefined){
         this.setState({data:a,list_sp})
       }else{
@@ -437,8 +447,123 @@ export default class Editer_category extends Component {
             </Segment>
             })
           }
-     
           {/*  */}
+          <div>
+            <Header as='h1' textAlign="center" style={{paddingTop:"50px",marginTop:"30px",borderTop:"2px dotted #a5a5a5",position:"relative"}}>*Tiktok 
+              <div className='abs' style={{top:"31px",left:"0px"}}>
+                <Form>
+                    <Checkbox toggle label={data.is_tiktok?'Hiển thị video Tiktok':'Ẩn video tiktok '} style={{margin:"26px"}}
+                      checked={data.is_tiktok}
+                      onChange={() => {
+                        let {data}=this.state;
+                        data.is_tiktok=!data.is_tiktok;
+                        this.setState({data:data})
+                      }}
+                    />
+                </Form>
+              </div>
+            </Header>
+            {data.is_tiktok&&<Input_img
+              is_muti={true}
+              fs_result={(rs) => {
+                let {data}=this.state;
+                let a=data.data_tiktok==undefined?[]:data.data_tiktok;
+                rs.forEach(e => {
+                   a.push({
+                    id:makeid(6),
+                    url:e.url,
+                    url300:e.url300,
+                    title:"",
+                    price:0,
+                    sold_out:0
+                   })
+                });
+                data.data_tiktok=a;
+                this.setState({ data: data })
+              }}
+            />}
+          </div>
+          {/*  */}
+          {data.is_tiktok&&<Grid>
+                {
+                  data.data_tiktok.map((e,i)=>{
+                              let is_mp4=e.url.search("mp4");
+                              return <Grid.Column width={4} className='mtg-10' style={{marginTop:"30px"}} key={e.id}>
+                                <Card className='re'>
+                                  {is_mp4>-1&&<b style={{position:"absolute",color:"white",background:"rebeccapurple", padding:"2px 4px",borderRadius:"6px"}}>video</b>}
+                                  {is_mp4==-1&&<b style={{position:"absolute",color:"white",background:"green", padding:"2px 4px",borderRadius:"6px",zIndex:"1"}}>img</b>}
+                                  {is_mp4>-1&&<video controls="" width="100%" ><source src={e.url} type="video/mp4"/></video>}
+                                  {is_mp4==-1&&<Image src={e.url300} wrapped ui={false} />}
+                                  <i className="fa-solid fa-x abs hv" style={{right:"16px",top:"16px",fontSize:"20px"}}
+                                    onClick={()=>{
+                                      if(window.confirm(`Xác nhận xóa : "${e.title}"`)){
+                                        let {data}=this.state;
+                                        data.data_tiktok.splice(i,1);
+                                        this.setState({data:data})
+                                      }
+                                    }}
+                                  ></i>
+                                  {i>0&&<i className="fa-solid fa-left-long abs hv" style={{left:"16px",top:"16px",fontSize:"26px"}}
+                                    onClick={()=>{
+                                      let {data}=this.state;
+                                      data.data_tiktok=moveElement(data.data_tiktok,i,i-1);
+                                      this.setState({data:data})
+                                    }}
+                                  ></i>}
+                                  <Card.Content>
+                                    <Grid>
+                                      <Grid.Column width={16} style={{position:"relative"}}>
+                                        <span style={{fontSize:"12px", position:"absolute",top:"-2px",color:"#5d5d61"}}>Tiêu đề:</span>
+                                        <Input
+                                          size={"mini"}
+                                          fluid
+                                          type='text'
+                                          value={e.title}
+                                          onChange={(e,{value}) => {
+                                            let {data}=this.state;
+                                            data.data_tiktok[i].title=value;
+                                            this.setState({ data: data })
+                                          }}
+                                        />
+                                      </Grid.Column>
+                                      <Grid.Column width={10} style={{position:"relative"}}>
+                                      <span style={{fontSize:"12px", position:"absolute",top:"-2px",color:"#5d5d61"}}>Giá:</span>
+                                        <Input
+                                          size={"mini"}
+                                          fluid
+                                          type='number'
+                                          value={e.price}
+                                          onChange={(e,{value}) => {
+                                            let {data}=this.state;
+                                            data.data_tiktok[i].price=value;
+                                            this.setState({ data: data })
+                                          }}
+                                        />
+                                      </Grid.Column>
+                                      <Grid.Column width={6} style={{position:"relative"}}>
+                                      <span style={{fontSize:"12px", position:"absolute",top:"-2px",color:"#5d5d61"}}>Đã bán:</span>
+                                        <Input
+                                          size={"mini"}
+                                          fluid
+                                          type='number'
+                                          value={e.sold_out}
+                                          onChange={(e,{value}) => {
+                                            let {data}=this.state;
+                                            data.data_tiktok[i].sold_out=value;
+                                            this.setState({ data: data })
+                                          }}
+                                        />
+                                      </Grid.Column>
+                                    </Grid>
+                                  </Card.Content>
+                                </Card>
+                              </Grid.Column>
+                               
+                      })
+                    }
+          </Grid>}
+          {/*  */}
+
         </Container>
 
         <div className='footer-edit'>
