@@ -475,7 +475,8 @@ export default class Editer_category extends Component {
                     url300:e.url300,
                     title:"",
                     price:0,
-                    sold_out:0
+                    sold_out:0,
+                    poster:""
                    })
                 });
                 data.data_tiktok=a;
@@ -490,6 +491,34 @@ export default class Editer_category extends Component {
                               let is_mp4=e.url.search("mp4");
                               return <Grid.Column width={4} className='mtg-10' style={{marginTop:"30px"}} key={e.id}>
                                 <Card className='re'>
+                                  <div className='abs cs' style={{right:"-2px",bottom:"120px",zIndex:999}}>
+                                    {e.poster&&e.poster!=""&&<div className='re'>
+                                      <img className='abs' style={{width:"50px",top:"-52px",right:"3px",border:"1px solid  white"}} src={e.poster} />
+                                      <i className="fa-solid fa-trash abs hv" style={{right:"37px",top:"-52px",fontSize:"20px",color:"#e74c3c"}}
+                                        onClick={()=>{
+                                          if(window.confirm(`Xác nhận xóa `)){
+                                              let {data}=this.state;
+                                              data.data_tiktok[i].poster="";
+                                              this.setState({data:data}) 
+                                          }
+                                        }}
+                                      ></i>
+                                    </div>}
+                                      <Input_img
+                                        size={"mini"}
+                                        is_muti={false}
+                                        fs_result={async(rs) => {
+                                          if(rs[0].url){
+                                            let {data}=this.state;
+                                            data.data_tiktok[i].poster=rs[0].url;
+                                            this.setState({data:data}) 
+                                          }
+                                        }}
+                                      />
+                                  </div>
+                                  <div>
+
+                                  </div>
                                   {is_mp4>-1&&<b style={{position:"absolute",color:"white",background:"rebeccapurple", padding:"2px 4px",borderRadius:"6px"}}>video</b>}
                                   {is_mp4==-1&&<b style={{position:"absolute",color:"white",background:"green", padding:"2px 4px",borderRadius:"6px",zIndex:"1"}}>img</b>}
                                   {is_mp4>-1&&<video controls="" width="100%" ><source src={e.url} type="video/mp4"/></video>}
